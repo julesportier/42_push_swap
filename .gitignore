@@ -1,0 +1,10 @@
+# compilation output
+*.o
+*.out
+*.gch
+*.a
+# project specific
+push_swap
+# bear output
+compile_commands.json
+.cache/
