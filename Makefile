@@ -36,13 +36,13 @@ $(OBJ_DIR)/%.o: %.c Makefile $(HEADER) $(LIBFT_AR)
 	$(CC) -c $< -o $@
 
 clean:
-	-rm $(OBJ)
-	-rm -r $(OBJ_DIR)
 	make clean -C $(LIBFT_DIR)
+	rm -rf $(OBJ_DIR)
 
-fclean: clean
-	-rm $(NAME)
+fclean:
 	make fclean -C $(LIBFT_DIR)
+	rm -rf $(OBJ_DIR)
+	rm -f $(NAME)
 
 re: fclean all
 
