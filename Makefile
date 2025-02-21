@@ -21,6 +21,8 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 all: $(OBJ_DIR) ft $(NAME)
 $(OBJ_DIR):
+	git submodule init
+	git submodule update
 	mkdir -p $(OBJ_DIR)
 noerr: CFLAGS = $(CFLAGS_NE)
 noerr: all
