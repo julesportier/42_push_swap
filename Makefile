@@ -10,8 +10,9 @@ LIBFT_FLAGS := -lft -L$(LIBFT_DIR)
 NAME := push_swap
 
 SRC_DIR := src
-vpath %.h %.c $(SRC_DIR)
+vpath %.h $(SRC_DIR)
 HEADER := push_swap.h
+vpath %.c $(SRC_DIR)
 SRC := push_swap.c
 
 OBJ_DIR := build
@@ -36,6 +37,7 @@ $(OBJ_DIR)/%.o: %.c Makefile $(HEADER) $(LIBFT_AR)
 
 clean:
 	-rm $(OBJ)
+	-rm -r $(OBJ_DIR)
 	make clean -C $(LIBFT_DIR)
 
 fclean: clean
