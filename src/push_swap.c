@@ -12,8 +12,28 @@
 
 #include "push_swap.h"
 #include "../libft/src/libft.h"
-#include "../libft/src/ftpf_printf.h"
 #include <stdlib.h>
+
+static int	find_duplicates(t_dlisti *lst)
+{
+	t_dlisti	*tail;
+	t_dlisti	*tmp_node;
+
+	tail = lst->prev;
+	while(1)
+	{
+		tmp_node = lst;
+		while (tmp_node != tail)
+		{
+			tmp_node = tmp_node->next;
+			if (lst->content == tmp_node->content)
+				return (1);
+		}
+		if (lst == tail)
+			return (0);
+		lst = lst->next;
+	}
+}
 
 static t_dlisti	*parse_args(char **argv)
 {
@@ -26,20 +46,14 @@ static t_dlisti	*parse_args(char **argv)
 	lst = NULL;
 	while (argv[++i])
 	{
-		//DEBUG
-		ft_printf("i == %i\n", i);
-		//END DEBUG
 		i_flag = ft_atoi_flag(argv[i]);
 		if (i_flag.flag)
-		{
-			//DEBUG
-			ft_printf("i_flag.flag == %X\n", i_flag.flag);
-			//END DEBUG
 			exit_error_free("Error", &lst);
-		}
 		node = ft_dlsti_new(i_flag.i);
 		ft_cdlsti_add_back(&lst, node);
 	}
+	if (find_duplicates(lst))
+		exit_error_free("Error", &lst);
 	return (lst);
 }
 
