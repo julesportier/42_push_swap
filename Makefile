@@ -13,7 +13,8 @@ SRC_DIR := src
 vpath %.h $(SRC_DIR)
 HEADER := push_swap.h
 vpath %.c $(SRC_DIR)
-SRC := push_swap.c
+SRC := push_swap.c \
+       error.c
 
 OBJ_DIR := build
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
