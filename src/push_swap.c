@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 #include "../libft/src/libft.h"
+#include "../libft/src/ftpf_printf.h"
 #include <stdlib.h>
 
 static int	find_duplicates(t_dlisti *lst)
@@ -65,6 +66,26 @@ static int	is_sorted(t_dlisti *lst, int check(int a, int b))
 	return (1);
 }
 
+static t_stack_data	store_stack_data(t_dlisti *lst)
+{
+	t_dlisti	*tail;
+	t_stack_data	data;
+
+	data = (t_stack_data){.max=lst->content, .min=lst->content, .size=0};
+	tail = lst->prev;
+	while (1)
+	{
+		if (lst->content > data.max)
+			data.max = lst->content;
+		else if (lst->content < data.min)
+			data.min = lst->content;
+		data.size++;
+		if (lst == tail)
+			return (data);
+		lst = lst->next;
+	}
+}
+
 static t_dlisti	*parse_args(char **argv)
 {
 	size_t	i;
@@ -90,6 +111,7 @@ static t_dlisti	*parse_args(char **argv)
 int	main(int argc, char **argv)
 {
 	t_dlisti	*lst;
+	t_stack_data	data;
 
 	if (argc < 2)
 		exit(EXIT_FAILURE);
@@ -99,6 +121,8 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("ascending sort", 1);
 	if (is_sorted(lst, is_inferior))
 		ft_putendl_fd("descending sort", 1);
+	data = store_stack_data(lst);
+	ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	ft_cdlsti_clear(&lst);
 	//t_dlisti	*new_node = ft_dlsti_new(1);
 	//ft_cdlsti_add_back(&lst, new_node);

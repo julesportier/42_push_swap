@@ -15,3 +15,10 @@
 // error.c
 void	exit_error(char *error);
 void	exit_error_free(char *error, t_dlisti **lst);
+
+typedef struct s_stack_data
+{
+	int	max;
+	int	min;
+	int	size;
+}	t_stack_data;
