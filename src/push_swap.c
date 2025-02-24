@@ -35,6 +35,36 @@ static int	find_duplicates(t_dlisti *lst)
 	}
 }
 
+static int	is_superior(int a, int b)
+{
+	if (a > b)
+		return (1);
+	return (0);
+}
+
+static int	is_inferior(int a, int b)
+{
+	if (a < b)
+		return (1);
+	return (0);
+}
+
+static int	is_sorted(t_dlisti *lst, int check(int a, int b))
+{
+	t_dlisti	*tail;
+	t_dlisti	*prev_node;
+
+	tail = lst->prev;
+	while(lst != tail)
+	{
+		prev_node = lst;
+		lst = lst->next;
+		if (check(prev_node->content, lst->content))
+			return (0);
+	}
+	return (1);
+}
+
 static t_dlisti	*parse_args(char **argv)
 {
 	size_t	i;
@@ -65,6 +95,10 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	lst = parse_args(argv);
 	ft_print_dlsti(lst);
+	if (is_sorted(lst, is_superior))
+		ft_putendl_fd("ascending sort", 1);
+	if (is_sorted(lst, is_inferior))
+		ft_putendl_fd("descending sort", 1);
 	ft_cdlsti_clear(&lst);
 	//t_dlisti	*new_node = ft_dlsti_new(1);
 	//ft_cdlsti_add_back(&lst, new_node);
