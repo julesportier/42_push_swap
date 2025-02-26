@@ -15,7 +15,9 @@ HEADER := push_swap.h
 vpath %.c $(SRC_DIR)
 SRC := push_swap.c \
        error.c \
-       parsing.c
+       parsing.c \
+       list_operations.c \
+       stack_operations.c
 
 OBJ_DIR := build
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

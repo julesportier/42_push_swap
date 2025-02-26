@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/02/24 14:26:23 by juportie         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:21:59 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static int	is_inferior(int a, int b)
 	return (0);
 }
 
-static int	is_sorted(t_dlisti *lst, int check(int a, int b))
+static int	is_sorted(t_dlsti *lst, int check(int a, int b))
 {
-	t_dlisti	*tail;
-	t_dlisti	*prev_node;
+	t_dlsti	*tail;
+	t_dlsti	*prev_node;
 
 	tail = lst->prev;
 	while(lst != tail)
@@ -45,9 +45,9 @@ static int	is_sorted(t_dlisti *lst, int check(int a, int b))
 	return (1);
 }
 
-static t_stack_data	store_stack_data(t_dlisti *lst)
+static t_stack_data	store_stack_data(t_dlsti *lst)
 {
-	t_dlisti	*tail;
+	t_dlsti	*tail;
 	t_stack_data	data;
 
 	data = (t_stack_data){.max=lst->content, .min=lst->content, .size=0};
@@ -65,9 +65,39 @@ static t_stack_data	store_stack_data(t_dlisti *lst)
 	}
 }
 
+// already checked if given sorted, size == 1 or 2
+static void	sort_in_place(t_dlsti **lst, t_stack_data *data)
+{
+	if (data->size == 2)
+	{
+		ft_putendl_fd("ra", 1);
+		return ;
+	}
+	while (!is_sorted(*lst, is_superior))
+	{
+		if ((*lst)->content == data->max)
+			r('a', lst, NULL);
+		else if ((*lst)->prev->content == data->min)
+			rr('a', lst, NULL);
+		else if ((*lst)->content == data->min)
+		{
+			rr('a', lst, NULL);
+			s('a', lst, NULL);
+		}
+		else if ((*lst)->next->content == data->min)
+			s('a', lst, NULL);
+	}
+}
+
+static void	sort_stack(t_dlsti **lst, t_stack_data *data)
+{
+	if (data->size <= 3)
+		sort_in_place(lst, data);
+}
+
 int	main(int argc, char **argv)
 {
-	t_dlisti	*lst;
+	t_dlsti	*lst;
 	t_stack_data	data;
 
 	if (argc < 2)
@@ -75,11 +105,14 @@ int	main(int argc, char **argv)
 	lst = parse_args(argv);
 	ft_print_dlsti(lst);
 	if (is_sorted(lst, is_superior))
+	{
 		ft_putendl_fd("ascending sort", 1);
-	if (is_sorted(lst, is_inferior))
-		ft_putendl_fd("descending sort", 1);
+		exit(EXIT_SUCCESS);
+	}
 	data = store_stack_data(lst);
 	ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
+	sort_stack(&lst, &data);
+	ft_print_dlsti(lst);
 	ft_cdlsti_clear(&lst);
 	//t_dlisti	*new_node = ft_dlsti_new(1);
 	//ft_cdlsti_add_back(&lst, new_node);

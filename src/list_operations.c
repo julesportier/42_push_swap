@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   list_operations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 09:11:44 by juportie          #+#    #+#             */
-/*   Updated: 2025/02/22 13:06:13 by juportie         ###   ########.fr       */
+/*   Created: 2025/02/26 12:15:48 by juportie          #+#    #+#             */
+/*   Updated: 2025/02/26 13:17:59 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../libft/src/libft.h"
-#include <stdlib.h>
 
-void	exit_error(char *error)
+void	rot(t_dlsti **stack)
 {
-	ft_putendl_fd(error, 2);
-	exit(EXIT_FAILURE);
+	*stack = (*stack)->next;
 }
 
-void	exit_error_free(char *error, t_dlsti **lst)
+void	rev_rot(t_dlsti **stack)
 {
-	ft_cdlsti_clear(lst);
-	ft_putendl_fd(error, 2);
-	exit(EXIT_FAILURE);
+	*stack = (*stack)->prev;
+}
+
+void	swap(t_dlsti **stack)
+{
+	int	tmp;
+
+	tmp = (*stack)->content;
+	(*stack)->content = (*stack)->next->content;
+	(*stack)->next->content = tmp;
 }

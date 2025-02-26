@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-static int	find_duplicates(t_dlisti *lst)
+static int	find_duplicates(t_dlsti *lst)
 {
-	t_dlisti	*tail;
-	t_dlisti	*tmp_node;
+	t_dlsti	*tail;
+	t_dlsti	*tmp_node;
 
 	tail = lst->prev;
 	while(1)
@@ -33,11 +33,11 @@ static int	find_duplicates(t_dlisti *lst)
 	}
 }
 
-t_dlisti	*parse_args(char **argv)
+t_dlsti	*parse_args(char **argv)
 {
 	size_t	i;
-	t_dlisti	*lst;
-	t_dlisti	*node;
+	t_dlsti	*lst;
+	t_dlsti	*node;
 	t_iflag	i_flag;
 
 	i = 0;
