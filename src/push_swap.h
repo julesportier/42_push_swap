@@ -21,8 +21,11 @@ t_dlsti	*parse_args(char **argv);
 void	rot(t_dlsti **stack);
 void	rev_rot(t_dlsti **stack);
 void	swap(t_dlsti **stack);
+void	push(t_dlsti **target, t_dlsti **source);
+void	push_push(t_dlsti **lst_a, t_dlsti **lst_b);
 // stack_operations.c
 void	s(char name, t_dlsti **stack_a, t_dlsti **stack_b);
+void	p(char name, t_dlsti **stack_a, t_dlsti **stack_b);
 void	r(char name, t_dlsti **stack_a, t_dlsti **stack_b);
 void	rr(char name, t_dlsti **stack_a, t_dlsti **stack_b);
 

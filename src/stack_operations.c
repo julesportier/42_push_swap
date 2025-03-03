@@ -20,15 +20,15 @@ void	s(char name, t_dlsti **stack_a, t_dlsti **stack_b)
 		swap(stack_b);
 	ft_printf("s%c\n", name);
 }
-//
-//void	p(char name, t_dlsti **stack_a, t_dlsti **stack_b)
-//{
-//	if (name == 'p')
-//		push_push(stack_a, stack_b);
-//	else
-//		push(stack_a, stack_b);
-//	ft_printf("p%c\n", name);
-//}
+
+void	p(char name, t_dlsti **stack_a, t_dlsti **stack_b)
+{
+	if (name == 'p')
+		push_push(stack_a, stack_b);
+	else
+		push(stack_a, stack_b);
+	ft_printf("p%c\n", name);
+}
 
 void	r(char name, t_dlsti **stack_a, t_dlsti **stack_b)
 {

@@ -98,10 +98,12 @@ static void	sort_stack(t_dlsti **lst, t_stack_data *data)
 int	main(int argc, char **argv)
 {
 	t_dlsti	*lst;
+	t_dlsti *stack;
 	t_stack_data	data;
 
 	if (argc < 2)
 		exit(EXIT_FAILURE);
+	stack = NULL;
 	lst = parse_args(argv);
 	ft_print_dlsti(lst);
 	if (is_sorted(lst, is_superior))
@@ -113,7 +115,17 @@ int	main(int argc, char **argv)
 	ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	sort_stack(&lst, &data);
 	ft_print_dlsti(lst);
+	int	i = 3;
+	while (i--)
+	{
+		p('b', &stack, &lst);
+		ft_putendl_fd("stack :", 1);
+		ft_print_dlsti(stack);
+		ft_putendl_fd("lst :", 1);
+		ft_print_dlsti(lst);
+	}
 	ft_cdlsti_clear(&lst);
+	ft_cdlsti_clear(&stack);
 	//t_dlisti	*new_node = ft_dlsti_new(1);
 	//ft_cdlsti_add_back(&lst, new_node);
 	//ft_print_dlsti(lst);
