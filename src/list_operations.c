@@ -12,33 +12,33 @@
 
 #include "push_swap.h"
 
-void	rot(t_dlsti **stack)
+void	rot(t_dlstip **stack)
 {
 	if (stack && *stack)
 		*stack = (*stack)->next;
 }
 
-void	rev_rot(t_dlsti **stack)
+void	rev_rot(t_dlstip **stack)
 {
 	if (stack && *stack)
 		*stack = (*stack)->prev;
 }
 
-void	swap(t_dlsti **stack)
+void	swap(t_dlstip **stack)
 {
 	int	tmp;
 
 	if (stack && *stack)
 	{
-		tmp = (*stack)->content;
-		(*stack)->content = (*stack)->next->content;
-		(*stack)->next->content = tmp;
+		tmp = (*stack)->content[0];
+		(*stack)->content[0] = (*stack)->next->content[0];
+		(*stack)->next->content[0] = tmp;
 	}
 }
 
-void	push(t_dlsti **target, t_dlsti **source)
+void	push(t_dlstip **target, t_dlstip **source)
 {
-	t_dlsti	*tmp;
+	t_dlstip	*tmp;
 
 	if (target && source && *source)
 	{
@@ -48,15 +48,15 @@ void	push(t_dlsti **target, t_dlsti **source)
 			tmp = (*source)->next;
 		else
 			tmp = NULL;
-		ft_cdlsti_add_front(target, *source);
+		ft_cdlstip_add_front(target, *source);
 		*source = tmp;
 	}
 }
 
-void	push_push(t_dlsti **lst_a, t_dlsti **lst_b)
+void	push_push(t_dlstip **lst_a, t_dlstip **lst_b)
 {
-	t_dlsti	*tmp_a;
-	t_dlsti	*tmp_b;
+	t_dlstip	*tmp_a;
+	t_dlstip	*tmp_b;
 
 	tmp_a = NULL;
 	tmp_b = NULL;

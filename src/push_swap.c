@@ -29,35 +29,35 @@ static int	is_inferior(int a, int b)
 	return (0);
 }
 
-static int	is_sorted(t_dlsti *lst, int check(int a, int b))
+static int	is_sorted(t_dlstip *lst, int check(int a, int b))
 {
-	t_dlsti	*tail;
-	t_dlsti	*prev_node;
+	t_dlstip	*tail;
+	t_dlstip	*prev_node;
 
 	tail = lst->prev;
 	while(lst != tail)
 	{
 		prev_node = lst;
 		lst = lst->next;
-		if (check(prev_node->content, lst->content))
+		if (check(prev_node->content[0], lst->content[0]))
 			return (0);
 	}
 	return (1);
 }
 
-static t_stack_data	store_stack_data(t_dlsti *lst)
+static t_stack_data	store_stack_data(t_dlstip *lst)
 {
-	t_dlsti	*tail;
+	t_dlstip	*tail;
 	t_stack_data	data;
 
-	data = (t_stack_data){.max=lst->content, .min=lst->content, .size=0};
+	data = (t_stack_data){.max=lst->content[0], .min=lst->content[0], .size=0};
 	tail = lst->prev;
 	while (1)
 	{
-		if (lst->content > data.max)
-			data.max = lst->content;
-		else if (lst->content < data.min)
-			data.min = lst->content;
+		if (lst->content[0] > data.max)
+			data.max = lst->content[0];
+		else if (lst->content[0] < data.min)
+			data.min = lst->content[0];
 		data.size++;
 		if (lst == tail)
 			return (data);
@@ -66,7 +66,7 @@ static t_stack_data	store_stack_data(t_dlsti *lst)
 }
 
 // already checked if given sorted, size == 1 or 2
-static void	sort_in_place(t_dlsti **lst, t_stack_data *data)
+static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 {
 	if (data->size == 2)
 	{
@@ -75,21 +75,21 @@ static void	sort_in_place(t_dlsti **lst, t_stack_data *data)
 	}
 	while (!is_sorted(*lst, is_superior))
 	{
-		if ((*lst)->content == data->max)
+		if ((*lst)->content[0] == data->max)
 			r('a', lst, NULL);
-		else if ((*lst)->prev->content == data->min)
+		else if ((*lst)->prev->content[0] == data->min)
 			rr('a', lst, NULL);
-		else if ((*lst)->content == data->min)
+		else if ((*lst)->content[0] == data->min)
 		{
 			rr('a', lst, NULL);
 			s('a', lst, NULL);
 		}
-		else if ((*lst)->next->content == data->min)
+		else if ((*lst)->next->content[0] == data->min)
 			s('a', lst, NULL);
 	}
 }
 
-static void	sort_stack(t_dlsti **lst, t_stack_data *data)
+static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 {
 	if (data->size <= 3)
 		sort_in_place(lst, data);
@@ -97,15 +97,15 @@ static void	sort_stack(t_dlsti **lst, t_stack_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_dlsti	*lst;
-	t_dlsti *stack;
+	t_dlstip	*lst;
+	t_dlstip *stack;
 	t_stack_data	data;
 
 	if (argc < 2)
 		exit(EXIT_FAILURE);
 	stack = NULL;
 	lst = parse_args(argv);
-	ft_print_dlsti(lst);
+	print_stack(lst);
 	if (is_sorted(lst, is_superior))
 	{
 		ft_putendl_fd("ascending sort", 1);
@@ -114,26 +114,18 @@ int	main(int argc, char **argv)
 	data = store_stack_data(lst);
 	ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	sort_stack(&lst, &data);
-	ft_print_dlsti(lst);
+	print_stack(lst);
 	int	i = 3;
-	while (i--)
-	{
-		p('b', &stack, &lst);
-		ft_putendl_fd("stack :", 1);
-		ft_print_dlsti(stack);
-		ft_putendl_fd("lst :", 1);
-		ft_print_dlsti(lst);
-	}
-	ft_cdlsti_clear(&lst);
-	ft_cdlsti_clear(&stack);
-	//t_dlisti	*new_node = ft_dlsti_new(1);
-	//ft_cdlsti_add_back(&lst, new_node);
-	//ft_print_dlsti(lst);
-	//t_dlisti	*new_node2 = ft_dlsti_new(2);
-	//ft_cdlsti_add_back(&lst, new_node2);
-	//ft_print_dlsti(lst);
-	//t_dlisti	*new_node3 = ft_dlsti_new(3);
-	//ft_cdlsti_add_back(&lst, new_node3);
-	//ft_print_dlsti(lst);
+	ft_dlstip_clear(&lst);
+	ft_dlstip_clear(&stack);
+	//t_dlisti	*new_node = ft_dlstip_new(1);
+	//ft_cdlstip_add_back(&lst, new_node);
+	//print_stack(lst);
+	//t_dlisti	*new_node2 = ft_dlstip_new(2);
+	//ft_cdlstip_add_back(&lst, new_node2);
+	//print_stack(lst);
+	//t_dlisti	*new_node3 = ft_dlstip_new(3);
+	//ft_cdlstip_add_back(&lst, new_node3);
+	//print_stack(lst);
 	exit(EXIT_SUCCESS);
 }

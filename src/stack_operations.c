@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include "../libft/src/ftpf_printf.h"
 
-void	s(char name, t_dlsti **stack_a, t_dlsti **stack_b)
+void	s(char name, t_dlstip **stack_a, t_dlstip **stack_b)
 {
 	swap(stack_a);
 	if (name == 's')
@@ -21,7 +21,7 @@ void	s(char name, t_dlsti **stack_a, t_dlsti **stack_b)
 	ft_printf("s%c\n", name);
 }
 
-void	p(char name, t_dlsti **stack_a, t_dlsti **stack_b)
+void	p(char name, t_dlstip **stack_a, t_dlstip **stack_b)
 {
 	if (name == 'p')
 		push_push(stack_a, stack_b);
@@ -30,7 +30,7 @@ void	p(char name, t_dlsti **stack_a, t_dlsti **stack_b)
 	ft_printf("p%c\n", name);
 }
 
-void	r(char name, t_dlsti **stack_a, t_dlsti **stack_b)
+void	r(char name, t_dlstip **stack_a, t_dlstip **stack_b)
 {
 	rot(stack_a);
 	if (name == 'r')
@@ -38,10 +38,29 @@ void	r(char name, t_dlsti **stack_a, t_dlsti **stack_b)
 	ft_printf("r%c\n", name);
 }
 
-void	rr(char name, t_dlsti **stack_a, t_dlsti **stack_b)
+void	rr(char name, t_dlstip **stack_a, t_dlstip **stack_b)
 {
 	rev_rot(stack_a);
 	if (name == 'r')
 		rev_rot(stack_b);
 	ft_printf("rr%c\n", name);
+}
+
+void	print_stack(t_dlstip *stack)
+{
+	t_dlstip	*head;
+	int		value;
+	int		cost;
+
+	head = stack;
+	while (stack)
+	{
+		value = stack->content[0];
+		cost = stack->content[1];
+		ft_printf("node %X; next %X; prev %X; content [%d, cost: %d]\n",
+			stack, stack->next, stack->prev, value, cost);
+		if (stack->next == head)
+			return ;
+		stack = stack->next;
+	}
 }
