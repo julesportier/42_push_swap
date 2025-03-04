@@ -33,7 +33,7 @@ noerr: all
 dbg: CFLAGS = $(CFLAGS_DB)
 dbg: all
 ft:
-	make -C $(LIBFT_DIR)
+	make CFLAGS="$(CFLAGS)" -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBFT_FLAGS)
