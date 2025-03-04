@@ -45,6 +45,34 @@ static int	is_sorted(t_dlstip *lst, int check(int a, int b))
 	return (1);
 }
 
+static void	store_pos(t_dlstip *lst, t_stack_data *data)
+{
+	t_dlstip	*head;
+	t_dlstip	*min;
+	int	i;
+
+	head = lst;
+	min = lst;
+	i = 0;
+	while (i < data->size)
+	{
+		lst = head;
+		while (lst->content[1] != -1)
+			lst = lst->next;
+		min = lst;
+		while (1)
+		{
+			if (lst->content[1] == -1 && lst->content[0] < min->content[0])
+				min = lst;
+			lst = lst->next;
+			if (lst == head)
+				break ;
+		}
+		min->content[1] = i;
+		i++;
+	}
+}
+
 static t_stack_data	store_stack_data(t_dlstip *lst)
 {
 	t_dlstip	*tail;
@@ -93,6 +121,8 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 {
 	if (data->size <= 3)
 		sort_in_place(lst, data);
+	else
+		store_pos(*lst, data);
 }
 
 int	main(int argc, char **argv)
@@ -108,7 +138,9 @@ int	main(int argc, char **argv)
 	print_stack(lst);
 	if (is_sorted(lst, is_superior))
 	{
+		// DEBUG
 		ft_putendl_fd("ascending sort", 1);
+		// END
 		exit(EXIT_SUCCESS);
 	}
 	data = store_stack_data(lst);

@@ -51,7 +51,7 @@ t_dlstip	*parse_args(char **argv)
 		if (content == NULL)
 			exit_error_free("Error", &lst);
 		content[0] = i_flag.i;
-		content[1] = 0;
+		content[1] = -1;
 		node = ft_dlstip_new(content);
 		ft_cdlstip_add_back(&lst, node);
 	}
