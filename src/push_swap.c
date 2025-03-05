@@ -152,6 +152,27 @@ static void	move_best(t_dlstip **stack_a, t_dlstip **stack_b, char best)
 	p('b', stack_b, stack_a);
 }
 
+static void	sort_b_in_place(t_dlstip **stack_b)
+{
+	int	value;
+	t_dlstip *tmp;
+	t_stack_data data;
+
+	data = get_lst_data(*stack_b);
+	tmp = *stack_b;
+	if (!is_sorted(*stack_b, is_inferior))
+	{
+		if ((*stack_b)->next->content[0] == data.min)
+			s('b', stack_b, NULL);
+		if ((*stack_b)->content[0] == data.min)
+			r('b', stack_b, NULL);
+		if ((*stack_b)->next->content[0] == data.max)
+			s('b', stack_b, NULL);
+		if ((*stack_b)->content[0] < (*stack_b)->next->content[0])
+			s('b', stack_b, NULL);
+	}
+}
+
 static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 {
 	t_dlstip		*stack_b;
@@ -178,6 +199,13 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 			ft_putendl_fd("stack_a :", 1);
 			print_stack(*lst);
 			ft_putendl_fd("stack_b :", 1);
+			print_stack(stack_b);
+			usleep(300000);
+		}
+		sort_b_in_place(&stack_b);
+		if (DEBUG)
+		{
+			ft_putendl_fd("stack_b after in place sort :", 1);
 			print_stack(stack_b);
 			usleep(300000);
 		}
