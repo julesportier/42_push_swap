@@ -53,8 +53,8 @@ static void	store_order(t_dlstip *lst, t_stack_data *data)
 
 	head = lst;
 	min = lst;
-	i = 0;
-	while (i < data->size)
+	i = 1;
+	while (i <= data->size)
 	{
 		lst = head;
 		while (lst->content[1] != -1)
