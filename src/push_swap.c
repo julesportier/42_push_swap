@@ -45,7 +45,7 @@ static int	is_sorted(t_dlstip *lst, int check(int a, int b))
 	return (1);
 }
 
-static void	store_pos(t_dlstip *lst, t_stack_data *data)
+static void	store_order(t_dlstip *lst, t_stack_data *data)
 {
 	t_dlstip	*head;
 	t_dlstip	*min;
