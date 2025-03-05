@@ -26,13 +26,13 @@ void	rev_rot(t_dlstip **stack)
 
 void	swap(t_dlstip **stack)
 {
-	int	tmp;
+	int	*tmp;
 
 	if (stack && *stack)
 	{
-		tmp = (*stack)->content[0];
-		(*stack)->content[0] = (*stack)->next->content[0];
-		(*stack)->next->content[0] = tmp;
+		tmp = (*stack)->content;
+		(*stack)->content = (*stack)->next->content;
+		(*stack)->next->content = tmp;
 	}
 }
 
