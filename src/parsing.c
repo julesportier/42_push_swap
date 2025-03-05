@@ -18,7 +18,7 @@ static int	find_duplicates(t_dlstip *lst)
 	t_dlstip	*tmp_node;
 
 	tail = lst->prev;
-	while(lst != tail)
+	while (lst != tail)
 	{
 		tmp_node = lst;
 		while (tmp_node != tail)
@@ -34,11 +34,11 @@ static int	find_duplicates(t_dlstip *lst)
 
 t_dlstip	*parse_args(char **argv)
 {
-	size_t	i;
+	size_t		i;
 	t_dlstip	*lst;
 	t_dlstip	*node;
-	t_iflag	i_flag;
-	int	*content;
+	t_iflag		i_flag;
+	int			*content;
 
 	i = 0;
 	lst = NULL;

@@ -49,8 +49,8 @@ void	rr(char name, t_dlstip **stack_a, t_dlstip **stack_b)
 void	print_stack(t_dlstip *stack)
 {
 	t_dlstip	*head;
-	int		value;
-	int		cost;
+	int			value;
+	int			cost;
 
 	head = stack;
 	while (stack)

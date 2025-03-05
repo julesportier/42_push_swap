@@ -35,7 +35,7 @@ static int	is_sorted(t_dlstip *lst, int check(int a, int b))
 	t_dlstip	*prev_node;
 
 	tail = lst->prev;
-	while(lst != tail)
+	while (lst != tail)
 	{
 		prev_node = lst;
 		lst = lst->next;
@@ -49,7 +49,7 @@ static void	store_pos(t_dlstip *lst, t_stack_data *data)
 {
 	t_dlstip	*head;
 	t_dlstip	*min;
-	int	i;
+	int			i;
 
 	head = lst;
 	min = lst;
@@ -75,10 +75,11 @@ static void	store_pos(t_dlstip *lst, t_stack_data *data)
 
 static t_stack_data	store_stack_data(t_dlstip *lst)
 {
-	t_dlstip	*tail;
+	t_dlstip		*tail;
 	t_stack_data	data;
 
-	data = (t_stack_data){.max=lst->content[0], .min=lst->content[0], .size=0};
+	data = (t_stack_data){
+		.max = lst->content[0], .min = lst->content[0], .size = 0};
 	tail = lst->prev;
 	while (1)
 	{
@@ -127,8 +128,8 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_dlstip	*lst;
-	t_dlstip *stack;
+	t_dlstip		*lst;
+	t_dlstip		*stack;
 	t_stack_data	data;
 
 	if (argc < 2)
