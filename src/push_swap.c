@@ -123,12 +123,74 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 	}
 }
 
+static char	get_best_pos(t_dlstip *stack_a)
+{
+	int	tmp;
+	char	pos;
+
+	tmp = stack_a->content[1];
+	pos = 'h';
+	if (stack_a->next->content[1] < tmp)
+	{
+		tmp = stack_a->next->content[1];
+		pos = 'n';
+	}
+	if (stack_a->prev->content[1] < tmp)
+	{
+		tmp = stack_a->prev->content[1];
+		pos = 't';
+	}
+	return (pos);
+}
+
+static void	move_best(t_dlstip **stack_a, t_dlstip **stack_b, char best)
+{
+	if (best == 'n')
+		s('a', stack_a, NULL);
+	if (best == 't')
+		rr('a', stack_a, NULL);
+	p('b', stack_b, stack_a);
+}
+
 static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 {
-	if (data->size <= 3)
-		sort_in_place(lst, data);
-	else
-		store_pos(*lst, data);
+	t_dlstip		*stack_b;
+	//int			limit;
+
+	stack_b = NULL;
+	//limit = data->size / 2 + data->size % 2;
+	store_order(*lst, data);
+	ft_putendl_fd("lst :", 1);
+	print_stack(*lst);
+	while (
+		*lst
+		&& (get_lst_data(*lst).size > 3
+			|| (get_lst_data(*lst).min < get_lst_data(stack_b).max))
+		&& (!is_sorted(*lst, is_superior) || !is_sorted(stack_b, is_inferior))
+	)
+	{
+		move_best(lst, &stack_b, get_best_pos(*lst));
+			ft_putendl_fd("stack_a :", 1);
+			print_stack(*lst);
+			ft_putendl_fd("stack_b :", 1);
+			print_stack(stack_b);
+		sleep(1);
+	}
+	*data = get_lst_data(*lst);
+	ft_printf("max == %d; min == %d; size == %d\n", data->max, data->min, data->size);
+	sort_in_place(lst, data);
+		ft_putendl_fd("stack_a :", 1);
+		print_stack(*lst);
+		ft_putendl_fd("stack_b :", 1);
+		print_stack(stack_b);
+	while (get_lst_data(stack_b).size > 0)
+	{
+		p('b', lst, &stack_b);
+		ft_putendl_fd("stack_a :", 1);
+		print_stack(*lst);
+		ft_putendl_fd("stack_b :", 1);
+		print_stack(stack_b);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -152,7 +214,7 @@ int	main(int argc, char **argv)
 	data = get_lst_data(lst);
 	ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	sort_stack(&lst, &data);
-	print_stack(lst);
+	//print_stack(lst);
 	int	i = 3;
 	ft_dlstip_clear(&lst);
 	ft_dlstip_clear(&stack);
@@ -167,3 +229,22 @@ int	main(int argc, char **argv)
 	//print_stack(lst);
 	exit(EXIT_SUCCESS);
 }
+//static int	get_lst_size(t_dlstip *lst)
+//{
+//	t_dlstip	*tail;
+//	int			size;
+//
+//	if (lst)
+//		tail = lst->prev;
+//	size = 0;
+//	while (lst)
+//	{
+//		size++;
+//		if (lst == tail)
+//			lst = NULL;
+//		else
+//			lst = lst->next;
+//	}
+//	return (size);
+//}
+//
