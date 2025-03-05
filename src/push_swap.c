@@ -78,6 +78,11 @@ static t_stack_data	store_stack_data(t_dlstip *lst)
 	t_dlstip		*tail;
 	t_stack_data	data;
 
+	if (!lst)
+	{
+		data = (t_stack_data){0, 0, 0};
+		return (data);
+	}
 	data = (t_stack_data){
 		.max = lst->content[0], .min = lst->content[0], .size = 0};
 	tail = lst->prev;
