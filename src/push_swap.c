@@ -73,7 +73,7 @@ static void	store_pos(t_dlstip *lst, t_stack_data *data)
 	}
 }
 
-static t_stack_data	store_stack_data(t_dlstip *lst)
+static t_stack_data	get_lst_data(t_dlstip *lst)
 {
 	t_dlstip		*tail;
 	t_stack_data	data;
@@ -149,7 +149,7 @@ int	main(int argc, char **argv)
 		// END
 		exit(EXIT_SUCCESS);
 	}
-	data = store_stack_data(lst);
+	data = get_lst_data(lst);
 	ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	sort_stack(&lst, &data);
 	print_stack(lst);
