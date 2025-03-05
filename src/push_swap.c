@@ -160,8 +160,11 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 	stack_b = NULL;
 	//limit = data->size / 2 + data->size % 2;
 	store_order(*lst, data);
-	ft_putendl_fd("lst :", 1);
-	print_stack(*lst);
+	if (DEBUG)
+	{
+		ft_putendl_fd("lst :", 1);
+		print_stack(*lst);
+	}
 	while (
 		*lst
 		&& (get_lst_data(*lst).size > 3
@@ -170,26 +173,36 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 	)
 	{
 		move_best(lst, &stack_b, get_best_pos(*lst));
+		if (DEBUG)
+		{
 			ft_putendl_fd("stack_a :", 1);
 			print_stack(*lst);
 			ft_putendl_fd("stack_b :", 1);
 			print_stack(stack_b);
-		sleep(1);
+			usleep(300000);
+		}
 	}
 	*data = get_lst_data(*lst);
-	ft_printf("max == %d; min == %d; size == %d\n", data->max, data->min, data->size);
+	if (DEBUG)
+		ft_printf("max == %d; min == %d; size == %d\n", data->max, data->min, data->size);
 	sort_in_place(lst, data);
+	if (DEBUG)
+	{
 		ft_putendl_fd("stack_a :", 1);
 		print_stack(*lst);
 		ft_putendl_fd("stack_b :", 1);
 		print_stack(stack_b);
+	}
 	while (get_lst_data(stack_b).size > 0)
 	{
 		p('b', lst, &stack_b);
-		ft_putendl_fd("stack_a :", 1);
-		print_stack(*lst);
-		ft_putendl_fd("stack_b :", 1);
-		print_stack(stack_b);
+		if (DEBUG)
+		{
+			ft_putendl_fd("stack_a :", 1);
+			print_stack(*lst);
+			ft_putendl_fd("stack_b :", 1);
+			print_stack(stack_b);
+		}
 	}
 }
 
@@ -203,16 +216,17 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	stack = NULL;
 	lst = parse_args(argv);
-	print_stack(lst);
+	if (DEBUG)
+		print_stack(lst);
 	if (is_sorted(lst, is_superior))
 	{
-		// DEBUG
-		ft_putendl_fd("ascending sort", 1);
-		// END
+		if (DEBUG)
+			ft_putendl_fd("ascending sort", 1);
 		exit(EXIT_SUCCESS);
 	}
 	data = get_lst_data(lst);
-	ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
+	if (DEBUG)
+		ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	sort_stack(&lst, &data);
 	//print_stack(lst);
 	int	i = 3;

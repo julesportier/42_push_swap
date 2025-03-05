@@ -12,6 +12,8 @@
 
 #include "../libft/src/libft.h"
 
+#define DEBUG 0
+
 // error.c
 void		exit_error(char *error);
 void		exit_error_free(char *error, t_dlstip **lst);
