@@ -12,7 +12,7 @@
 
 #include "../libft/src/libft.h"
 
-#define DEBUG 0
+#define DEBUG 1
 
 // error.c
 void		exit_error(char *error);

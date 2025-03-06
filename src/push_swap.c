@@ -73,6 +73,32 @@ static void	store_order(t_dlstip *lst, t_stack_data *data)
 	}
 }
 
+// needs data updated to the current state of the stack
+static void	store_cost_pb(t_dlstip *lst, t_stack_data *data)
+{
+	t_dlstip	*head;
+	int			i;
+
+	head = lst;
+	lst->content[2] = 1;
+	lst->content[3] = lst->content[1] + lst->content[2];
+	i = 0;
+	while (++i < (data->size / 2 + data->size % 2))
+	{
+		lst = lst->next;
+		lst->content[2] = 2 * i;
+		lst->content[3] = lst->content[1] + lst->content[2];
+	}
+	i = 0;
+	lst = head->prev;
+	while (++i < (data->size / 2 + 1))
+	{
+		lst->content[2] = 2 * i;
+		lst->content[3] = lst->content[1] + lst->content[2];
+		lst = lst->prev;
+	}
+}
+
 static t_stack_data	get_lst_data(t_dlstip *lst)
 {
 	t_dlstip		*tail;
@@ -123,6 +149,7 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 	}
 }
 
+// OBSOLETE
 static char	get_best_pos(t_dlstip *stack_a)
 {
 	int	tmp;
@@ -143,6 +170,7 @@ static char	get_best_pos(t_dlstip *stack_a)
 	return (pos);
 }
 
+// OBSOLETE
 static void	move_best(t_dlstip **stack_a, t_dlstip **stack_b, char best)
 {
 	if (best == 'n')
@@ -152,6 +180,9 @@ static void	move_best(t_dlstip **stack_a, t_dlstip **stack_b, char best)
 	p('b', stack_b, stack_a);
 }
 
+//static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b, char best)
+//{
+
 static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 {
 	t_dlstip		*stack_b;
@@ -160,6 +191,7 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 	stack_b = NULL;
 	//limit = data->size / 2 + data->size % 2;
 	store_order(*lst, data);
+	store_cost_pb(*lst, data);
 	if (DEBUG)
 	{
 		ft_putendl_fd("lst :", 1);

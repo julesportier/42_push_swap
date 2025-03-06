@@ -50,15 +50,19 @@ void	print_stack(t_dlstip *stack)
 {
 	t_dlstip	*head;
 	int			value;
+	int			order;
+	int			mv_nbr;
 	int			cost;
 
 	head = stack;
 	while (stack)
 	{
 		value = stack->content[0];
-		cost = stack->content[1];
-		ft_printf("node %X; next %X; prev %X; content [%d, cost: %d]\n",
-			stack, stack->next, stack->prev, value, cost);
+		order = stack->content[1];
+		mv_nbr = stack->content[2];
+		cost = stack->content[3];
+		ft_printf("node %X; next %X; prev %X; content [%d, order: %d, mv_nbr: %d, cost: %d]\n",
+			stack, stack->next, stack->prev, value, order, mv_nbr, cost);
 		if (stack->next == head)
 			return ;
 		stack = stack->next;

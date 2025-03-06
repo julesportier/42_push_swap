@@ -47,7 +47,7 @@ t_dlstip	*parse_args(char **argv)
 		i_flag = ft_atoi_flag(argv[i]);
 		if (i_flag.flag)
 			exit_error_free("Error", &lst);
-		content = malloc(sizeof(int) * 2);
+		content = malloc(sizeof(int) * 4);
 		if (content == NULL)
 			exit_error_free("Error", &lst);
 		content[0] = i_flag.i;
