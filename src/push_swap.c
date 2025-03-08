@@ -152,38 +152,29 @@ static t_stack_data	get_lst_data(t_dlstip *lst)
 
 static int	get_cheaper_pos(t_dlstip *lst, t_stack_data *data)
 {
-	t_dlstip	*head;
 	t_dlstip	*cheaper;
 	int			i;
 	int			pos;
 
 	pos = 1;
 	i = 1;
-	head = lst;
 	cheaper = lst;
-	while (1)
+	while (i <= data->size)
 	{
 		if (lst->content[3] <= cheaper->content[3])
 		{
-			if (lst->content[3] == cheaper->content[3])
-			{
-				if (lst->content[1] < cheaper->content[1])
-				{
-					cheaper = lst;
-					pos = i;
-				}
-			}
-			else
+			if (lst->content[3] == cheaper->content[3]
+				&& lst->content[1] < cheaper->content[1]
+				|| lst->content[3] != cheaper->content[3])
 			{
 				cheaper = lst;
 				pos = i;
 			}
 		}
-		i++;
 		lst = lst->next;
-		if (lst == head)
-			return (pos);
+		i++;
 	}
+	return (pos);
 }
 
 static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
