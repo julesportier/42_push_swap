@@ -134,8 +134,11 @@ static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
 	else if (pos > 2 && pos > (data.size / 2 + data.size % 2))
 	{
 		tmp = data.size;
-		while (tmp-- >= pos)
+		while (tmp >= pos)
+		{
 			rr('a', stack_a, NULL);
+			tmp--;
+		}
 		p('b', stack_b, stack_a);
 		while (++tmp < data.size)
 			r('a', stack_a, NULL);
