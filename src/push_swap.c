@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/10 09:18:34 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/10 10:36:42 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,72 @@ static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
 		while (++tmp < data.size)
 			r('a', stack_a, NULL);
 	}
+}
+
+// TODO
+// calculate cost to move inside stack_a + cost to push node from stack_b
+static void	store_cost_insert_pa(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *data)
+{
+	int	i;
+	t_dlstip	*tmp_node;
+	t_dlstip	*head;
+
+	head = stack_b;
+	while (stack_b)
+	{
+		i = 0;
+		tmp_node = stack_a;
+		while (tmp_node->content[1] < stack_b->content[1])
+		{
+			i++;
+			tmp_node = tmp_node->next;
+		}
+		i = i * 2 + 1;
+		stack_b->content[2] = i;
+		stack_b->content[3] = stack_b->content[2] + (data->size - stack_b->content[1]);
+		if (stack_b->next != head)
+			stack_b = stack_b->next;
+		else
+			stack_b = NULL;
+	}
+	if (DEBUG)
+	{
+		ft_putendl_fd("stack_a :", 1);
+		print_stack(stack_a);
+		ft_putendl_fd("stack_b :", 1);
+		print_stack(stack_b);
+		usleep(300000);
+	}
+}
+// TODO
+// merge with get_cheaper_pos with function pointer is_superior/is_inferior
+static int	get_cheaper_pos_pa(t_dlstip *lst)
+{
+	t_stack_data	data;
+	t_dlstip	*cheaper;
+	int			i;
+	int			pos;
+
+	pos = 1;
+	i = 1;
+	cheaper = lst;
+	data = get_lst_data(lst);
+	while (i <= data.size)
+	{
+		if (lst->content[3] <= cheaper->content[3])
+		{
+			if (lst->content[3] == cheaper->content[3]
+				&& lst->content[1] > cheaper->content[1]
+				|| lst->content[3] != cheaper->content[3])
+			{
+				cheaper = lst;
+				pos = i;
+			}
+		}
+		lst = lst->next;
+		i++;
+	}
+	return (pos);
 }
 
 static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
