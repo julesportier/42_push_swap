@@ -148,18 +148,13 @@ static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
 static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 {
 	t_dlstip	*stack_b;
+	t_stack_data	data_a;
 	//int			limit;
 
 	stack_b = NULL;
 	//limit = data->size / 2 + data->size % 2;
 	store_order(*lst, data);
-	*data = get_lst_data(*lst);
-	if (DEBUG)
-	{
-		store_cost_pb(*lst, data);
-		ft_putendl_fd("lst :", 1);
-		print_stack(*lst);
-	}
+	data_a = get_lst_data(*lst);
 	while (*lst && (get_lst_data(*lst).size > 3)
 		&& !(is_sorted(*lst, is_superior) && is_sorted(stack_b, is_inferior)
 			&& (get_lst_data(*lst).min < get_lst_data(stack_b).max))
@@ -167,10 +162,10 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 	{
 		push_cheaper_b(lst, &stack_b);
 	}
-	*data = get_lst_data(*lst);
+	data_a = get_lst_data(*lst);
 	if (DEBUG)
-		ft_printf("max == %d; min == %d; size == %d\n", data->max, data->min, data->size);
-	sort_in_place(lst, data);
+		ft_printf("max == %d; min == %d; size == %d\n", data_a.max, data_a.min, data_a.size);
+	sort_in_place(lst, &data_a);
 	if (DEBUG)
 	{
 		ft_putendl_fd("stack_a :", 1);
