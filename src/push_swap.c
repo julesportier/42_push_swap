@@ -145,6 +145,34 @@ static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
 	}
 }
 
+static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
+{
+	int	i;
+
+	if (DEBUG)
+		ft_putendl_fd("insert sort", 1);
+	while (*stack_b != NULL)
+	{
+		i = 0;
+		while ((*stack_a)->content[1] < (*stack_b)->content[1])
+		{
+			i++;
+			r('a', stack_a, NULL);
+		}
+		p('a', stack_a, stack_b);
+		while (i-- > 0)
+			rr('a', stack_a, NULL);
+		if (DEBUG)
+		{
+			ft_putendl_fd("stack_a :", 1);
+			print_stack(*stack_a);
+			ft_putendl_fd("stack_b :", 1);
+			print_stack(*stack_b);
+			usleep(300000);
+		}
+	}
+}
+
 static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 {
 	t_dlstip	*stack_b;
@@ -173,17 +201,7 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 		ft_putendl_fd("stack_b :", 1);
 		print_stack(stack_b);
 	}
-	while (get_lst_data(stack_b).size > 0)
-	{
-		p('a', lst, &stack_b);
-		if (DEBUG)
-		{
-			ft_putendl_fd("stack_a :", 1);
-			print_stack(*lst);
-			ft_putendl_fd("stack_b :", 1);
-			print_stack(stack_b);
-		}
-	}
+	insert_pa(lst, &stack_b, data);
 }
 
 int	main(int argc, char **argv)
