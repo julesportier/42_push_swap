@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/02/26 12:33:51 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:21:57 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,22 @@
 
 #define DEBUG 1
 
+typedef struct s_stack_data
+{
+	int	max;
+	int	min;
+	int	size;
+}	t_stack_data;
+
 // error.c
 void		exit_error(char *error);
 void		exit_error_free(char *error, t_dlstip **lst);
 // parsing.c
 t_dlstip	*parse_args(char **argv);
+// data_collect.c
+void		store_order(t_dlstip *lst, t_stack_data *data);
+void		store_cost_pb(t_dlstip *lst, t_stack_data *data);
+t_stack_data	get_lst_data(t_dlstip *lst);
 // list_operations.c
 void		rot(t_dlstip **stack);
 void		rev_rot(t_dlstip **stack);
@@ -31,10 +42,3 @@ void		p(char name, t_dlstip **stack_a, t_dlstip **stack_b);
 void		r(char name, t_dlstip **stack_a, t_dlstip **stack_b);
 void		rr(char name, t_dlstip **stack_a, t_dlstip **stack_b);
 void		print_stack(t_dlstip *stack);
-
-typedef struct s_stack_data
-{
-	int	max;
-	int	min;
-	int	size;
-}	t_stack_data;

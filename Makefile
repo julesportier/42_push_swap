@@ -16,6 +16,7 @@ vpath %.c $(SRC_DIR)
 SRC := push_swap.c \
        error.c \
        parsing.c \
+       data_collect.c \
        list_operations.c \
        stack_operations.c
 
