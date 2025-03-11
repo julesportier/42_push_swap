@@ -72,7 +72,9 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 	}
 }
 
-static int	get_cheaper_pos(t_dlstip *lst, t_stack_data *data)
+// is_inferior() for stack_a to b and is_superior() for stack_b to a
+static int	get_cheaper_pos(
+	t_dlstip *lst, t_stack_data *data, int check(int a, int b))
 {
 	t_dlstip	*cheaper;
 	int			i;
@@ -86,7 +88,7 @@ static int	get_cheaper_pos(t_dlstip *lst, t_stack_data *data)
 		if (lst->content[3] <= cheaper->content[3])
 		{
 			if (lst->content[3] == cheaper->content[3]
-				&& lst->content[1] < cheaper->content[1]
+				&& check(lst->content[1], cheaper->content[1])
 				|| lst->content[3] != cheaper->content[3])
 			{
 				cheaper = lst;
@@ -235,7 +237,7 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 	{
 		data_a = get_lst_data(*lst);
 		store_cost(*lst, &data_a);
-		push_cheaper("ab", lst, &stack_b);
+		push_cheaper("ab", lst, &stack_b, get_cheaper_pos(*lst, &data_a, is_inferior));
 	}
 	data_a = get_lst_data(*lst);
 	if (DEBUG)
