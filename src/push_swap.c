@@ -133,47 +133,42 @@ static t_pos	get_cheaper_pos_pa(t_dlstip *lst)
 
 // needs up to date costs
 // names contains [source stack name, target stack name]
-static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target)
+static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target, int cheaper_pos)
 {
 	t_stack_data data;
-	int		pos;
 	int		tmp;
 
 	data = get_lst_data(*source);
-	if (names[0] == 'a')
-		pos = get_cheaper_pos(*source, &data);
-	else if (names[0] == 'b')
-		pos = get_cheaper_pos_pa(*source).pos;
 	if (DEBUG)
 	{
 		ft_putendl_fd("source :", 1);
 		print_stack(*source);
 		ft_putendl_fd("target :", 1);
 		print_stack(*target);
-		ft_printf("cheaper pos: %d\n", pos);
+		ft_printf("cheaper pos: %d\n", cheaper_pos);
 		usleep(300000);
 	}
-	if (pos == 1)
+	if (cheaper_pos == 1)
 		p(names[1], target, source);
-	else if (pos == 2)
+	else if (cheaper_pos == 2)
 	{
 		s(names[0], source, NULL);
 		p(names[1], target, source);
 	}
-	else if (pos > 2 && pos <= (data.size / 2 + data.size % 2))
+	else if (cheaper_pos > 2 && cheaper_pos <= (data.size / 2 + data.size % 2))
 	{
-		tmp = pos;
+		tmp = cheaper_pos;
 		while (tmp-- > 2)
 			r(names[0], source, NULL);
 		s(names[0], source, NULL);
 		p(names[1], target, source);
-		while (++tmp < pos)
+		while (++tmp < cheaper_pos)
 			rr(names[0], source, NULL);
 	}
-	else if (pos > 2 && pos > (data.size / 2 + data.size % 2))
+	else if (cheaper_pos > 2 && cheaper_pos > (data.size / 2 + data.size % 2))
 	{
 		tmp = data.size;
-		while (tmp >= pos)
+		while (tmp >= cheaper_pos)
 		{
 			rr(names[0], source, NULL);
 			tmp--;
@@ -186,38 +181,63 @@ static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target)
 static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
 {
 	int	i;
+	int	j;
 	int	tmp;
 	t_pos	pos;
+	t_dlstip	*tmp_target;
 	t_stack_data	data_b;
+	t_stack_data	data_a;
 
 	store_cost_insert_a(*stack_a, *stack_b, data);
 	pos = get_cheaper_pos_pa(*stack_b);
 	data_b = get_lst_data(*stack_b);
-	if (DEBUG)
-	{
-		ft_putendl_fd("insert sort", 1);
-		ft_printf("cheaper pos == %d\n", pos.pos);
-	}
-	if (DEBUG)
-	{
-		ft_putendl_fd("stack_a :", 1);
-		print_stack(*stack_a);
-		ft_putendl_fd("stack_b :", 1);
-		print_stack(*stack_b);
-		usleep(300000);
-	}
-	i = 0;
-	while ((*stack_a)->content[1] < pos.node->content[1])
+	data_a = get_lst_data(*stack_a);
+	//if (DEBUG)
+	//{
+	//	ft_putendl_fd("insert sort", 1);
+	//	ft_printf("cheaper pos == %d\n", pos.pos);
+	//}
+	//if (DEBUG)
+	//{
+	//	ft_putendl_fd("stack_a :", 1);
+	//	print_stack(*stack_a);
+	//	ft_putendl_fd("stack_b :", 1);
+	//	print_stack(*stack_b);
+	//	usleep(300000);
+	//}
+	i = 1;
+	// get pos in target (stack_a)
+	tmp_target = *stack_a;
+	while (tmp_target->content[1] < pos.node->content[1])
 	{
 		i++;
-		r('a', stack_a, NULL);
+		tmp_target = tmp_target->next;
 		if (i == get_lst_data(*stack_a).size)
 			break ;
 	}
 	store_cost_insert_a(*stack_a, *stack_b, data);
-	push_cheaper("ba", stack_b, stack_a);
-	while (i-- > 0)
-		rr('a', stack_a, NULL);
+	j = i;
+	if (i <= (data_a.size / 2 + data_a.size % 2) && i != 2)
+	{
+		while (--j > 0)
+			r('a', stack_a, NULL);
+	}
+	else if (i > (data_a.size / 2 + data_a.size % 2) && i != 2)
+	{
+		while (j++ < data_a.size)
+			rr('a', stack_a, NULL);
+	}
+	push_cheaper("ba", stack_b, stack_a, pos.pos);
+	if (i == 2)
+		s('a', stack_a, NULL);
+	else if (i <= (data_a.size / 2 + data_a.size % 2))
+	{
+		while (--i > 0)
+			rr('a', stack_a, NULL);
+	}
+	else if (i > (data_a.size / 2 + data_a.size % 2))
+		while (i++ <= data_a.size)
+			r('a', stack_a, NULL);
 }
 
 static void	sort_stack(t_dlstip **lst, t_stack_data *data)
@@ -278,7 +298,11 @@ int	main(int argc, char **argv)
 	if (DEBUG)
 		ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	sort_stack(&lst, &data);
-	//print_stack(lst);
+	if (DEBUG)
+	{
+		ft_putendl_fd("sorted stack: ", 1);
+		print_stack(lst);
+	}
 	int	i = 3;
 	ft_dlstip_clear(&lst);
 	ft_dlstip_clear(&stack);
