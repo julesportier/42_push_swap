@@ -12,7 +12,7 @@
 
 #include "../libft/src/libft.h"
 
-#define DEBUG 1
+#define DEBUG 0
 
 typedef struct s_stack_data
 {
@@ -20,6 +20,12 @@ typedef struct s_stack_data
 	int	min;
 	int	size;
 }	t_stack_data;
+
+typedef struct s_pos
+{
+	int	pos;
+	t_dlstip	*node;
+}	t_pos;
 
 // error.c
 void		exit_error(char *error);

@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 #include "../libft/src/libft.h"
+#include "../libft/src/ftpf_printf.h"
 
 t_stack_data	get_lst_data(t_dlstip *lst)
 {
@@ -93,14 +94,16 @@ void	store_cost(t_dlstip *lst, t_stack_data *data)
 		lst = lst->prev;
 	}
 }
-// TODO
-// calculate cost to move inside stack_a + cost to push node from stack_b
+
 void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *data)
 {
 	int	i;
 	t_dlstip	*tmp_node;
 	t_dlstip	*head;
+	t_stack_data	data_b;
 
+	data_b = get_lst_data(stack_b);
+	store_cost(stack_b, &data_b);
 	head = stack_b;
 	while (stack_b)
 	{
@@ -110,9 +113,13 @@ void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *dat
 		{
 			i++;
 			tmp_node = tmp_node->next;
+			if (tmp_node == stack_a)
+				break ;
 		}
+		if (DEBUG)
+			ft_printf("i == %d\n", i);
 		i = i * 2 + 1;
-		stack_b->content[2] = i;
+		stack_b->content[2] += i;
 		stack_b->content[3] = stack_b->content[2] + (data->size - stack_b->content[1]);
 		if (stack_b->next != head)
 			stack_b = stack_b->next;
@@ -124,7 +131,7 @@ void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *dat
 		ft_putendl_fd("stack_a :", 1);
 		print_stack(stack_a);
 		ft_putendl_fd("stack_b :", 1);
-		print_stack(stack_b);
-		usleep(300000);
+		print_stack(head);
+		sleep(1);
 	}
 }
