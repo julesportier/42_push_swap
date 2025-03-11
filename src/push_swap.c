@@ -262,7 +262,8 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 	data_a = get_lst_data(*lst);
 	if (DEBUG)
 		ft_printf("max == %d; min == %d; size == %d\n", data_a.max, data_a.min, data_a.size);
-	sort_in_place(lst, &data_a);
+	if (!is_sorted(*lst, is_superior))
+		sort_in_place(lst, &data_a);
 	if (DEBUG)
 	{
 		ft_putendl_fd("stack_a :", 1);
