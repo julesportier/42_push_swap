@@ -69,7 +69,7 @@ void	store_order(t_dlstip *lst, t_stack_data *data)
 }
 
 // needs data updated to the current state of the stack
-void	store_cost_pb(t_dlstip *lst, t_stack_data *data)
+void	store_cost(t_dlstip *lst, t_stack_data *data)
 {
 	t_dlstip	*head;
 	int			i;
@@ -91,5 +91,40 @@ void	store_cost_pb(t_dlstip *lst, t_stack_data *data)
 		lst->content[2] = 2 * i;
 		lst->content[3] = lst->content[1] + lst->content[2];
 		lst = lst->prev;
+	}
+}
+// TODO
+// calculate cost to move inside stack_a + cost to push node from stack_b
+void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *data)
+{
+	int	i;
+	t_dlstip	*tmp_node;
+	t_dlstip	*head;
+
+	head = stack_b;
+	while (stack_b)
+	{
+		i = 0;
+		tmp_node = stack_a;
+		while (tmp_node->content[1] < stack_b->content[1])
+		{
+			i++;
+			tmp_node = tmp_node->next;
+		}
+		i = i * 2 + 1;
+		stack_b->content[2] = i;
+		stack_b->content[3] = stack_b->content[2] + (data->size - stack_b->content[1]);
+		if (stack_b->next != head)
+			stack_b = stack_b->next;
+		else
+			stack_b = NULL;
+	}
+	if (DEBUG)
+	{
+		ft_putendl_fd("stack_a :", 1);
+		print_stack(stack_a);
+		ft_putendl_fd("stack_b :", 1);
+		print_stack(stack_b);
+		usleep(300000);
 	}
 }

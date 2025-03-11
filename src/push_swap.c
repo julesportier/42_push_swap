@@ -103,7 +103,7 @@ static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
 	int		tmp;
 
 	data = get_lst_data(*stack_a);
-	store_cost_pb(*stack_a, &data);
+	store_cost(*stack_a, &data);
 	pos = get_cheaper_pos(*stack_a, &data);
 	if (DEBUG)
 	{
@@ -145,41 +145,6 @@ static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
 	}
 }
 
-// TODO
-// calculate cost to move inside stack_a + cost to push node from stack_b
-static void	store_cost_insert_pa(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *data)
-{
-	int	i;
-	t_dlstip	*tmp_node;
-	t_dlstip	*head;
-
-	head = stack_b;
-	while (stack_b)
-	{
-		i = 0;
-		tmp_node = stack_a;
-		while (tmp_node->content[1] < stack_b->content[1])
-		{
-			i++;
-			tmp_node = tmp_node->next;
-		}
-		i = i * 2 + 1;
-		stack_b->content[2] = i;
-		stack_b->content[3] = stack_b->content[2] + (data->size - stack_b->content[1]);
-		if (stack_b->next != head)
-			stack_b = stack_b->next;
-		else
-			stack_b = NULL;
-	}
-	if (DEBUG)
-	{
-		ft_putendl_fd("stack_a :", 1);
-		print_stack(stack_a);
-		ft_putendl_fd("stack_b :", 1);
-		print_stack(stack_b);
-		usleep(300000);
-	}
-}
 // TODO
 // merge with get_cheaper_pos with function pointer is_superior/is_inferior
 static int	get_cheaper_pos_pa(t_dlstip *lst)

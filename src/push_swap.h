@@ -28,8 +28,9 @@ void		exit_error_free(char *error, t_dlstip **lst);
 t_dlstip	*parse_args(char **argv);
 // data_collect.c
 void		store_order(t_dlstip *lst, t_stack_data *data);
-void		store_cost_pb(t_dlstip *lst, t_stack_data *data);
 t_stack_data	get_lst_data(t_dlstip *lst);
+void		store_cost(t_dlstip *lst, t_stack_data *data);
+void		store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *data);
 // list_operations.c
 void		rot(t_dlstip **stack);
 void		rev_rot(t_dlstip **stack);
