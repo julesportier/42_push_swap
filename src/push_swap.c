@@ -99,55 +99,6 @@ static int	get_cheaper_pos(t_dlstip *lst, t_stack_data *data)
 	return (pos);
 }
 
-static void	push_cheaper_b(t_dlstip **stack_a, t_dlstip **stack_b)
-{
-	t_stack_data data;
-	int		pos;
-	int		tmp;
-
-	data = get_lst_data(*stack_a);
-	store_cost(*stack_a, &data);
-	pos = get_cheaper_pos(*stack_a, &data);
-	if (DEBUG)
-	{
-		ft_putendl_fd("stack_a :", 1);
-		print_stack(*stack_a);
-		ft_putendl_fd("stack_b :", 1);
-		print_stack(*stack_b);
-		ft_printf("cheaper pos: %d\n", pos);
-		usleep(300000);
-	}
-	if (pos == 1)
-		p('b', stack_b, stack_a);
-	else if (pos == 2)
-	{
-		s('a', stack_a, NULL);
-		p('b', stack_b, stack_a);
-	}
-	else if (pos > 2 && pos <= (data.size / 2 + data.size % 2))
-	{
-		tmp = pos;
-		while (tmp-- > 2)
-			r('a', stack_a, NULL);
-		s('a', stack_a, NULL);
-		p('b', stack_b, stack_a);
-		while (++tmp < pos)
-			rr('a', stack_a, NULL);
-	}
-	else if (pos > 2 && pos > (data.size / 2 + data.size % 2))
-	{
-		tmp = data.size;
-		while (tmp >= pos)
-		{
-			rr('a', stack_a, NULL);
-			tmp--;
-		}
-		p('b', stack_b, stack_a);
-		while (++tmp < data.size)
-			r('a', stack_a, NULL);
-	}
-}
-
 // TODO
 // merge with get_cheaper_pos with function pointer is_superior/is_inferior
 static t_pos	get_cheaper_pos_pa(t_dlstip *lst)
@@ -178,38 +129,58 @@ static t_pos	get_cheaper_pos_pa(t_dlstip *lst)
 	return (pos);
 }
 
-// TODO
-// insert modified push cheaper into this function
-//static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
-//{
-//	int	i;
-//	int	pos;
-//
-//	if (DEBUG)
-//		ft_putendl_fd("insert sort", 1);
-//	store_cost_insert_a(*stack_a, *stack_b, data);
-//	pos = get_cheaper_pos_pa(*stack_b);
-//	while (*stack_b != NULL)
-//	{
-//		i = 0;
-//		while ((*stack_a)->content[1] < (*stack_b)->content[1])
-//		{
-//			i++;
-//			r('a', stack_a, NULL);
-//		}
-//		p('a', stack_a, stack_b);
-//		while (i-- > 0)
-//			rr('a', stack_a, NULL);
-//		if (DEBUG)
-//		{
-//			ft_putendl_fd("stack_a :", 1);
-//			print_stack(*stack_a);
-//			ft_putendl_fd("stack_b :", 1);
-//			print_stack(*stack_b);
-//			usleep(300000);
-//		}
-//	}
-//}
+// needs up to date costs
+// names contains [source stack name, target stack name]
+static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target)
+{
+	t_stack_data data;
+	int		pos;
+	int		tmp;
+
+	data = get_lst_data(*source);
+	if (names[0] == 'a')
+		pos = get_cheaper_pos(*source, &data);
+	else if (names[0] == 'b')
+		pos = get_cheaper_pos_pa(*source).pos;
+	if (DEBUG)
+	{
+		ft_putendl_fd("source :", 1);
+		print_stack(*source);
+		ft_putendl_fd("target :", 1);
+		print_stack(*target);
+		ft_printf("cheaper pos: %d\n", pos);
+		usleep(300000);
+	}
+	if (pos == 1)
+		p(names[1], target, source);
+	else if (pos == 2)
+	{
+		s(names[0], source, NULL);
+		p(names[1], target, source);
+	}
+	else if (pos > 2 && pos <= (data.size / 2 + data.size % 2))
+	{
+		tmp = pos;
+		while (tmp-- > 2)
+			r(names[0], source, NULL);
+		s(names[0], source, NULL);
+		p(names[1], target, source);
+		while (++tmp < pos)
+			rr(names[0], source, NULL);
+	}
+	else if (pos > 2 && pos > (data.size / 2 + data.size % 2))
+	{
+		tmp = data.size;
+		while (tmp >= pos)
+		{
+			rr(names[0], source, NULL);
+			tmp--;
+		}
+		p(names[1], target, source);
+		while (++tmp < data.size)
+			r(names[0], source, NULL);
+	}
+}
 static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
 {
 	int	i;
@@ -241,35 +212,8 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 		if (i == get_lst_data(*stack_a).size)
 			break ;
 	}
-	if (pos.pos == 1)
-		p('a', stack_a, stack_b);
-	else if (pos.pos == 2)
-	{
-		s('b', stack_b, NULL);
-		p('a', stack_a, stack_b);
-	}
-	else if (pos.pos > 2 && pos.pos <= (data_b.size / 2 + data_b.size % 2))
-	{
-		tmp = pos.pos;
-		while (tmp-- > 2)
-			r('b', stack_b, NULL);
-		s('b', stack_b, NULL);
-		p('a', stack_a, stack_b);
-		while (++tmp < pos.pos)
-			rr('b', stack_b, NULL);
-	}
-	else if (pos.pos > 2 && pos.pos > (data_b.size / 2 + data_b.size % 2))
-	{
-		tmp = data_b.size;
-		while (tmp >= pos.pos)
-		{
-			rr('b', stack_b, NULL);
-			tmp--;
-		}
-		p('a', stack_a, stack_b);
-		while (++tmp < data_b.size)
-			r('b', stack_b, NULL);
-	}
+	store_cost_insert_a(*stack_a, *stack_b, data);
+	push_cheaper("ba", stack_b, stack_a);
 	while (i-- > 0)
 		rr('a', stack_a, NULL);
 }
@@ -289,7 +233,9 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 			&& (get_lst_data(*lst).min < get_lst_data(stack_b).max))
 	)
 	{
-		push_cheaper_b(lst, &stack_b);
+		data_a = get_lst_data(*lst);
+		store_cost(*lst, &data_a);
+		push_cheaper("ab", lst, &stack_b);
 	}
 	data_a = get_lst_data(*lst);
 	if (DEBUG)
