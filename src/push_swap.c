@@ -215,7 +215,6 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 		if (i == get_lst_data(*stack_a).size)
 			break ;
 	}
-	store_cost_insert_a(*stack_a, *stack_b, data);
 	j = i;
 	if (i <= (data_a.size / 2 + data_a.size % 2) && i != 2)
 	{
