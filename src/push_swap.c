@@ -224,7 +224,7 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 	}
 	else if (i > (data_a.size / 2 + data_a.size % 2) && i != 2)
 	{
-		while (j++ < data_a.size)
+		while (j++ <= data_a.size)
 			rr('a', stack_a, NULL);
 	}
 	push_cheaper("ba", stack_b, stack_a, pos.pos);
@@ -236,7 +236,7 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 			rr('a', stack_a, NULL);
 	}
 	else if (i > (data_a.size / 2 + data_a.size % 2))
-		while (i++ <= data_a.size)
+		while (i++ <= data_a.size + 1)
 			r('a', stack_a, NULL);
 }
 
