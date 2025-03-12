@@ -205,7 +205,7 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 	//	print_stack(*stack_b);
 	//	usleep(300000);
 	//}
-	i = 1;
+	i = 0;
 	// get pos in target (stack_a)
 	tmp_target = *stack_a;
 	while (tmp_target->content[1] < pos.node->content[1])
@@ -215,10 +215,13 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 		if (i == get_lst_data(*stack_a).size)
 			break ;
 	}
+	i++;
 	j = i;
+	if (DEBUG)
+		ft_printf("target == %d\n", i);
 	if (i <= (data_a.size / 2 + data_a.size % 2) && i != 2)
 	{
-		while (--j > 0)
+		while (--j > 1)
 			r('a', stack_a, NULL);
 	}
 	else if (i > (data_a.size / 2 + data_a.size % 2) && i != 2)
@@ -229,12 +232,13 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 	push_cheaper("ba", stack_b, stack_a, pos.pos);
 	if (i == 2)
 		s('a', stack_a, NULL);
-	else if (i <= (data_a.size / 2 + data_a.size % 2))
+	else if (i <= (data_a.size / 2 + data_a.size % 2) && i > 2)
 	{
-		while (--i > 0)
+		s('a', stack_a, NULL);
+		while (--i > 1)
 			rr('a', stack_a, NULL);
 	}
-	else if (i > (data_a.size / 2 + data_a.size % 2))
+	else if (i > (data_a.size / 2 + data_a.size % 2) && i > 2)
 		while (i++ <= data_a.size + 1)
 			r('a', stack_a, NULL);
 }
