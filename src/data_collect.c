@@ -135,6 +135,6 @@ void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *dat
 		print_stack(stack_a);
 		ft_putendl_fd("stack_b :", 1);
 		print_stack(head);
-		sleep(1);
+		usleep(USLEEP);
 	}
 }

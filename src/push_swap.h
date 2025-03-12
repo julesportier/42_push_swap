@@ -13,6 +13,7 @@
 #include "../libft/src/libft.h"
 
 #define DEBUG 0
+#define USLEEP 10000
 
 typedef struct s_stack_data
 {

@@ -146,7 +146,7 @@ static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target, int 
 		ft_putendl_fd("target :", 1);
 		print_stack(*target);
 		ft_printf("cheaper pos: %d\n", cheaper_pos);
-		usleep(300000);
+		usleep(USLEEP);
 	}
 	if (cheaper_pos == 1)
 		p(names[1], target, source);
