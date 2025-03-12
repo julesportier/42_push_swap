@@ -118,7 +118,10 @@ void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *dat
 		}
 		if (DEBUG)
 			ft_printf("i == %d\n", i);
-		i = i * 2 + 1;
+		if (i < (data->size / 2 + data->size % 2) && i > 1)
+			i = i * 2;
+		else if (i >= (data->size / 2 + data->size % 2) && i > 1)
+			i = (get_lst_data(stack_a).size - i) * 2;
 		stack_b->content[2] += i;
 		stack_b->content[3] = stack_b->content[2] + (data->size - stack_b->content[1]);
 		if (stack_b->next != head)
