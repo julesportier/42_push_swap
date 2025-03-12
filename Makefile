@@ -18,7 +18,8 @@ SRC := push_swap.c \
        parsing.c \
        data_collect.c \
        list_operations.c \
-       stack_operations.c
+       stack_operations.c \
+       store_operations.c
 
 OBJ_DIR := build
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
