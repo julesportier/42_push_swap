@@ -50,7 +50,7 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 {
 	if (data->size == 2)
 	{
-		ft_putendl_fd("ra", 1);
+		r('a', lst, NULL);
 		return ;
 	}
 	else if (data->size == 3)
