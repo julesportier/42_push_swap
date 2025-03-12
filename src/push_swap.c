@@ -260,7 +260,17 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 	{
 		data_a = get_lst_data(*lst);
 		store_cost(*lst, &data_a);
-		push_cheaper("ab", lst, &stack_b, get_cheaper_pos(*lst, &data_a, is_inferior));
+		//push_cheaper("ab", lst, &stack_b, get_cheaper_pos(*lst, &data_a, is_inferior));
+		// it's cheaper to just push to b directly...
+		p('b', &stack_b, lst);
+		// More cheaper, just for exemple :
+		//if ((*lst)->content[1] < data->size / 2)
+		//{
+		//	p('b', &stack_b, lst);
+		//	r('b', &stack_b, NULL);
+		//}
+		//else
+		//	p('b', &stack_b, lst);
 	}
 	data_a = get_lst_data(*lst);
 	if (DEBUG)
