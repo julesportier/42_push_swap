@@ -178,13 +178,27 @@ static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target, int 
 			r(names[0], source, NULL);
 	}
 }
-static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
+
+// start with 1 for top
+static int	get_insert_pos(t_dlstip *stack_a, t_dlstip *node)
 {
 	int	i;
-	int	j;
-	int	tmp;
+
+	i = 0;
+	while (stack_a->content[1] < node->content[1]
+		&& i != get_lst_data(stack_a).size)
+	{
+		i++;
+		stack_a = stack_a->next;
+	}
+	return (i + 1);
+}
+
+static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
+{
+	int	insert_pos;
+	int	i;
 	t_pos	pos;
-	t_dlstip	*tmp_target;
 	t_stack_data	data_b;
 	t_stack_data	data_a;
 
@@ -205,41 +219,31 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 	//	print_stack(*stack_b);
 	//	usleep(300000);
 	//}
-	i = 0;
-	// get pos in target (stack_a)
-	tmp_target = *stack_a;
-	while (tmp_target->content[1] < pos.node->content[1])
-	{
-		i++;
-		tmp_target = tmp_target->next;
-		if (i == get_lst_data(*stack_a).size)
-			break ;
-	}
-	i++;
-	j = i;
+	insert_pos = get_insert_pos(*stack_a, pos.node);
+	i = insert_pos;
 	if (DEBUG)
-		ft_printf("target == %d\n", i);
-	if (i <= (data_a.size / 2 + data_a.size % 2) && i != 2)
+		ft_printf("target == %d\n", insert_pos);
+	if (insert_pos <= (data_a.size / 2 + data_a.size % 2) && insert_pos != 2)
 	{
-		while (--j > 1)
+		while (--i > 1)
 			r('a', stack_a, NULL);
 	}
-	else if (i > (data_a.size / 2 + data_a.size % 2) && i != 2)
+	else if (insert_pos > (data_a.size / 2 + data_a.size % 2) && insert_pos != 2)
 	{
-		while (j++ <= data_a.size)
+		while (i++ <= data_a.size)
 			rr('a', stack_a, NULL);
 	}
 	push_cheaper("ba", stack_b, stack_a, pos.pos);
-	if (i == 2)
+	if (insert_pos == 2)
 		s('a', stack_a, NULL);
-	else if (i <= (data_a.size / 2 + data_a.size % 2) && i > 2)
+	else if (insert_pos <= (data_a.size / 2 + data_a.size % 2) && insert_pos > 2)
 	{
 		s('a', stack_a, NULL);
-		while (--i > 1)
+		while (--insert_pos > 1)
 			rr('a', stack_a, NULL);
 	}
-	else if (i > (data_a.size / 2 + data_a.size % 2) && i > 2)
-		while (i++ <= data_a.size + 1)
+	else if (insert_pos > (data_a.size / 2 + data_a.size % 2) && insert_pos > 2)
+		while (insert_pos++ <= data_a.size + 1)
 			r('a', stack_a, NULL);
 }
 
