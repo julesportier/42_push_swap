@@ -73,33 +73,33 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 }
 
 // is_inferior() for stack_a to b and is_superior() for stack_b to a
-static int	get_cheaper_pos(
-	t_dlstip *lst, t_stack_data *data, int check(int a, int b))
-{
-	t_dlstip	*cheaper;
-	int			i;
-	int			pos;
-
-	pos = 1;
-	i = 1;
-	cheaper = lst;
-	while (i <= data->size)
-	{
-		if (lst->content[3] <= cheaper->content[3])
-		{
-			if (lst->content[3] == cheaper->content[3]
-				&& check(lst->content[1], cheaper->content[1])
-				|| lst->content[3] != cheaper->content[3])
-			{
-				cheaper = lst;
-				pos = i;
-			}
-		}
-		lst = lst->next;
-		i++;
-	}
-	return (pos);
-}
+//static int	get_cheaper_pos(
+//	t_dlstip *lst, t_stack_data *data, int check(int a, int b))
+//{
+//	t_dlstip	*cheaper;
+//	int			i;
+//	int			pos;
+//
+//	pos = 1;
+//	i = 1;
+//	cheaper = lst;
+//	while (i <= data->size)
+//	{
+//		if (lst->content[3] <= cheaper->content[3])
+//		{
+//			if ((lst->content[3] == cheaper->content[3]
+//				&& check(lst->content[1], cheaper->content[1]))
+//				|| lst->content[3] != cheaper->content[3])
+//			{
+//				cheaper = lst;
+//				pos = i;
+//			}
+//		}
+//		lst = lst->next;
+//		i++;
+//	}
+//	return (pos);
+//}
 
 // TODO
 // merge with get_cheaper_pos with function pointer is_superior/is_inferior
@@ -117,8 +117,8 @@ static t_pos	get_cheaper_pos_pa(t_dlstip *lst)
 	{
 		if (lst->content[3] <= pos.node->content[3])
 		{
-			if (lst->content[3] == pos.node->content[3]
-				&& lst->content[1] > pos.node->content[1]
+			if ((lst->content[3] == pos.node->content[3]
+				&& lst->content[1] > pos.node->content[1])
 				|| lst->content[3] != pos.node->content[3])
 			{
 				pos.node = lst;
@@ -199,12 +199,12 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 	int	insert_pos;
 	int	i;
 	t_pos	pos;
-	t_stack_data	data_b;
+	//t_stack_data	data_b;
 	t_stack_data	data_a;
 
 	store_cost_insert_a(*stack_a, *stack_b, data);
 	pos = get_cheaper_pos_pa(*stack_b);
-	data_b = get_lst_data(*stack_b);
+	//data_b = get_lst_data(*stack_b);
 	data_a = get_lst_data(*stack_a);
 	//if (DEBUG)
 	//{
@@ -321,7 +321,7 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("sorted stack: ", 1);
 		print_stack(lst);
 	}
-	int	i = 3;
+	//int	i = 3;
 	ft_dlstip_clear(&lst);
 	ft_dlstip_clear(&stack);
 	//t_dlisti	*new_node = ft_dlstip_new(1);
@@ -355,33 +355,33 @@ int	main(int argc, char **argv)
 //}
 //
 // OBSOLETE
-static char	get_best_pos(t_dlstip *stack_a)
-{
-	int	tmp;
-	char	pos;
-
-	tmp = stack_a->content[1];
-	pos = 'h';
-	if (stack_a->next->content[1] < tmp)
-	{
-		tmp = stack_a->next->content[1];
-		pos = 'n';
-	}
-	if (stack_a->prev->content[1] < tmp)
-	{
-		tmp = stack_a->prev->content[1];
-		pos = 't';
-	}
-	return (pos);
-}
-
-// OBSOLETE
-static void	move_best(t_dlstip **stack_a, t_dlstip **stack_b, char best)
-{
-	if (best == 'n')
-		s('a', stack_a, NULL);
-	if (best == 't')
-		rr('a', stack_a, NULL);
-	p('b', stack_b, stack_a);
-}
-
+//static char	get_best_pos(t_dlstip *stack_a)
+//{
+//	int	tmp;
+//	char	pos;
+//
+//	tmp = stack_a->content[1];
+//	pos = 'h';
+//	if (stack_a->next->content[1] < tmp)
+//	{
+//		tmp = stack_a->next->content[1];
+//		pos = 'n';
+//	}
+//	if (stack_a->prev->content[1] < tmp)
+//	{
+//		tmp = stack_a->prev->content[1];
+//		pos = 't';
+//	}
+//	return (pos);
+//}
+//
+//// OBSOLETE
+//static void	move_best(t_dlstip **stack_a, t_dlstip **stack_b, char best)
+//{
+//	if (best == 'n')
+//		s('a', stack_a, NULL);
+//	if (best == 't')
+//		rr('a', stack_a, NULL);
+//	p('b', stack_b, stack_a);
+//}
+//
