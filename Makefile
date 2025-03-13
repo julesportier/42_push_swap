@@ -37,10 +37,10 @@ ft:
 	make CFLAGS="$(CFLAGS)" -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBFT_FLAGS)
+	$(CC) $^ -o $@ $(LIBFT_FLAGS)
 
 $(OBJ_DIR)/%.o: %.c Makefile $(HEADER) $(LIBFT_AR)
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	make clean -C $(LIBFT_DIR)
