@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 #include "../libft/src/libft.h"
-#include "../libft/src/ftpf_printf.h"
+#include "../libft/src/ft_printf.h"
 
 t_stack_data	get_lst_data(t_dlstip *lst)
 {

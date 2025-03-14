@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../libft/src/ftpf_printf.h"
+#include "../libft/src/ft_printf.h"
 
 void	s(char name, t_dlstip **stack_a, t_dlstip **stack_b)
 {

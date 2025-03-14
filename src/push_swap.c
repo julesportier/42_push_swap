@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 #include "../libft/src/libft.h"
-#include "../libft/src/ftpf_printf.h"
+#include "../libft/src/ft_printf.h"
 #include <stdlib.h>
 
 static int	is_superior(int a, int b)
