@@ -14,6 +14,7 @@ vpath %.h $(SRC_DIR)
 HEADER := push_swap.h
 vpath %.c $(SRC_DIR)
 SRC := push_swap.c \
+       lst_utils.c \
        error.c \
        parsing.c \
        data_collect.c \
@@ -26,8 +27,8 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 all: $(OBJ_DIR) ft $(NAME)
 $(OBJ_DIR):
-	git submodule init
-	git submodule update
+	# git submodule init
+	# git submodule update
 	mkdir -p $(OBJ_DIR)
 noerr: CFLAGS = $(CFLAGS_NE)
 noerr: all

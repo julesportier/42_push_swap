@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/10 09:21:57 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:02:38 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 #define DEBUG 0
 #define USLEEP 10000
+
+typedef struct s_elem
+{
+	int	value;
+	int	order;
+	int	mv_nbr;
+	int	cost;
+}	t_elem;
 
 typedef struct s_stack_data
 {
@@ -28,6 +36,10 @@ typedef struct s_pos
 	t_dlstip	*node;
 }	t_pos;
 
+// lst_utils.c
+int		get_member(t_dlst *node, char *member);
+int		set_member(t_dlst *node, char *member, int val);
+void		print_lst(t_dlst *lst);
 // error.c
 void		exit_error(char *error);
 void		exit_error_free(char *error, t_dlstip **lst);
