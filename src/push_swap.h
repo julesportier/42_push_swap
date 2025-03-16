@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/src/libft.h"
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-#define DEBUG 1
-#define USLEEP 10000
+# include "../libft/src/libft.h"
+
+# define DEBUG 1
+# define USLEEP 10000
 
 typedef struct s_elem
 {
@@ -61,3 +64,5 @@ void		s(char name, t_dlst **stack_a, t_dlst **stack_b);
 void		p(char name, t_dlst **stack_a, t_dlst **stack_b);
 void		r(char name, t_dlst **stack_a, t_dlst **stack_b);
 void		rr(char name, t_dlst **stack_a, t_dlst **stack_b);
+
+#endif
