@@ -14,8 +14,16 @@
 #include "../libft/src/libft.h"
 #include "../libft/src/ft_printf.h"
 
+// The two function above permits to avoid direct pointer manipulation
+// to access list members to improve readability.
+// e.g.
+// (((t_elem *)(node->content))->value);
+// become:
+// get_member(node, "value")
 int	get_member(t_dlst *node, char *member)
 {
+	if (node == NULL || member == NULL)
+		return (-1);
 	if (ft_strncmp("value", member, 5) == 0)
 		return (((t_elem *)(node->content))->value);
 	else if (ft_strncmp("order", member, 5) == 0)
@@ -27,12 +35,14 @@ int	get_member(t_dlst *node, char *member)
 	else
 	{
 		ft_putendl_fd("get_member error: wrong member name", 2);
-		return (0);
+		return (-1);
 	}
 }
 
 int	set_member(t_dlst *node, char *member, int val)
 {
+	if (node == NULL || member == NULL)
+		return (-1);
 	if (ft_strncmp("value", member, 5) == 0)
 		((t_elem *)(node->content))->value = val;
 	else if (ft_strncmp("order", member, 5) == 0)
@@ -44,7 +54,7 @@ int	set_member(t_dlst *node, char *member, int val)
 	else
 	{
 		ft_putendl_fd("get_member error: wrong member name", 2);
-		return (1);
+		return (-1);
 	}
 	return (0);
 }
