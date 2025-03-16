@@ -14,14 +14,14 @@
 
 static int	find_duplicates(t_dlstip *lst)
 {
-	t_dlstip	*tail;
+	t_dlstip	*last;
 	t_dlstip	*tmp_node;
 
-	tail = lst->prev;
-	while (lst != tail)
+	last = lst->prev;
+	while (lst != last)
 	{
 		tmp_node = lst;
-		while (tmp_node != tail)
+		while (tmp_node != last)
 		{
 			tmp_node = tmp_node->next;
 			if (lst->content[0] == tmp_node->content[0])

@@ -31,11 +31,11 @@ static int	is_inferior(int a, int b)
 
 static int	is_sorted(t_dlstip *lst, int check(int a, int b))
 {
-	t_dlstip	*tail;
+	t_dlstip	*last;
 	t_dlstip	*prev_node;
 
-	tail = lst->prev;
-	while (lst != tail)
+	last = lst->prev;
+	while (lst != last)
 	{
 		prev_node = lst;
 		lst = lst->next;
@@ -337,16 +337,16 @@ int	main(int argc, char **argv)
 }
 //static int	get_lst_size(t_dlstip *lst)
 //{
-//	t_dlstip	*tail;
+//	t_dlstip	*last;
 //	int			size;
 //
 //	if (lst)
-//		tail = lst->prev;
+//		last = lst->prev;
 //	size = 0;
 //	while (lst)
 //	{
 //		size++;
-//		if (lst == tail)
+//		if (lst == last)
 //			lst = NULL;
 //		else
 //			lst = lst->next;
