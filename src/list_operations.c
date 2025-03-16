@@ -12,19 +12,19 @@
 
 #include "push_swap.h"
 
-void	rot(t_dlstip **stack)
+void	rot(t_dlst **stack)
 {
 	if (stack && *stack)
 		*stack = (*stack)->next;
 }
 
-void	rev_rot(t_dlstip **stack)
+void	rev_rot(t_dlst **stack)
 {
 	if (stack && *stack)
 		*stack = (*stack)->prev;
 }
 
-void	swap(t_dlstip **stack)
+void	swap(t_dlst **stack)
 {
 	int	*tmp;
 
@@ -36,9 +36,9 @@ void	swap(t_dlstip **stack)
 	}
 }
 
-void	push(t_dlstip **target, t_dlstip **source)
+void	push(t_dlst **target, t_dlst **source)
 {
-	t_dlstip	*tmp;
+	t_dlst	*tmp;
 
 	if (target && source && *source)
 	{
@@ -48,15 +48,15 @@ void	push(t_dlstip **target, t_dlstip **source)
 			tmp = (*source)->next;
 		else
 			tmp = NULL;
-		ft_cdlstip_add_front(target, *source);
+		ft_cdlstadd_front(target, *source);
 		*source = tmp;
 	}
 }
 
-void	push_push(t_dlstip **lst_a, t_dlstip **lst_b)
+void	push_push(t_dlst **lst_a, t_dlst **lst_b)
 {
-	t_dlstip	*tmp_a;
-	t_dlstip	*tmp_b;
+	t_dlst	*tmp_a;
+	t_dlst	*tmp_b;
 
 	tmp_a = NULL;
 	tmp_b = NULL;

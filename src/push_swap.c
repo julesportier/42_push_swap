@@ -29,24 +29,24 @@ static int	is_inferior(int a, int b)
 	return (0);
 }
 
-static int	is_sorted(t_dlstip *lst, int check(int a, int b))
+static int	is_sorted(t_dlst *lst, int check(int a, int b))
 {
-	t_dlstip	*last;
-	t_dlstip	*prev_node;
+	t_dlst	*last;
+	t_dlst	*prev_node;
 
 	last = lst->prev;
 	while (lst != last)
 	{
 		prev_node = lst;
 		lst = lst->next;
-		if (check(prev_node->content[0], lst->content[0]))
+		if (check(get_member(prev_node, "value"), get_member(lst, "value")))
 			return (0);
 	}
 	return (1);
 }
 
 // already checked if given sorted, size == 1 or 2
-static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
+static void	sort_in_place(t_dlst **lst, t_stack_data *data)
 {
 	if (data->size == 2)
 	{
@@ -57,16 +57,16 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 	{
 		while (!is_sorted(*lst, is_superior))
 		{
-			if ((*lst)->content[0] == data->max)
+			if (get_member(*lst, "value") == data->max)
 				r('a', lst, NULL);
-			else if ((*lst)->prev->content[0] == data->min)
+			else if (get_member((*lst)->prev, "value") == data->min)
 				rr('a', lst, NULL);
-			else if ((*lst)->content[0] == data->min)
+			else if (get_member(*lst, "value") == data->min)
 			{
 				rr('a', lst, NULL);
 				s('a', lst, NULL);
 			}
-			else if ((*lst)->next->content[0] == data->min)
+			else if (get_member((*lst)->next, "value") == data->min)
 				s('a', lst, NULL);
 		}
 	}
@@ -74,9 +74,9 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 
 // is_inferior() for stack_a to b and is_superior() for stack_b to a
 //static int	get_cheaper_pos(
-//	t_dlstip *lst, t_stack_data *data, int check(int a, int b))
+//	t_dlst *lst, t_stack_data *data, int check(int a, int b))
 //{
-//	t_dlstip	*cheaper;
+//	t_dlst	*cheaper;
 //	int			i;
 //	int			pos;
 //
@@ -85,11 +85,11 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 //	cheaper = lst;
 //	while (i <= data->size)
 //	{
-//		if (lst->content[3] <= cheaper->content[3])
+//		if (get_member(lst, "cost") <= cheaper->content[3])
 //		{
-//			if ((lst->content[3] == cheaper->content[3]
-//				&& check(lst->content[1], cheaper->content[1]))
-//				|| lst->content[3] != cheaper->content[3])
+//			if ((get_member(lst, "cost") == cheaper->content[3]
+//				&& check(get_member(lst, "order"), cheaper->content[1]))
+//				|| get_member(lst, "cost") != cheaper->content[3])
 //			{
 //				cheaper = lst;
 //				pos = i;
@@ -103,7 +103,7 @@ static void	sort_in_place(t_dlstip **lst, t_stack_data *data)
 
 // TODO
 // merge with get_cheaper_pos with function pointer is_superior/is_inferior
-static t_pos	get_cheaper_pos_pa(t_dlstip *lst)
+static t_pos	get_cheaper_pos_pa(t_dlst *lst)
 {
 	t_stack_data	data;
 	int			i;
@@ -115,11 +115,11 @@ static t_pos	get_cheaper_pos_pa(t_dlstip *lst)
 	data = get_lst_data(lst);
 	while (i <= data.size)
 	{
-		if (lst->content[3] <= pos.node->content[3])
+		if (get_member(lst, "cost") <= get_member(pos.node, "cost"))
 		{
-			if ((lst->content[3] == pos.node->content[3]
-				&& lst->content[1] > pos.node->content[1])
-				|| lst->content[3] != pos.node->content[3])
+			if ((get_member(lst, "cost") == get_member(pos.node, "cost")
+				&& get_member(lst, "order") > get_member(pos.node, "order"))
+				|| get_member(lst, "cost") != get_member(pos.node, "cost"))
 			{
 				pos.node = lst;
 				pos.pos = i;
@@ -133,7 +133,7 @@ static t_pos	get_cheaper_pos_pa(t_dlstip *lst)
 
 // needs up to date costs
 // names contains [source stack name, target stack name]
-static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target, int cheaper_pos)
+static void	push_cheaper(char *names, t_dlst **source, t_dlst **target, int cheaper_pos)
 {
 	t_stack_data data;
 	int		tmp;
@@ -180,12 +180,12 @@ static void	push_cheaper(char *names, t_dlstip **source, t_dlstip **target, int 
 }
 
 // start with 1 for top
-static int	get_insert_pos(t_dlstip *stack_a, t_dlstip *node)
+static int	get_insert_pos(t_dlst *stack_a, t_dlst *node)
 {
 	int	i;
 
 	i = 0;
-	while (stack_a->content[1] < node->content[1]
+	while (get_member(stack_a, "order") < get_member(node, "order")
 		&& i != get_lst_data(stack_a).size)
 	{
 		i++;
@@ -194,7 +194,7 @@ static int	get_insert_pos(t_dlstip *stack_a, t_dlstip *node)
 	return (i + 1);
 }
 
-static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data)
+static void	insert_pa(t_dlst **stack_a, t_dlst **stack_b, t_stack_data *data)
 {
 	int	insert_pos;
 	int	i;
@@ -247,9 +247,9 @@ static void	insert_pa(t_dlstip **stack_a, t_dlstip **stack_b, t_stack_data *data
 			r('a', stack_a, NULL);
 }
 
-static void	sort_stack(t_dlstip **lst, t_stack_data *data)
+static void	sort_stack(t_dlst **lst, t_stack_data *data)
 {
-	t_dlstip	*stack_b;
+	t_dlst	*stack_b;
 	t_stack_data	data_a;
 	//int			limit;
 
@@ -294,8 +294,8 @@ static void	sort_stack(t_dlstip **lst, t_stack_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_dlstip		*lst;
-	t_dlstip		*stack;
+	t_dlst		*lst;
+	t_dlst		*stack;
 	t_stack_data	data;
 
 	if (argc < 2)
@@ -322,8 +322,8 @@ int	main(int argc, char **argv)
 		print_stack(lst);
 	}
 	//int	i = 3;
-	ft_dlstip_clear(&lst);
-	ft_dlstip_clear(&stack);
+	ft_cdlstclear(&lst);
+	ft_cdlstclear(&stack);
 	//t_dlisti	*new_node = ft_dlstip_new(1);
 	//ft_cdlstip_add_back(&lst, new_node);
 	//print_stack(lst);
@@ -335,9 +335,9 @@ int	main(int argc, char **argv)
 	//print_stack(lst);
 	exit(EXIT_SUCCESS);
 }
-//static int	get_lst_size(t_dlstip *lst)
+//static int	get_lst_size(t_dlst *lst)
 //{
-//	t_dlstip	*last;
+//	t_dlst	*last;
 //	int			size;
 //
 //	if (lst)
@@ -355,7 +355,7 @@ int	main(int argc, char **argv)
 //}
 //
 // OBSOLETE
-//static char	get_best_pos(t_dlstip *stack_a)
+//static char	get_best_pos(t_dlst *stack_a)
 //{
 //	int	tmp;
 //	char	pos;
@@ -376,7 +376,7 @@ int	main(int argc, char **argv)
 //}
 //
 //// OBSOLETE
-//static void	move_best(t_dlstip **stack_a, t_dlstip **stack_b, char best)
+//static void	move_best(t_dlst **stack_a, t_dlst **stack_b, char best)
 //{
 //	if (best == 'n')
 //		s('a', stack_a, NULL);

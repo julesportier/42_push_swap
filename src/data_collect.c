@@ -14,25 +14,39 @@
 #include "../libft/src/libft.h"
 #include "../libft/src/ft_printf.h"
 
-t_stack_data	get_lst_data(t_dlstip *lst)
+static int	max(int a, int b)
 {
-	t_dlstip		*head;
+	if (a >= b)
+		return (a);
+	else
+		return (b);
+}
+
+static int	min(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
+
+t_stack_data	get_lst_data(t_dlst *lst)
+{
+	t_dlst		*head;
 	t_stack_data	data;
 
 	if (lst)
 	{
 		data = (t_stack_data){
-			.max = lst->content[0], .min = lst->content[0], .size = 0};
+			.max = get_member(lst, "value"), .min = get_member(lst, "value"), .size = 0};
 		head = lst;
 	}
 	else
 		data = (t_stack_data){0, 0, 0};
 	while (lst)
 	{
-		if (lst->content[0] > data.max)
-			data.max = lst->content[0];
-		else if (lst->content[0] < data.min)
-			data.min = lst->content[0];
+		data.max = max(data.max, get_member(lst, "value"));
+		data.min = min(data.min, get_member(lst, "value"));
 		data.size++;
 		lst = lst->next;
 		if (lst == head)
@@ -41,10 +55,10 @@ t_stack_data	get_lst_data(t_dlstip *lst)
 	return (data);
 }
 
-void	store_order(t_dlstip *lst, t_stack_data *data)
+void	store_order(t_dlst *lst, t_stack_data *data)
 {
-	t_dlstip	*head;
-	t_dlstip	*min;
+	t_dlst	*head;
+	t_dlst	*min;
 	int			i;
 
 	head = lst;
@@ -53,53 +67,56 @@ void	store_order(t_dlstip *lst, t_stack_data *data)
 	while (i <= data->size)
 	{
 		lst = head;
-		while (lst->content[1] != -1)
+		while (get_member(lst, "order") != -1)
 			lst = lst->next;
 		min = lst;
 		while (1)
 		{
-			if (lst->content[1] == -1 && lst->content[0] < min->content[0])
+			if (get_member(lst, "order") == -1 && get_member(lst, "value") < get_member(min, "value"))
 				min = lst;
 			lst = lst->next;
 			if (lst == head)
 				break ;
 		}
-		min->content[1] = i;
+		set_member(min, "order", i);
 		i++;
 	}
 }
 
 // needs data updated to the current state of the stack
-void	store_cost(t_dlstip *lst, t_stack_data *data)
+void	store_cost(t_dlst *lst, t_stack_data *data)
 {
-	t_dlstip	*head;
+	t_dlst	*head;
 	int			i;
 
 	head = lst;
-	lst->content[2] = 1;
-	lst->content[3] = lst->content[1] + lst->content[2];
+	set_member(lst, "mv_nbr", 1);
+	set_member(lst, "cost",
+			get_member(lst, "order") + get_member(lst, "mv_nbr"));
 	i = 0;
 	while (++i < (data->size / 2 + data->size % 2))
 	{
 		lst = lst->next;
-		lst->content[2] = 2 * i;
-		lst->content[3] = lst->content[1] + lst->content[2];
+		set_member(lst, "mv_nbr", 2 * i);
+		set_member(lst, "cost",
+				get_member(lst, "order") + get_member(lst, "mv_nbr"));
 	}
 	i = 0;
 	lst = head->prev;
 	while (++i < (data->size / 2 + 1))
 	{
-		lst->content[2] = 2 * i;
-		lst->content[3] = lst->content[1] + lst->content[2];
+		set_member(lst, "mv_nbr", 2 * i);
+		set_member(lst, "cost",
+				get_member(lst, "order") + get_member(lst, "mv_nbr"));
 		lst = lst->prev;
 	}
 }
 
-void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *data)
+void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 {
 	int	i;
-	t_dlstip	*tmp_node;
-	t_dlstip	*head;
+	t_dlst	*tmp_node;
+	t_dlst	*head;
 	t_stack_data	data_b;
 
 	data_b = get_lst_data(stack_b);
@@ -109,7 +126,7 @@ void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *dat
 	{
 		i = 0;
 		tmp_node = stack_a;
-		while (tmp_node->content[1] < stack_b->content[1])
+		while (get_member(tmp_node, "order") < get_member(stack_b, "order"))
 		{
 			i++;
 			tmp_node = tmp_node->next;
@@ -118,12 +135,17 @@ void	store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *dat
 		}
 		if (DEBUG)
 			ft_printf("i == %d\n", i);
+		// TODO move this to get_top_moves(int	item_place)
 		if (i < (data->size / 2 + data->size % 2) && i > 1)
 			i = i * 2;
 		else if (i >= (data->size / 2 + data->size % 2) && i > 1)
 			i = (get_lst_data(stack_a).size - i) * 2;
-		stack_b->content[2] += i;
-		stack_b->content[3] = stack_b->content[2] + (data->size - stack_b->content[1]);
+		// END TODO
+		set_member(stack_b, "mv_nbr",
+				get_member(stack_b, "mv_nbr")  + i);
+		set_member(stack_b, "cost",
+				get_member(stack_b, "mv_nbr")
+				+ (data->size - get_member(stack_b, "order")));
 		if (stack_b->next != head)
 			stack_b = stack_b->next;
 		else

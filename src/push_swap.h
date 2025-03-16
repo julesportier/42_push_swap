@@ -12,7 +12,7 @@
 
 #include "../libft/src/libft.h"
 
-#define DEBUG 0
+#define DEBUG 1
 #define USLEEP 10000
 
 typedef struct s_elem
@@ -33,32 +33,31 @@ typedef struct s_stack_data
 typedef struct s_pos
 {
 	int	pos;
-	t_dlstip	*node;
+	t_dlst	*node;
 }	t_pos;
 
 // lst_utils.c
 int		get_member(t_dlst *node, char *member);
 int		set_member(t_dlst *node, char *member, int val);
-void		print_lst(t_dlst *lst);
+void		print_stack(t_dlst *lst);
 // error.c
 void		exit_error(char *error);
-void		exit_error_free(char *error, t_dlstip **lst);
+void		exit_error_free(char *error, t_dlst **lst);
 // parsing.c
-t_dlstip	*parse_args(char **argv);
+t_dlst	*parse_args(char **argv);
 // data_collect.c
-void		store_order(t_dlstip *lst, t_stack_data *data);
-t_stack_data	get_lst_data(t_dlstip *lst);
-void		store_cost(t_dlstip *lst, t_stack_data *data);
-void		store_cost_insert_a(t_dlstip *stack_a, t_dlstip *stack_b, t_stack_data *data);
+void		store_order(t_dlst *lst, t_stack_data *data);
+t_stack_data	get_lst_data(t_dlst *lst);
+void		store_cost(t_dlst *lst, t_stack_data *data);
+void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
 // list_operations.c
-void		rot(t_dlstip **stack);
-void		rev_rot(t_dlstip **stack);
-void		swap(t_dlstip **stack);
-void		push(t_dlstip **target, t_dlstip **source);
-void		push_push(t_dlstip **lst_a, t_dlstip **lst_b);
+void		rot(t_dlst **stack);
+void		rev_rot(t_dlst **stack);
+void		swap(t_dlst **stack);
+void		push(t_dlst **target, t_dlst **source);
+void		push_push(t_dlst **lst_a, t_dlst **lst_b);
 // stack_operations.c
-void		s(char name, t_dlstip **stack_a, t_dlstip **stack_b);
-void		p(char name, t_dlstip **stack_a, t_dlstip **stack_b);
-void		r(char name, t_dlstip **stack_a, t_dlstip **stack_b);
-void		rr(char name, t_dlstip **stack_a, t_dlstip **stack_b);
-void		print_stack(t_dlstip *stack);
+void		s(char name, t_dlst **stack_a, t_dlst **stack_b);
+void		p(char name, t_dlst **stack_a, t_dlst **stack_b);
+void		r(char name, t_dlst **stack_a, t_dlst **stack_b);
+void		rr(char name, t_dlst **stack_a, t_dlst **stack_b);

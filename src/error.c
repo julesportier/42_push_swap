@@ -20,9 +20,9 @@ void	exit_error(char *error)
 	exit(EXIT_FAILURE);
 }
 
-void	exit_error_free(char *error, t_dlstip **lst)
+void	exit_error_free(char *error, t_dlst **lst)
 {
-	ft_dlstip_clear(lst);
+	ft_cdlstclear(lst);
 	ft_putendl_fd(error, 2);
 	exit(EXIT_FAILURE);
 }

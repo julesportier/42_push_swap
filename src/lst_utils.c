@@ -49,7 +49,7 @@ int	set_member(t_dlst *node, char *member, int val)
 	return (0);
 }
 
-void	print_lst(t_dlst *lst)
+void	print_stack(t_dlst *lst)
 {
 	t_dlst	*head;
 
@@ -57,9 +57,9 @@ void	print_lst(t_dlst *lst)
 	while (lst)
 	{
 		ft_printf(
-			"node %X; next %X; prev %X; \
-			content->(value: %d, order: %d, \
-			mv_nbr: %d, cost: %d)\n",
+			"node %p; next %p; prev %p "
+			" ::  content->{ value: %d, order: %d, "
+			"mv_nbr: %d, cost: %d }\n",
 			lst, lst->next, lst->prev,
 			get_member(lst, "value"),
 			get_member(lst, "order"),

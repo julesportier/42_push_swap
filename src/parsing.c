@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-static int	find_duplicates(t_dlstip *lst)
+static int	find_duplicates(t_dlst *lst)
 {
-	t_dlstip	*last;
-	t_dlstip	*tmp_node;
+	t_dlst	*last;
+	t_dlst	*tmp_node;
 
 	last = lst->prev;
 	while (lst != last)
@@ -24,7 +24,7 @@ static int	find_duplicates(t_dlstip *lst)
 		while (tmp_node != last)
 		{
 			tmp_node = tmp_node->next;
-			if (lst->content[0] == tmp_node->content[0])
+			if (get_member(lst, "value") == get_member(tmp_node, "value"))
 				return (1);
 		}
 		lst = lst->next;
@@ -32,13 +32,13 @@ static int	find_duplicates(t_dlstip *lst)
 	return (0);
 }
 
-t_dlstip	*parse_args(char **argv)
+t_dlst	*parse_args(char **argv)
 {
 	size_t		i;
-	t_dlstip	*lst;
-	t_dlstip	*node;
+	t_dlst	*lst;
+	t_dlst	*node;
 	t_iflag		i_flag;
-	int			*content;
+	t_elem			*content;
 
 	i = 0;
 	lst = NULL;
@@ -47,13 +47,13 @@ t_dlstip	*parse_args(char **argv)
 		i_flag = ft_atoi_flag(argv[i]);
 		if (i_flag.flag)
 			exit_error_free("Error", &lst);
-		content = malloc(sizeof(int) * 4);
+		content = ft_calloc(1, sizeof(t_elem));
 		if (content == NULL)
 			exit_error_free("Error", &lst);
-		content[0] = i_flag.i;
-		content[1] = -1;
-		node = ft_dlstip_new(content);
-		ft_cdlstip_add_back(&lst, node);
+		content->value = i_flag.i;
+		content->order = -1;
+		node = ft_dlstnew(content);
+		ft_cdlstadd_back(&lst, node);
 	}
 	if (find_duplicates(lst))
 		exit_error_free("Error", &lst);
