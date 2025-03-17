@@ -35,14 +35,13 @@ t_stack_data	get_lst_data(t_dlst *lst)
 	t_dlst		*head;
 	t_stack_data	data;
 
+	ft_bzero(&data, sizeof(t_stack_data));
 	if (lst)
 	{
 		data = (t_stack_data){
-			.max = get_member(lst, "value"), .min = get_member(lst, "value"), .size = 0};
+			.max = get_member(lst, "value"), .min = get_member(lst, "value")};
 		head = lst;
 	}
-	else
-		data = (t_stack_data){0, 0, 0};
 	while (lst)
 	{
 		data.max = max(data.max, get_member(lst, "value"));
