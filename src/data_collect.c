@@ -111,10 +111,27 @@ void	store_cost(t_dlst *lst, t_stack_data *data)
 	}
 }
 
+// Starts at 0 if insert_pos is top
+static int	get_insert_pos(t_dlst *target, t_dlst *src_node)
+{
+	int	insert_pos;
+	t_dlst	*head;
+
+	insert_pos = 0;
+	head = target;
+	while (get_member(target, "order") < get_member(src_node, "order"))
+	{
+		insert_pos++;
+		target = target->next;
+		if (target == head)
+			break ;
+	}
+	return (insert_pos);
+}
+
 void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 {
 	int	i;
-	t_dlst	*tmp_node;
 	t_dlst	*head;
 	t_stack_data	data_b;
 
@@ -123,15 +140,7 @@ void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 	head = stack_b;
 	while (stack_b)
 	{
-		i = 0;
-		tmp_node = stack_a;
-		while (get_member(tmp_node, "order") < get_member(stack_b, "order"))
-		{
-			i++;
-			tmp_node = tmp_node->next;
-			if (tmp_node == stack_a)
-				break ;
-		}
+		i = get_insert_pos(stack_a, stack_b);
 		if (DEBUG)
 			ft_printf("i == %d\n", i);
 		// TODO move this to get_top_moves(int	item_place)
