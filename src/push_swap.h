@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/14 17:02:38 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/18 10:36:11 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 
 # define DEBUG 1
 # define USLEEP 10000
+
+// macros for operations_list
+# define PUSH 0b100
+# define SWAP 0b1000
+# define ROT 0b10000
+# define REVROT 0b100000
+# define OPERATION 0b111100
+# define A 0b1
+# define B 0b10
+# define BOTH 0b11
+# define TARGET 0b11
 
 typedef struct s_elem
 {
@@ -53,6 +64,9 @@ void		store_order(t_dlst *lst, t_stack_data *data);
 t_stack_data	get_lst_data(t_dlst *lst);
 void		store_cost(t_dlst *lst, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
+// operations_list.c
+t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
+void		print_op_lst(t_dlst *lst);
 // list_operations.c
 void		rot(t_dlst **stack);
 void		rev_rot(t_dlst **stack);

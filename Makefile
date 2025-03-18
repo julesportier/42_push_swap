@@ -18,6 +18,7 @@ SRC := push_swap.c \
        free_exit.c \
        parsing.c \
        data_collect.c \
+       operations_list.c \
        list_operations.c \
        stack_operations.c
 
