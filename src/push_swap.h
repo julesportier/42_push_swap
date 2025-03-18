@@ -44,8 +44,8 @@ int		get_member(t_dlst *node, char *member);
 int		set_member(t_dlst *node, char *member, int val);
 void		print_stack(t_dlst *lst);
 // error.c
-void		exit_error(char *error);
-void		exit_error_free(char *error, t_dlst **lst);
+void		free_exit(t_dlst **lst, int status);
+void		free_splits(char **splits);
 // parsing.c
 t_dlst	*parse_args(char **argv);
 // data_collect.c

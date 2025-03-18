@@ -12,6 +12,53 @@
 
 #include "push_swap.h"
 
+static t_dlst	*create_node(char *nbr)
+{
+	t_iflag	i_flag;
+	t_dlst	*node;
+	t_elem		*content;
+
+	i_flag = ft_atoi_flag(nbr);
+	if (i_flag.flag)
+	{
+		ft_putendl_fd("Error", 2);
+		return (NULL);
+	}
+	content = ft_calloc(1, sizeof(t_elem));
+	if (content == NULL)
+		return (NULL);
+	content->value = i_flag.i;
+	content->order = -1;
+	node = ft_dlstnew(content);
+	return (node);
+}
+
+static t_dlst	*add_arg(char *arg, t_dlst **lst)
+{
+	int	i;
+	char	**splits;
+	t_dlst	*node;
+
+	i = 0;
+	splits = ft_split(arg, ' ');
+	if (splits == NULL)
+		return (NULL);
+	while (splits[i])
+	{
+		node = create_node(splits[i]);
+		if (node == NULL)
+		{
+			ft_cdlstclear(lst);
+			free_splits(splits);
+			return (NULL);
+		}
+		ft_cdlstadd_back(lst, node);
+		i++;
+	}
+	free_splits(splits);
+	return (*lst);
+}
+
 static int	find_duplicates(t_dlst *lst)
 {
 	t_dlst	*last;
@@ -36,26 +83,19 @@ t_dlst	*parse_args(char **argv)
 {
 	size_t		i;
 	t_dlst	*lst;
-	t_dlst	*node;
-	t_iflag		i_flag;
-	t_elem			*content;
 
 	i = 0;
 	lst = NULL;
 	while (argv[++i])
 	{
-		i_flag = ft_atoi_flag(argv[i]);
-		if (i_flag.flag)
-			exit_error_free("Error", &lst);
-		content = ft_calloc(1, sizeof(t_elem));
-		if (content == NULL)
-			exit_error_free("Error", &lst);
-		content->value = i_flag.i;
-		content->order = -1;
-		node = ft_dlstnew(content);
-		ft_cdlstadd_back(&lst, node);
+		lst = add_arg(argv[i], &lst);
+		if (lst == NULL)
+			exit(EXIT_FAILURE);
 	}
 	if (find_duplicates(lst))
-		exit_error_free("Error", &lst);
+	{
+		ft_putendl_fd("Error", 2);
+		free_exit(&lst, EXIT_FAILURE);
+	}
 	return (lst);
 }

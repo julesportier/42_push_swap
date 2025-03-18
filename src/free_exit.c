@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,15 +14,23 @@
 #include "../libft/src/libft.h"
 #include <stdlib.h>
 
-void	exit_error(char *error)
-{
-	ft_putendl_fd(error, 2);
-	exit(EXIT_FAILURE);
-}
-
-void	exit_error_free(char *error, t_dlst **lst)
+void	free_exit(t_dlst **lst, int status)
 {
 	ft_cdlstclear(lst);
-	ft_putendl_fd(error, 2);
-	exit(EXIT_FAILURE);
+	exit(status);
+}
+
+void	free_splits(char **splits)
+{
+	int	i;
+
+	i = 0;
+	while (splits[i])
+	{
+		free(splits[i]);
+		splits[i] = NULL;
+		i++;
+	}
+	free(splits);
+	splits = NULL;
 }
