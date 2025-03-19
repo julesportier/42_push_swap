@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/10 10:36:42 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:12:22 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	sort_in_place(t_dlst **lst, t_stack_data *data)
 	}
 	else if (data->size == 3)
 	{
-		while (!is_sorted(*lst, is_superior))
+while (!is_sorted(*lst, is_superior))
 		{
 			if (get_member(*lst, "value") == data->max)
 				r('a', lst, NULL);
@@ -301,8 +301,6 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		exit(EXIT_FAILURE);
 	stack = NULL;
-	// TODO
-	// add split on arguments to allow: (a b c), ("a b c") and (a "b c")...
 	lst = parse_args(argv);
 	if (DEBUG)
 		print_stack(lst);
@@ -317,10 +315,38 @@ int	main(int argc, char **argv)
 		ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	if (DEBUG)
 	{
+		t_dlst	*op_lst = add_operation(NULL, PUSH, A);
+		add_operation(op_lst, PUSH, B);
+		add_operation(op_lst, SWAP, A);
+		add_operation(op_lst, SWAP, A);
+		add_operation(op_lst, SWAP, B);
+		add_operation(op_lst, SWAP, A);
+		add_operation(op_lst, ROT, A);
+		add_operation(op_lst, ROT, A);
+		add_operation(op_lst, ROT, A);
+		add_operation(op_lst, ROT, B);
+		add_operation(op_lst, SWAP, A);
+		add_operation(op_lst, REVROT, B);
+		add_operation(op_lst, REVROT, B);
+		add_operation(op_lst, REVROT, A);
+		add_operation(op_lst, REVROT, B);
+		add_operation(op_lst, REVROT, A);
+		add_operation(op_lst, ROT, A);
+		add_operation(op_lst, REVROT, A);
+		add_operation(op_lst, ROT, A);
+		add_operation(op_lst, REVROT, A);
+		add_operation(op_lst, ROT, A);
+		print_op_lst(op_lst);
+		ft_printf("simplified:\n");
+		simplify_operations(op_lst);
+		print_op_lst(op_lst);
+	}
+	sort_stack(&lst, &data);
+	if (DEBUG)
+	{
 		ft_putendl_fd("sorted stack: ", 1);
 		print_stack(lst);
 	}
-	//int	i = 3;
 	ft_cdlstclear(&lst);
 	ft_cdlstclear(&stack);
 	exit(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:18:17 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 10:23:27 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:21:14 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,30 @@ int	is_pair(int op_a, int op_b)
 		return (1);
 	else
 		return (0);
+}
+
+t_dlst	*simplify_operations(t_dlst *op_lst)
+{
+	t_dlst	*temp;
+
+	while (op_lst != NULL)
+	{
+		if (!is_pair(get_content(op_lst), get_content(op_lst->next)))
+			op_lst = op_lst->next;
+		else if (is_merge_pair(get_content(op_lst), get_content(op_lst->next)))
+		{
+			set_content(op_lst, (get_content(op_lst) & OPERATION) | BOTH);
+			ft_dlstremove(&(op_lst->next));
+			op_lst = op_lst->next;
+		}
+		else if (is_del_pair(get_content(op_lst), get_content(op_lst->next)))
+		{
+			temp = op_lst;
+			op_lst = op_lst->next->next;
+			ft_dlstremove(&(temp->next));
+			ft_dlstremove(&temp);
+		}
+	}
+	op_lst = ft_dlsthead(op_lst);
+	return (op_lst);
 }

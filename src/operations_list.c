@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:26:20 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/18 10:34:55 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:20:56 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,17 @@ void	print_op_lst(t_dlst *lst)
 		lst = lst->next;
 	}
 }
-//
-//static int	get_content(t_dlst *node)
-//{
-//	if (node)
-//		return(*(int *)(node->content));
-//	else
-//		return (-1);
-//}
-//
+
+int	get_content(t_dlst *node)
+{
+	if (node)
+		return(*(int *)(node->content));
+	else
+		return (-1);
+
+}
+void	set_content(t_dlst *node, int operation)
+{
+	if (node)
+		*(int *)(node->content) = operation;
+}
