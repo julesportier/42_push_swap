@@ -26,7 +26,7 @@ int	get_member(t_dlst *node, char *member)
 		return (-1);
 	if (ft_strncmp("value", member, 5) == 0)
 		return (((t_elem *)(node->content))->value);
-	else if (ft_strncmp("rank", member, 5) == 0)
+	else if (ft_strncmp("rank", member, 4) == 0)
 		return (((t_elem *)(node->content))->rank);
 	else if (ft_strncmp("mv_nbr", member, 6) == 0)
 		return (((t_elem *)(node->content))->mv_nbr);
@@ -45,7 +45,7 @@ int	set_member(t_dlst *node, char *member, int val)
 		return (-1);
 	if (ft_strncmp("value", member, 5) == 0)
 		((t_elem *)(node->content))->value = val;
-	else if (ft_strncmp("rank", member, 5) == 0)
+	else if (ft_strncmp("rank", member, 4) == 0)
 		((t_elem *)(node->content))->rank = val;
 	else if (ft_strncmp("mv_nbr", member, 6) == 0)
 		((t_elem *)(node->content))->mv_nbr = val;
