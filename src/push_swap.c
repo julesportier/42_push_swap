@@ -88,7 +88,7 @@ static void	sort_in_place(t_dlst **lst, t_stack_data *data)
 //		if (get_member(lst, "cost") <= cheaper->content[3])
 //		{
 //			if ((get_member(lst, "cost") == cheaper->content[3]
-//				&& check(get_member(lst, "order"), cheaper->content[1]))
+//				&& check(get_member(lst, "rank"), cheaper->content[1]))
 //				|| get_member(lst, "cost") != cheaper->content[3])
 //			{
 //				cheaper = lst;
@@ -118,7 +118,7 @@ static t_pos	get_cheaper_pos_pa(t_dlst *lst)
 		if (get_member(lst, "cost") <= get_member(pos.node, "cost"))
 		{
 			if ((get_member(lst, "cost") == get_member(pos.node, "cost")
-				&& get_member(lst, "order") > get_member(pos.node, "order"))
+				&& get_member(lst, "rank") > get_member(pos.node, "rank"))
 				|| get_member(lst, "cost") != get_member(pos.node, "cost"))
 			{
 				pos.node = lst;
@@ -185,7 +185,7 @@ static int	get_insert_pos(t_dlst *stack_a, t_dlst *node)
 	int	i;
 
 	i = 0;
-	while (get_member(stack_a, "order") < get_member(node, "order")
+	while (get_member(stack_a, "rank") < get_member(node, "rank")
 		&& i != get_lst_data(stack_a).size)
 	{
 		i++;
@@ -255,7 +255,7 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 
 	stack_b = NULL;
 	//limit = data->size / 2 + data->size % 2;
-	store_order(*lst, data);
+	store_rank(*lst, data);
 	data_a = get_lst_data(*lst);
 	while (*lst && (get_lst_data(*lst).size > 3)
 		&& !(is_sorted(*lst, is_superior) && is_sorted(stack_b, is_inferior)

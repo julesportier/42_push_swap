@@ -32,7 +32,7 @@
 typedef struct s_elem
 {
 	int	value;
-	int	order;
+	int	rank;
 	int	mv_nbr;
 	int	cost;
 }	t_elem;
@@ -60,7 +60,7 @@ void		free_splits(char **splits);
 // parsing.c
 t_dlst	*parse_args(char **argv);
 // data_collect.c
-void		store_order(t_dlst *lst, t_stack_data *data);
+void		store_rank(t_dlst *lst, t_stack_data *data);
 t_stack_data	get_lst_data(t_dlst *lst);
 void		store_cost(t_dlst *lst, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);

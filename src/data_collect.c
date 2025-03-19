@@ -54,7 +54,7 @@ t_stack_data	get_lst_data(t_dlst *lst)
 	return (data);
 }
 
-void	store_order(t_dlst *lst, t_stack_data *data)
+void	store_rank(t_dlst *lst, t_stack_data *data)
 {
 	t_dlst	*head;
 	t_dlst	*min;
@@ -66,18 +66,18 @@ void	store_order(t_dlst *lst, t_stack_data *data)
 	while (i <= data->size)
 	{
 		lst = head;
-		while (get_member(lst, "order") != -1)
+		while (get_member(lst, "rank") != -1)
 			lst = lst->next;
 		min = lst;
 		while (1)
 		{
-			if (get_member(lst, "order") == -1 && get_member(lst, "value") < get_member(min, "value"))
+			if (get_member(lst, "rank") == -1 && get_member(lst, "value") < get_member(min, "value"))
 				min = lst;
 			lst = lst->next;
 			if (lst == head)
 				break ;
 		}
-		set_member(min, "order", i);
+		set_member(min, "rank", i);
 		i++;
 	}
 }
@@ -91,14 +91,14 @@ void	store_cost(t_dlst *lst, t_stack_data *data)
 	head = lst;
 	set_member(lst, "mv_nbr", 1);
 	set_member(lst, "cost",
-			get_member(lst, "order") + get_member(lst, "mv_nbr"));
+			get_member(lst, "rank") + get_member(lst, "mv_nbr"));
 	i = 0;
 	while (++i < (data->size / 2 + data->size % 2))
 	{
 		lst = lst->next;
 		set_member(lst, "mv_nbr", 2 * i);
 		set_member(lst, "cost",
-				get_member(lst, "order") + get_member(lst, "mv_nbr"));
+				get_member(lst, "rank") + get_member(lst, "mv_nbr"));
 	}
 	i = 0;
 	lst = head->prev;
@@ -106,7 +106,7 @@ void	store_cost(t_dlst *lst, t_stack_data *data)
 	{
 		set_member(lst, "mv_nbr", 2 * i);
 		set_member(lst, "cost",
-				get_member(lst, "order") + get_member(lst, "mv_nbr"));
+				get_member(lst, "rank") + get_member(lst, "mv_nbr"));
 		lst = lst->prev;
 	}
 }
@@ -119,7 +119,7 @@ static int	get_insert_pos(t_dlst *target, t_dlst *src_node)
 
 	insert_pos = 0;
 	head = target;
-	while (get_member(target, "order") < get_member(src_node, "order"))
+	while (get_member(target, "rank") < get_member(src_node, "rank"))
 	{
 		insert_pos++;
 		target = target->next;
@@ -153,7 +153,7 @@ void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 				get_member(stack_b, "mv_nbr")  + i);
 		set_member(stack_b, "cost",
 				get_member(stack_b, "mv_nbr")
-				+ (data->size - get_member(stack_b, "order")));
+				+ (data->size - get_member(stack_b, "rank")));
 		if (stack_b->next != head)
 			stack_b = stack_b->next;
 		else

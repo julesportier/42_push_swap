@@ -28,7 +28,7 @@ static t_dlst	*create_node(char *nbr)
 	if (content == NULL)
 		return (NULL);
 	content->value = i_flag.i;
-	content->order = -1;
+	content->rank = -1;
 	node = ft_dlstnew(content);
 	return (node);
 }
