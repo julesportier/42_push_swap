@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 12:12:22 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:51:58 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,12 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 		ft_putendl_fd("stack_b :", 1);
 		print_stack(stack_b);
 	}
+	if (DEBUG)
+	{
+		store_op_lists(*lst, stack_b);
+		ft_putendl_fd("op_list head b:", 1);
+		print_op_lst(((t_elem *)(stack_b->content))->op_lst);
+	}
 	while (stack_b != NULL)
 		insert_pa(lst, &stack_b, data);
 }
@@ -313,34 +319,34 @@ int	main(int argc, char **argv)
 	data = get_lst_data(lst);
 	if (DEBUG)
 		ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
-	if (DEBUG)
-	{
-		t_dlst	*op_lst = add_operation(NULL, PUSH, A);
-		add_operation(op_lst, PUSH, B);
-		add_operation(op_lst, SWAP, A);
-		add_operation(op_lst, SWAP, A);
-		add_operation(op_lst, SWAP, B);
-		add_operation(op_lst, SWAP, A);
-		add_operation(op_lst, ROT, A);
-		add_operation(op_lst, ROT, A);
-		add_operation(op_lst, ROT, A);
-		add_operation(op_lst, ROT, B);
-		add_operation(op_lst, SWAP, A);
-		add_operation(op_lst, REVROT, B);
-		add_operation(op_lst, REVROT, B);
-		add_operation(op_lst, REVROT, A);
-		add_operation(op_lst, REVROT, B);
-		add_operation(op_lst, REVROT, A);
-		add_operation(op_lst, ROT, A);
-		add_operation(op_lst, REVROT, A);
-		add_operation(op_lst, ROT, A);
-		add_operation(op_lst, REVROT, A);
-		add_operation(op_lst, ROT, A);
-		print_op_lst(op_lst);
-		ft_printf("simplified:\n");
-		simplify_operations(op_lst);
-		print_op_lst(op_lst);
-	}
+	//if (DEBUG)
+	//{
+	//	t_dlst	*op_lst = add_operation(NULL, PUSH, A);
+	//	add_operation(op_lst, PUSH, B);
+	//	add_operation(op_lst, SWAP, A);
+	//	add_operation(op_lst, SWAP, A);
+	//	add_operation(op_lst, SWAP, B);
+	//	add_operation(op_lst, SWAP, A);
+	//	add_operation(op_lst, ROT, A);
+	//	add_operation(op_lst, ROT, A);
+	//	add_operation(op_lst, ROT, A);
+	//	add_operation(op_lst, ROT, B);
+	//	add_operation(op_lst, SWAP, A);
+	//	add_operation(op_lst, REVROT, B);
+	//	add_operation(op_lst, REVROT, B);
+	//	add_operation(op_lst, REVROT, A);
+	//	add_operation(op_lst, REVROT, B);
+	//	add_operation(op_lst, REVROT, A);
+	//	add_operation(op_lst, ROT, A);
+	//	add_operation(op_lst, REVROT, A);
+	//	add_operation(op_lst, ROT, A);
+	//	add_operation(op_lst, REVROT, A);
+	//	add_operation(op_lst, ROT, A);
+	//	print_op_lst(op_lst);
+	//	ft_printf("simplified:\n");
+	//	simplify_operations(op_lst);
+	//	print_op_lst(op_lst);
+	//}
 	sort_stack(&lst, &data);
 	if (DEBUG)
 	{

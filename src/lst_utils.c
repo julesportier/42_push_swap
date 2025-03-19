@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:50:46 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/14 17:04:35 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:55:46 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ void	print_stack(t_dlst *lst)
 		ft_printf(
 			"node %p; next %p; prev %p "
 			" ::  content->{ value: %d, rank: %d, "
-			"mv_nbr: %d, cost: %d }\n",
+			"mv_nbr: %d, cost: %d, &op_lst: %p}\n",
 			lst, lst->next, lst->prev,
 			get_member(lst, "value"),
 			get_member(lst, "rank"),
 			get_member(lst, "mv_nbr"),
-			get_member(lst, "cost")
+			get_member(lst, "cost"),
+			((t_elem *)(lst->content))->op_lst
 		);
 		if (lst->next == head)
 			return ;

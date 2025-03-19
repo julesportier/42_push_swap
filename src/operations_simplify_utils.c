@@ -53,7 +53,7 @@ t_dlst	*simplify_operations(t_dlst *op_lst)
 {
 	t_dlst	*temp;
 
-	while (op_lst != NULL)
+	while (op_lst != NULL && op_lst->next != NULL)
 	{
 		if (!is_pair(get_content(op_lst), get_content(op_lst->next)))
 			op_lst = op_lst->next;

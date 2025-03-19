@@ -78,7 +78,7 @@ static void	print_op(t_dlst *node)
 			target = "both";
 		else
 			target = "?";
-		ft_printf("operation: %s, target: %s\n", op, target);
+		ft_printf("%s, %s\n", op, target);
 	}
 }
 
