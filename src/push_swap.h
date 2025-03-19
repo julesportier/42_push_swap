@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/18 10:36:11 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:25:13 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
 // operations_list.c
 t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
 void		print_op_lst(t_dlst *lst);
+// operations_simplify_utils.c
+int		is_merge_pair(int op_a, int op_b);
+int		is_del_pair(int op_a, int op_b);
+int		is_pair(int op_a, int op_b);
 // list_operations.c
 void		rot(t_dlst **stack);
 void		rev_rot(t_dlst **stack);
