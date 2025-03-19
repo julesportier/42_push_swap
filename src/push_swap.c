@@ -315,7 +315,6 @@ int	main(int argc, char **argv)
 	data = get_lst_data(lst);
 	if (DEBUG)
 		ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
-	sort_stack(&lst, &data);
 	if (DEBUG)
 	{
 		ft_putendl_fd("sorted stack: ", 1);
@@ -324,35 +323,8 @@ int	main(int argc, char **argv)
 	//int	i = 3;
 	ft_cdlstclear(&lst);
 	ft_cdlstclear(&stack);
-	//t_dlisti	*new_node = ft_dlstip_new(1);
-	//ft_cdlstip_add_back(&lst, new_node);
-	//print_stack(lst);
-	//t_dlisti	*new_node2 = ft_dlstip_new(2);
-	//ft_cdlstip_add_back(&lst, new_node2);
-	//print_stack(lst);
-	//t_dlisti	*new_node3 = ft_dlstip_new(3);
-	//ft_cdlstip_add_back(&lst, new_node3);
-	//print_stack(lst);
 	exit(EXIT_SUCCESS);
 }
-//static int	get_lst_size(t_dlst *lst)
-//{
-//	t_dlst	*last;
-//	int			size;
-//
-//	if (lst)
-//		last = lst->prev;
-//	size = 0;
-//	while (lst)
-//	{
-//		size++;
-//		if (lst == last)
-//			lst = NULL;
-//		else
-//			lst = lst->next;
-//	}
-//	return (size);
-//}
 //
 // OBSOLETE
 //static char	get_best_pos(t_dlst *stack_a)
