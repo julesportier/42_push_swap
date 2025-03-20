@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:50:46 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 16:55:46 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:22:21 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/src/libft.h"
 #include "../libft/src/ft_printf.h"
 
-// The two function above permits to avoid direct pointer manipulation
+// The four functions above permits to avoid direct pointer manipulation
 // to access list members to improve readability.
 // e.g.
 // (((t_elem *)(node->content))->value);
@@ -39,6 +39,13 @@ int	get_member(t_dlst *node, char *member)
 	}
 }
 
+t_dlst	*get_member_oplst(t_dlst *node)
+{
+	if (node == NULL)
+		return (NULL);
+	return (((t_elem *)(node->content))->op_lst);
+}
+
 int	set_member(t_dlst *node, char *member, int val)
 {
 	if (node == NULL || member == NULL)
@@ -59,6 +66,12 @@ int	set_member(t_dlst *node, char *member, int val)
 	return (0);
 }
 
+void	set_member_oplst(t_dlst *node, t_dlst *op_lst)
+{
+	((t_elem *)(node->content))->op_lst = op_lst;
+}
+
+
 void	print_stack(t_dlst *lst)
 {
 	t_dlst	*head;
@@ -75,7 +88,7 @@ void	print_stack(t_dlst *lst)
 			get_member(lst, "rank"),
 			get_member(lst, "mv_nbr"),
 			get_member(lst, "cost"),
-			((t_elem *)(lst->content))->op_lst
+			get_member_oplst(lst)
 		);
 		if (lst->next == head)
 			return ;

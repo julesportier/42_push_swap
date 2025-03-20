@@ -14,7 +14,7 @@ vpath %.h $(SRC_DIR)
 HEADER := push_swap.h
 vpath %.c $(SRC_DIR)
 SRC := push_swap.c \
-       lst_utils.c \
+       stack_utils.c \
        free_exit.c \
        parsing.c \
        data_collect.c \

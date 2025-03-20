@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 16:40:50 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:23:20 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ typedef struct s_pos
 	t_dlst	*node;
 }	t_pos;
 
-// lst_utils.c
+// stack_utils.c
 int		get_member(t_dlst *elem, char *member);
+t_dlst		*get_member_oplst(t_dlst *node);
 int		set_member(t_dlst *elem, char *member, int val);
+void		set_member_oplst(t_dlst *node, t_dlst *op_lst);
 void		print_stack(t_dlst *stack);
 // free_exit.c
 void		free_stack(t_dlst **stack);
