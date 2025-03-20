@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/20 17:23:20 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:30:25 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
 t_dlst		*simplify_operations(t_dlst *op_lst);
 // operations_store.c
 void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b);
+// operations_cheapest.c
+t_dlst		*get_cheapest(t_dlst *stack);
+void		free_priciers(t_dlst *stack, t_dlst *cheapest);
+t_dlst		*join_cheapest_oplst(t_dlst *main_oplst, t_dlst *cheapest_oplst);
 // stack_operations_utils.c
 void		rot(t_dlst **stack);
 void		rev_rot(t_dlst **stack);
