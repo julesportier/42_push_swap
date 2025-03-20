@@ -44,7 +44,7 @@ typedef struct s_elem
 	int	value;
 	int	rank;
 	int	mv_nbr;
-	int	cost;
+	int	cost;// THIS MEMBER IS NOT USED ANYMORE
 	t_dlst	*op_lst;
 }	t_elem;
 
@@ -74,13 +74,16 @@ t_dlst	*parse_args(char **argv);
 // data_collect.c
 void		store_rank(t_dlst *stack, t_stack_data *data);
 t_stack_data	get_stack_data(t_dlst *stack);
+// THE TWO FUNCTIONS ABOVE ARE NOT USED ANYMORE
 void		store_cost(t_dlst *stack, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
-// operations_list.c
-t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
+// END
+// operations_list_utils.c
 int		get_content(t_dlst *elem);
 void		set_content(t_dlst *elem, int operation);
 void		print_op_lst(t_dlst *op_lst);
+// operations_list_alloc.c
+t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
 // operations_simplify.c
 t_dlst		*simplify_operations(t_dlst *op_lst);
 // operations_store.c
