@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations_simplify_utils.c                        :+:      :+:    :+:   */
+/*   operations_simplify.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,7 +15,7 @@
 // Doesn't handle "pp" as it can only be usefull
 // if pushing alternatively from one stack to another.
 // e.g. [rb, pb, rrb, pa] or [ra, pa, rra, pb]
-int	is_merge_pair(int op_a, int op_b)
+static int	is_merge_pair(int op_a, int op_b)
 {
 	if ((op_a & OPERATION) == (op_b & OPERATION)
 		&& (op_a & OPERATION) != PUSH
@@ -28,7 +28,7 @@ int	is_merge_pair(int op_a, int op_b)
 		return (0);
 }
 
-int	is_del_pair(int op_a, int op_b)
+static int	is_del_pair(int op_a, int op_b)
 {
 	if ((op_a & TARGET) == (op_b & TARGET) &&
 		(((op_a & OPERATION) == ROT && (op_b & OPERATION) == REVROT)
@@ -41,7 +41,7 @@ int	is_del_pair(int op_a, int op_b)
 		return (0);
 }
 
-int	is_pair(int op_a, int op_b)
+static int	is_pair(int op_a, int op_b)
 {
 	if (is_merge_pair(op_a, op_b) || is_del_pair(op_a, op_b))
 		return (1);

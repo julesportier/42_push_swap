@@ -80,14 +80,11 @@ t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
 int		get_content(t_dlst *elem);
 void		set_content(t_dlst *elem, int operation);
 void		print_op_lst(t_dlst *op_lst);
-// operations_simplify_utils.c
-int		is_merge_pair(int op_a, int op_b);
-int		is_del_pair(int op_a, int op_b);
-int		is_pair(int op_a, int op_b);
+// operations_simplify.c
 t_dlst		*simplify_operations(t_dlst *op_lst);
-// store_op_lists.c
+// operations_store.c
 void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b);
-// list_operations.c
+// stack_operations_utils.c
 void		rot(t_dlst **stack);
 void		rev_rot(t_dlst **stack);
 void		swap(t_dlst **stack);

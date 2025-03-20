@@ -19,9 +19,9 @@ SRC := push_swap.c \
        parsing.c \
        data_collect.c \
        operations_list.c \
-       operations_simplify_utils.c \
-       store_op_lists.c \
-       list_operations.c \
+       operations_simplify.c \
+       operations_store.c \
+       stack_operations_utils.c \
        stack_operations.c
 
 OBJ_DIR := build
