@@ -72,7 +72,7 @@ static int	get_insert_pos(t_dlst *node, t_dlst *stack_a)
 	t_dlst	*last_a;
 
 	pos = 0;
-	min_a = get_lst_data(stack_a).min;
+	min_a = get_stack_data(stack_a).min;
 	last_a = stack_a->prev;
 	if (get_member(node, "value") < get_member(last_a, "value"))
 	{
@@ -127,10 +127,10 @@ void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b)
 	src_pos = 1;
 	while (node)
 	{
-		op_lst = get_oplst_totop(src_pos, get_lst_data(stack_b).size, B);
+		op_lst = get_oplst_totop(src_pos, get_stack_data(stack_b).size, B);
 		insert_pos = get_insert_pos(node, stack_a);
 		op_lst = append_oplst_insert(
-				get_lst_data(stack_a).size, insert_pos, op_lst);
+				get_stack_data(stack_a).size, insert_pos, op_lst);
 		{
 			ft_printf(MAG "TEST store_op_lists %d:\n", src_pos);
 			print_op_lst(op_lst);

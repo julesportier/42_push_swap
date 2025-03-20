@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static t_dlst	*create_node(char *nbr)
+static t_dlst	*alloc_element(char *nbr)
 {
 	t_iflag	i_flag;
 	t_dlst	*node;
@@ -45,7 +45,7 @@ static t_dlst	*add_arg(char *arg, t_dlst **lst)
 		return (NULL);
 	while (splits[i])
 	{
-		node = create_node(splits[i]);
+		node = alloc_element(splits[i]);
 		if (node == NULL)
 		{
 			ft_cdlstclear(lst);

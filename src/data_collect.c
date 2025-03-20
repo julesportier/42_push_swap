@@ -30,51 +30,51 @@ static int	min(int a, int b)
 		return (b);
 }
 
-t_stack_data	get_lst_data(t_dlst *lst)
+t_stack_data	get_stack_data(t_dlst *stack)
 {
 	t_dlst		*head;
 	t_stack_data	data;
 
 	ft_bzero(&data, sizeof(t_stack_data));
-	if (lst)
+	if (stack)
 	{
 		data = (t_stack_data){
-			.max = get_member(lst, "value"), .min = get_member(lst, "value")};
-		head = lst;
+			.max = get_member(stack, "value"), .min = get_member(stack, "value")};
+		head = stack;
 	}
-	while (lst)
+	while (stack)
 	{
-		data.max = max(data.max, get_member(lst, "value"));
-		data.min = min(data.min, get_member(lst, "value"));
+		data.max = max(data.max, get_member(stack, "value"));
+		data.min = min(data.min, get_member(stack, "value"));
 		data.size++;
-		lst = lst->next;
-		if (lst == head)
+		stack = stack->next;
+		if (stack == head)
 			break ;
 	}
 	return (data);
 }
 
-void	store_rank(t_dlst *lst, t_stack_data *data)
+void	store_rank(t_dlst *stack, t_stack_data *data)
 {
 	t_dlst	*head;
 	t_dlst	*min;
 	int			i;
 
-	head = lst;
-	min = lst;
+	head = stack;
+	min = stack;
 	i = 1;
 	while (i <= data->size)
 	{
-		lst = head;
-		while (get_member(lst, "rank") != -1)
-			lst = lst->next;
-		min = lst;
+		stack = head;
+		while (get_member(stack, "rank") != -1)
+			stack = stack->next;
+		min = stack;
 		while (1)
 		{
-			if (get_member(lst, "rank") == -1 && get_member(lst, "value") < get_member(min, "value"))
-				min = lst;
-			lst = lst->next;
-			if (lst == head)
+			if (get_member(stack, "rank") == -1 && get_member(stack, "value") < get_member(min, "value"))
+				min = stack;
+			stack = stack->next;
+			if (stack == head)
 				break ;
 		}
 		set_member(min, "rank", i);
@@ -83,31 +83,31 @@ void	store_rank(t_dlst *lst, t_stack_data *data)
 }
 
 // needs data updated to the current state of the stack
-void	store_cost(t_dlst *lst, t_stack_data *data)
+void	store_cost(t_dlst *stack, t_stack_data *data)
 {
 	t_dlst	*head;
 	int			i;
 
-	head = lst;
-	set_member(lst, "mv_nbr", 1);
-	set_member(lst, "cost",
-			get_member(lst, "rank") + get_member(lst, "mv_nbr"));
+	head = stack;
+	set_member(stack, "mv_nbr", 1);
+	set_member(stack, "cost",
+			get_member(stack, "rank") + get_member(stack, "mv_nbr"));
 	i = 0;
 	while (++i < (data->size / 2 + data->size % 2))
 	{
-		lst = lst->next;
-		set_member(lst, "mv_nbr", 2 * i);
-		set_member(lst, "cost",
-				get_member(lst, "rank") + get_member(lst, "mv_nbr"));
+		stack = stack->next;
+		set_member(stack, "mv_nbr", 2 * i);
+		set_member(stack, "cost",
+				get_member(stack, "rank") + get_member(stack, "mv_nbr"));
 	}
 	i = 0;
-	lst = head->prev;
+	stack = head->prev;
 	while (++i < (data->size / 2 + 1))
 	{
-		set_member(lst, "mv_nbr", 2 * i);
-		set_member(lst, "cost",
-				get_member(lst, "rank") + get_member(lst, "mv_nbr"));
-		lst = lst->prev;
+		set_member(stack, "mv_nbr", 2 * i);
+		set_member(stack, "cost",
+				get_member(stack, "rank") + get_member(stack, "mv_nbr"));
+		stack = stack->prev;
 	}
 }
 
@@ -135,7 +135,7 @@ void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 	t_dlst	*head;
 	t_stack_data	data_b;
 
-	data_b = get_lst_data(stack_b);
+	data_b = get_stack_data(stack_b);
 	store_cost(stack_b, &data_b);
 	head = stack_b;
 	while (stack_b)
@@ -147,7 +147,7 @@ void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 		if (i < (data->size / 2 + data->size % 2) && i > 1)
 			i = i * 2;
 		else if (i >= (data->size / 2 + data->size % 2) && i > 1)
-			i = (get_lst_data(stack_a).size - i) * 2;
+			i = (get_stack_data(stack_a).size - i) * 2;
 		// END TODO
 		set_member(stack_b, "mv_nbr",
 				get_member(stack_b, "mv_nbr")  + i);

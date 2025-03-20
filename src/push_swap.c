@@ -29,45 +29,45 @@ static int	is_inferior(int a, int b)
 	return (0);
 }
 
-static int	is_sorted(t_dlst *lst, int check(int a, int b))
+static int	is_sorted(t_dlst *stack, int check(int a, int b))
 {
 	t_dlst	*last;
 	t_dlst	*prev_node;
 
-	last = lst->prev;
-	while (lst != last)
+	last = stack->prev;
+	while (stack != last)
 	{
-		prev_node = lst;
-		lst = lst->next;
-		if (check(get_member(prev_node, "value"), get_member(lst, "value")))
+		prev_node = stack;
+		stack = stack->next;
+		if (check(get_member(prev_node, "value"), get_member(stack, "value")))
 			return (0);
 	}
 	return (1);
 }
 
 // already checked if given sorted, size == 1 or 2
-static void	sort_in_place(t_dlst **lst, t_stack_data *data)
+static void	sort_in_place(t_dlst **stack, t_stack_data *data)
 {
 	if (data->size == 2)
 	{
-		r('a', lst, NULL);
+		r('a', stack, NULL);
 		return ;
 	}
 	else if (data->size == 3)
 	{
-while (!is_sorted(*lst, is_superior))
+while (!is_sorted(*stack, is_superior))
 		{
-			if (get_member(*lst, "value") == data->max)
-				r('a', lst, NULL);
-			else if (get_member((*lst)->prev, "value") == data->min)
-				rr('a', lst, NULL);
-			else if (get_member(*lst, "value") == data->min)
+			if (get_member(*stack, "value") == data->max)
+				r('a', stack, NULL);
+			else if (get_member((*stack)->prev, "value") == data->min)
+				rr('a', stack, NULL);
+			else if (get_member(*stack, "value") == data->min)
 			{
-				rr('a', lst, NULL);
-				s('a', lst, NULL);
+				rr('a', stack, NULL);
+				s('a', stack, NULL);
 			}
-			else if (get_member((*lst)->next, "value") == data->min)
-				s('a', lst, NULL);
+			else if (get_member((*stack)->next, "value") == data->min)
+				s('a', stack, NULL);
 		}
 	}
 }
@@ -103,7 +103,7 @@ while (!is_sorted(*lst, is_superior))
 
 // TODO
 // merge with get_cheaper_pos with function pointer is_superior/is_inferior
-static t_pos	get_cheaper_pos_pa(t_dlst *lst)
+static t_pos	get_cheaper_pos_pa(t_dlst *stack_b)
 {
 	t_stack_data	data;
 	int			i;
@@ -111,21 +111,21 @@ static t_pos	get_cheaper_pos_pa(t_dlst *lst)
 
 	pos.pos = 1;
 	i = 1;
-	pos.node = lst;
-	data = get_lst_data(lst);
+	pos.node = stack_b;
+	data = get_stack_data(stack_b);
 	while (i <= data.size)
 	{
-		if (get_member(lst, "cost") <= get_member(pos.node, "cost"))
+		if (get_member(stack_b, "cost") <= get_member(pos.node, "cost"))
 		{
-			if ((get_member(lst, "cost") == get_member(pos.node, "cost")
-				&& get_member(lst, "rank") > get_member(pos.node, "rank"))
-				|| get_member(lst, "cost") != get_member(pos.node, "cost"))
+			if ((get_member(stack_b, "cost") == get_member(pos.node, "cost")
+				&& get_member(stack_b, "rank") > get_member(pos.node, "rank"))
+				|| get_member(stack_b, "cost") != get_member(pos.node, "cost"))
 			{
-				pos.node = lst;
+				pos.node = stack_b;
 				pos.pos = i;
 			}
 		}
-		lst = lst->next;
+		stack_b = stack_b->next;
 		i++;
 	}
 	return (pos);
@@ -138,7 +138,7 @@ static void	push_cheaper(char *names, t_dlst **source, t_dlst **target, int chea
 	t_stack_data data;
 	int		tmp;
 
-	data = get_lst_data(*source);
+	data = get_stack_data(*source);
 	if (DEBUG)
 	{
 		ft_putendl_fd("source :", 1);
@@ -186,7 +186,7 @@ static int	get_insert_pos(t_dlst *stack_a, t_dlst *node)
 
 	i = 0;
 	while (get_member(stack_a, "rank") < get_member(node, "rank")
-		&& i != get_lst_data(stack_a).size)
+		&& i != get_stack_data(stack_a).size)
 	{
 		i++;
 		stack_a = stack_a->next;
@@ -205,7 +205,7 @@ static void	insert_pa(t_dlst **stack_a, t_dlst **stack_b, t_stack_data *data)
 	store_cost_insert_a(*stack_a, *stack_b, data);
 	pos = get_cheaper_pos_pa(*stack_b);
 	//data_b = get_lst_data(*stack_b);
-	data_a = get_lst_data(*stack_a);
+	data_a = get_stack_data(*stack_a);
 	//if (DEBUG)
 	//{
 	//	ft_putendl_fd("insert sort", 1);
@@ -256,13 +256,13 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	stack_b = NULL;
 	//limit = data->size / 2 + data->size % 2;
 	store_rank(*lst, data);
-	data_a = get_lst_data(*lst);
-	while (*lst && (get_lst_data(*lst).size > 3)
+	data_a = get_stack_data(*lst);
+	while (*lst && (get_stack_data(*lst).size > 3)
 		&& !(is_sorted(*lst, is_superior) && is_sorted(stack_b, is_inferior)
-			&& (get_lst_data(*lst).min < get_lst_data(stack_b).max))
+			&& (get_stack_data(*lst).min < get_stack_data(stack_b).max))
 	)
 	{
-		data_a = get_lst_data(*lst);
+		data_a = get_stack_data(*lst);
 		store_cost(*lst, &data_a);
 		//push_cheaper("ab", lst, &stack_b, get_cheaper_pos(*lst, &data_a, is_inferior));
 		// it's cheaper to just push to b directly...
@@ -276,7 +276,7 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 		//else
 		//	p('b', &stack_b, lst);
 	}
-	data_a = get_lst_data(*lst);
+	data_a = get_stack_data(*lst);
 	if (DEBUG)
 		ft_printf("max == %d; min == %d; size == %d\n", data_a.max, data_a.min, data_a.size);
 	if (!is_sorted(*lst, is_superior))
@@ -316,7 +316,7 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("ascending sort", 1);
 		exit(EXIT_SUCCESS);
 	}
-	data = get_lst_data(lst);
+	data = get_stack_data(lst);
 	if (DEBUG)
 		ft_printf("max == %d\nmin == %d\nsize == %d\n", data.max, data.min, data.size);
 	//if (DEBUG)

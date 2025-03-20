@@ -62,24 +62,24 @@ typedef struct s_pos
 }	t_pos;
 
 // lst_utils.c
-int		get_member(t_dlst *node, char *member);
-int		set_member(t_dlst *node, char *member, int val);
-void		print_stack(t_dlst *lst);
+int		get_member(t_dlst *elem, char *member);
+int		set_member(t_dlst *elem, char *member, int val);
+void		print_stack(t_dlst *stack);
 // error.c
 void		free_exit(t_dlst **lst, int status);
 void		free_splits(char **splits);
 // parsing.c
 t_dlst	*parse_args(char **argv);
 // data_collect.c
-void		store_rank(t_dlst *lst, t_stack_data *data);
-t_stack_data	get_lst_data(t_dlst *lst);
-void		store_cost(t_dlst *lst, t_stack_data *data);
+void		store_rank(t_dlst *stack, t_stack_data *data);
+t_stack_data	get_stack_data(t_dlst *stack);
+void		store_cost(t_dlst *stack, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
 // operations_list.c
 t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
-int		get_content(t_dlst *node);
-void		set_content(t_dlst *node, int operation);
-void		print_op_lst(t_dlst *lst);
+int		get_content(t_dlst *elem);
+void		set_content(t_dlst *elem, int operation);
+void		print_op_lst(t_dlst *op_lst);
 // operations_simplify_utils.c
 int		is_merge_pair(int op_a, int op_b);
 int		is_del_pair(int op_a, int op_b);
@@ -92,7 +92,7 @@ void		rot(t_dlst **stack);
 void		rev_rot(t_dlst **stack);
 void		swap(t_dlst **stack);
 void		push(t_dlst **target, t_dlst **source);
-void		push_push(t_dlst **lst_a, t_dlst **lst_b);
+void		push_push(t_dlst **stack_1, t_dlst **stack_2);
 // stack_operations.c
 void		s(char name, t_dlst **stack_a, t_dlst **stack_b);
 void		p(char name, t_dlst **stack_a, t_dlst **stack_b);

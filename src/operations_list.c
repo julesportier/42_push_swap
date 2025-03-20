@@ -14,7 +14,7 @@
 #include "push_swap.h"
 #include "../libft/src/ft_printf.h"
 
-static int	*merge_op_flags(int operation_type, int target)
+static int	*alloc_operation(int operation_type, int target)
 {
 	int	*op;
 
@@ -32,7 +32,7 @@ t_dlst	*add_operation(t_dlst *op_lst, int operation_type, int target)
 
 	if (operation_type != 0 && target != 0)
 	{
-		op = merge_op_flags(operation_type, target);
+		op = alloc_operation(operation_type, target);
 		if (op == NULL)
 			return (NULL);
 		new_node = ft_dlstnew(op);
