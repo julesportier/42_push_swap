@@ -34,6 +34,8 @@ static t_dlst	*get_oplst_totop(int pos, int stack_size, int source_macro)
 		while (pos > 1)
 		{
 			op_lst = add_operation(op_lst, ROT, source_macro);
+			if (op_lst == NULL)
+				return (NULL);
 			pos--;
 		}
 		// Don't use the swap to have more simplification possibilities
@@ -50,6 +52,8 @@ static t_dlst	*get_oplst_totop(int pos, int stack_size, int source_macro)
 		while (pos <= stack_size)
 		{
 			op_lst = add_operation(op_lst, REVROT, source_macro);
+			if (op_lst == NULL)
+				return (NULL);
 			pos++;
 		}
 	}
@@ -90,10 +94,10 @@ static int	get_insert_pos(t_dlst *node, t_dlst *stack_a)
 	return (pos);
 }
 
-// Return the list of operations to "insert" the element to the correct position,
+// Append the list of operations to "insert" the element to the correct position,
 // the list is rotating: the "first" element can be everywhere,
-// this permit to avoid the rotations to make the head point to the
-// first element everytime.
+// this permit to avoid doing the rotations to point the head
+// to the first element everytime.
 static t_dlst	*append_oplst_insert(int stack_size, int insert_pos, t_dlst *op_lst)
 {
 	if (insert_pos <= (stack_size / 2 + stack_size % 2) || stack_size < 3)
@@ -101,6 +105,8 @@ static t_dlst	*append_oplst_insert(int stack_size, int insert_pos, t_dlst *op_ls
 		while (insert_pos > 0)
 		{
 			op_lst = add_operation(op_lst, ROT, A);
+			if (op_lst == NULL)
+				return (NULL);
 			insert_pos--;
 		}
 	}
@@ -109,6 +115,8 @@ static t_dlst	*append_oplst_insert(int stack_size, int insert_pos, t_dlst *op_ls
 		while (insert_pos < stack_size)
 		{
 			op_lst = add_operation(op_lst, REVROT, A);
+			if (op_lst == NULL)
+				return (NULL);
 			insert_pos++;
 		}
 	}
@@ -116,6 +124,8 @@ static t_dlst	*append_oplst_insert(int stack_size, int insert_pos, t_dlst *op_ls
 	return (op_lst);
 }
 
+// If a malloc fail in an add_operation the current op_lst, the two stack are freed
+// and the program exits.
 void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b)
 {
 	int	insert_pos;
@@ -131,6 +141,8 @@ void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b)
 		insert_pos = get_insert_pos(node, stack_a);
 		op_lst = append_oplst_insert(
 				get_stack_data(stack_a).size, insert_pos, op_lst);
+		if (op_lst == NULL)
+			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
 		{
 			ft_printf(MAG "TEST store_op_lists %d:\n", src_pos);
 			print_op_lst(op_lst);

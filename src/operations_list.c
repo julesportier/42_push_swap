@@ -25,6 +25,8 @@ static int	*alloc_operation(int operation_type, int target)
 	return (op);
 }
 
+// If the allocation fails it free the op_lst and return NULL,
+// no other memory is freed.
 t_dlst	*add_operation(t_dlst *op_lst, int operation_type, int target)
 {
 	t_dlst	*new_node;
@@ -39,9 +41,7 @@ t_dlst	*add_operation(t_dlst *op_lst, int operation_type, int target)
 		if (new_node == NULL)
 		{
 			free(op);
-			// needs to free op_lst too
-			// and all allocated memory
-			// after that: EXIT_FAILURE
+			ft_dlstclear(op_lst);
 			return (NULL);
 		}
 		ft_dlstadd_back(&op_lst, new_node);

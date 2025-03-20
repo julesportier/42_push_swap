@@ -95,7 +95,7 @@ t_dlst	*parse_args(char **argv)
 	if (find_duplicates(lst))
 	{
 		ft_putendl_fd("Error", 2);
-		free_exit(&lst, EXIT_FAILURE);
+		free_stacks_exit(&lst, NULL, EXIT_FAILURE);
 	}
 	return (lst);
 }

@@ -14,9 +14,33 @@
 #include "../libft/src/libft.h"
 #include <stdlib.h>
 
-void	free_exit(t_dlst **lst, int status)
+void	free_stack(t_dlst **stack)
 {
-	ft_cdlstclear(lst);
+	t_dlst	*node;
+	t_dlst	*last;
+
+	if (stack == NULL || *stack == NULL)
+		return ;
+	last = (*stack)->prev;
+	while (*stack)
+	{
+		node = *stack;
+		ft_dlstclear(((t_elem *)((*stack)->content))->op_lst);
+		if (*stack != last)
+			*stack = node->next;
+		else
+			*stack = NULL;
+		free(node->content);
+		node->content = NULL;
+		free(node);
+		node = NULL;
+	}
+}
+
+void	free_stacks_exit(t_dlst **stack_a, t_dlst **stack_b, int status)
+{
+	free_stack(stack_a);
+	free_stack(stack_b);
 	exit(status);
 }
 

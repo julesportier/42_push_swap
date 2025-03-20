@@ -65,8 +65,9 @@ typedef struct s_pos
 int		get_member(t_dlst *elem, char *member);
 int		set_member(t_dlst *elem, char *member, int val);
 void		print_stack(t_dlst *stack);
-// error.c
-void		free_exit(t_dlst **lst, int status);
+// free_exit.c
+void		free_stack(t_dlst **stack);
+void		free_stacks_exit(t_dlst **stack_a, t_dlst **stack_b, int status);
 void		free_splits(char **splits);
 // parsing.c
 t_dlst	*parse_args(char **argv);
