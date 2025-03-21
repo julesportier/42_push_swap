@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/20 18:30:25 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:34:24 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ OPERATIONS LISTS & SORTING ALGORITHM:
 // operations_list_utils.c
 int		get_content(t_dlst *elem);
 void		set_content(t_dlst *elem, int operation);
+char		*operation_to_str(t_dlst *node);
+// operations_list_print.c
 void		print_op_lst(t_dlst *op_lst);
 // operations_list_alloc.c
 t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);

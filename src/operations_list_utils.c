@@ -6,13 +6,12 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:26:20 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 12:20:56 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:31:51 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/src/libft.h"
 #include "push_swap.h"
-#include "../libft/src/ft_printf.h"
 
 int	get_content(t_dlst *node)
 {
@@ -22,23 +21,21 @@ int	get_content(t_dlst *node)
 		return (-1);
 
 }
+
 void	set_content(t_dlst *node, int operation)
 {
 	if (node)
 		*(int *)(node->content) = operation;
 }
 
-static void	print_op(t_dlst *node)
+static char	*optype_to_str(t_dlst *node)
 {
 	int	content;
 	char	*op;
-	char	*target;
 
 	if (node == NULL)
-		return ;
+		return (NULL);
 	content = get_content(node);
-	op = "?";
-	target = "?";
 	if ((content & OPERATION) == PUSH)
 		op = "p";
 	else if ((content & OPERATION) == SWAP)
@@ -47,20 +44,50 @@ static void	print_op(t_dlst *node)
 		op = "r";
 	else if ((content & OPERATION) == REVROT)
 		op = "rr";
+	else
+		op = NULL;
+	return (op);
+}
+
+static char	*optarget_to_str(t_dlst *node)
+{
+	int	content;
+	char	*target;
+
+	if (node == NULL)
+		return (NULL);
+	content = get_content(node);
 	if ((content & TARGET) == A)
 		target = "a";
 	else if ((content & TARGET) == B)
 		target = "b";
 	else if ((content & TARGET) == BOTH)
 		target = "both";
-	ft_printf("%s, %s\n", op, target);
+	else
+		target = NULL;
+	return (target);
 }
 
-void	print_op_lst(t_dlst *lst)
+// The string returned must be freed after use.
+// The potential check for NULL node must be did before calling this function.
+char	*operation_to_str(t_dlst *node)
 {
-	while (lst)
+	int	content;
+	char	*op_type;
+	char	*operation;
+
+	content = get_content(node);
+	op_type = optype_to_str(node);
+	if ((content & TARGET) == BOTH)
 	{
-		print_op(lst);
-		lst = lst->next;
+		if ((content & OPERATION) == ROT || (content & OPERATION) == REVROT)
+			operation = ft_strjoin(op_type, "r");
+		else
+			operation = ft_strjoin(op_type, op_type);
 	}
+	else
+		operation = ft_strjoin(op_type, optarget_to_str(node));
+	if (operation == NULL)
+		return (NULL);
+	return (operation);
 }
