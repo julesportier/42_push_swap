@@ -61,6 +61,9 @@ typedef struct s_pos
 	t_dlst	*node;
 }	t_pos;
 
+/*****
+UTILS:
+*****/
 // stack_utils.c
 int		get_member(t_dlst *elem, char *member);
 t_dlst		*get_member_oplst(t_dlst *node);
@@ -71,6 +74,10 @@ void		print_stack(t_dlst *stack);
 void		free_stack(t_dlst **stack);
 void		free_stacks_exit(t_dlst **stack_a, t_dlst **stack_b, int status);
 void		free_splits(char **splits);
+
+/***********************
+PARSING & DATA COLLECT :
+***********************/
 // parsing.c
 t_dlst	*parse_args(char **argv);
 // data_collect.c
@@ -80,6 +87,10 @@ t_stack_data	get_stack_data(t_dlst *stack);
 void		store_cost(t_dlst *stack, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
 // END
+
+/************************************
+OPERATIONS LISTS & SORTING ALGORITHM:
+************************************/
 // operations_list_utils.c
 int		get_content(t_dlst *elem);
 void		set_content(t_dlst *elem, int operation);
@@ -94,6 +105,10 @@ void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b);
 t_dlst		*get_cheapest(t_dlst *stack);
 void		free_priciers(t_dlst *stack, t_dlst *cheapest);
 t_dlst		*join_cheapest_oplst(t_dlst *main_oplst, t_dlst *cheapest_oplst);
+
+/**********************
+OPERATIONS APPLICATION:
+**********************/
 // stack_operations_utils.c
 void		rot(t_dlst **stack);
 void		rev_rot(t_dlst **stack);
