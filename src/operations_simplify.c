@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:18:17 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 12:21:14 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:58:15 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 // e.g. [rb, pb, rrb, pa] or [ra, pa, rra, pb]
 static int	is_merge_pair(int op_a, int op_b)
 {
-	if ((op_a & OPERATION) == (op_b & OPERATION)
-		&& (op_a & OPERATION) != PUSH
+	if ((op_a & TYPE) == (op_b & TYPE)
+		&& (op_a & TYPE) != PUSH
 		&& (((op_a & TARGET) == A && (op_b & TARGET) == B)
 		|| ((op_a & TARGET) == B && (op_b & TARGET) == A)))
 	{
@@ -31,9 +31,9 @@ static int	is_merge_pair(int op_a, int op_b)
 static int	is_del_pair(int op_a, int op_b)
 {
 	if ((op_a & TARGET) == (op_b & TARGET) &&
-		(((op_a & OPERATION) == ROT && (op_b & OPERATION) == REVROT)
-		|| ((op_a & OPERATION) == REVROT && (op_b & OPERATION) == ROT)
-		|| ((op_a & OPERATION) == SWAP && (op_b & OPERATION) == SWAP)))
+		(((op_a & TYPE) == ROT && (op_b & TYPE) == REVROT)
+		|| ((op_a & TYPE) == REVROT && (op_b & TYPE) == ROT)
+		|| ((op_a & TYPE) == SWAP && (op_b & TYPE) == SWAP)))
 	{
 		return (1);
 	}
@@ -59,7 +59,7 @@ t_dlst	*simplify_operations(t_dlst *op_lst)
 			op_lst = op_lst->next;
 		else if (is_merge_pair(get_content(op_lst), get_content(op_lst->next)))
 		{
-			set_content(op_lst, (get_content(op_lst) & OPERATION) | BOTH);
+			set_content(op_lst, (get_content(op_lst) & TYPE) | BOTH);
 			ft_dlstremove(&(op_lst->next));
 			op_lst = op_lst->next;
 		}

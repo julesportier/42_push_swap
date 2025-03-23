@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 10:26:20 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 12:20:56 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:58:08 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	*alloc_operation(int operation_type, int target)
 	op = ft_calloc(1, sizeof(int));
 	if (op == NULL)
 		return (NULL);
-	*op = (operation_type & OPERATION) | (target & TARGET);
+	*op = (operation_type & TYPE) | (target & TARGET);
 	return (op);
 }
 
