@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:09:17 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/23 18:30:02 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:32:01 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_priciers(t_dlst *stack, t_dlst *cheapest)
 	}
 }
 
-t_dlst	*merge_op_lsts(t_dlst *main_oplst, t_dlst *cheapest_oplst)
+t_dlst	*join_cheapest_oplst(t_dlst *main_oplst, t_dlst *cheapest_oplst)
 {
 	if (main_oplst)
 		main_oplst->next = cheapest_oplst;
