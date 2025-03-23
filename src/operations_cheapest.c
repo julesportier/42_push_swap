@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:09:17 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/20 18:30:23 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:30:02 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_dlst	*get_cheapest(t_dlst *stack)
 	int	tmp_len;
 
 	node = stack;
+	cheapest = node;
 	min_len = INT_MAX;
 	while (node)
 	{
