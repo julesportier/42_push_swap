@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/21 13:34:24 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:56:35 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 // macros for debug
 # define DEBUG 1
-# define USLEEP 10000
+# define USLEEP 500000
 # define RED "\x1B[31m"
 # define GRN "\x1B[32m"
 # define YEL "\x1B[33m"
@@ -94,6 +94,8 @@ OPERATIONS LISTS & SORTING ALGORITHM:
 // operations_list_utils.c
 int		get_content(t_dlst *elem);
 void		set_content(t_dlst *elem, int operation);
+char		*optype_to_str(t_dlst *node);
+char		*optarget_to_str(t_dlst *node);
 char		*operation_to_str(t_dlst *node);
 // operations_list_print.c
 void		print_op_lst(t_dlst *op_lst);
@@ -107,6 +109,8 @@ void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b);
 t_dlst		*get_cheapest(t_dlst *stack);
 void		free_priciers(t_dlst *stack, t_dlst *cheapest);
 t_dlst		*join_cheapest_oplst(t_dlst *main_oplst, t_dlst *cheapest_oplst);
+// operations_apply.c
+void		apply_operations_list(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
 
 /**********************
 OPERATIONS APPLICATION:

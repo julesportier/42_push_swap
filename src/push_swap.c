@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 16:51:58 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:28:27 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,149 +103,149 @@ while (!is_sorted(*stack, is_superior))
 
 // TODO
 // merge with get_cheaper_pos with function pointer is_superior/is_inferior
-static t_pos	get_cheaper_pos_pa(t_dlst *stack_b)
-{
-	t_stack_data	data;
-	int			i;
-	t_pos			pos;
-
-	pos.pos = 1;
-	i = 1;
-	pos.node = stack_b;
-	data = get_stack_data(stack_b);
-	while (i <= data.size)
-	{
-		if (get_member(stack_b, "cost") <= get_member(pos.node, "cost"))
-		{
-			if ((get_member(stack_b, "cost") == get_member(pos.node, "cost")
-				&& get_member(stack_b, "rank") > get_member(pos.node, "rank"))
-				|| get_member(stack_b, "cost") != get_member(pos.node, "cost"))
-			{
-				pos.node = stack_b;
-				pos.pos = i;
-			}
-		}
-		stack_b = stack_b->next;
-		i++;
-	}
-	return (pos);
-}
+//static t_pos	get_cheaper_pos_pa(t_dlst *stack_b)
+//{
+//	t_stack_data	data;
+//	int			i;
+//	t_pos			pos;
+//
+//	pos.pos = 1;
+//	i = 1;
+//	pos.node = stack_b;
+//	data = get_stack_data(stack_b);
+//	while (i <= data.size)
+//	{
+//		if (get_member(stack_b, "cost") <= get_member(pos.node, "cost"))
+//		{
+//			if ((get_member(stack_b, "cost") == get_member(pos.node, "cost")
+//				&& get_member(stack_b, "rank") > get_member(pos.node, "rank"))
+//				|| get_member(stack_b, "cost") != get_member(pos.node, "cost"))
+//			{
+//				pos.node = stack_b;
+//				pos.pos = i;
+//			}
+//		}
+//		stack_b = stack_b->next;
+//		i++;
+//	}
+//	return (pos);
+//}
 
 // needs up to date costs
 // names contains [source stack name, target stack name]
-static void	push_cheaper(char *names, t_dlst **source, t_dlst **target, int cheaper_pos)
-{
-	t_stack_data data;
-	int		tmp;
-
-	data = get_stack_data(*source);
-	if (DEBUG)
-	{
-		ft_putendl_fd("source :", 1);
-		print_stack(*source);
-		ft_putendl_fd("target :", 1);
-		print_stack(*target);
-		ft_printf("cheaper pos: %d\n", cheaper_pos);
-		usleep(USLEEP);
-	}
-	if (cheaper_pos == 1)
-		p(names[1], target, source);
-	else if (cheaper_pos == 2)
-	{
-		s(names[0], source, NULL);
-		p(names[1], target, source);
-	}
-	else if (cheaper_pos > 2 && cheaper_pos <= (data.size / 2 + data.size % 2))
-	{
-		tmp = cheaper_pos;
-		while (tmp-- > 2)
-			r(names[0], source, NULL);
-		s(names[0], source, NULL);
-		p(names[1], target, source);
-		while (++tmp < cheaper_pos)
-			rr(names[0], source, NULL);
-	}
-	else if (cheaper_pos > 2 && cheaper_pos > (data.size / 2 + data.size % 2))
-	{
-		tmp = data.size;
-		while (tmp >= cheaper_pos)
-		{
-			rr(names[0], source, NULL);
-			tmp--;
-		}
-		p(names[1], target, source);
-		while (++tmp < data.size)
-			r(names[0], source, NULL);
-	}
-}
+//static void	push_cheaper(char *names, t_dlst **source, t_dlst **target, int cheaper_pos)
+//{
+//	t_stack_data data;
+//	int		tmp;
+//
+//	data = get_stack_data(*source);
+//	if (DEBUG)
+//	{
+//		ft_putendl_fd("source :", 1);
+//		print_stack(*source);
+//		ft_putendl_fd("target :", 1);
+//		print_stack(*target);
+//		ft_printf("cheaper pos: %d\n", cheaper_pos);
+//		usleep(USLEEP);
+//	}
+//	if (cheaper_pos == 1)
+//		p(names[1], target, source);
+//	else if (cheaper_pos == 2)
+//	{
+//		s(names[0], source, NULL);
+//		p(names[1], target, source);
+//	}
+//	else if (cheaper_pos > 2 && cheaper_pos <= (data.size / 2 + data.size % 2))
+//	{
+//		tmp = cheaper_pos;
+//		while (tmp-- > 2)
+//			r(names[0], source, NULL);
+//		s(names[0], source, NULL);
+//		p(names[1], target, source);
+//		while (++tmp < cheaper_pos)
+//			rr(names[0], source, NULL);
+//	}
+//	else if (cheaper_pos > 2 && cheaper_pos > (data.size / 2 + data.size % 2))
+//	{
+//		tmp = data.size;
+//		while (tmp >= cheaper_pos)
+//		{
+//			rr(names[0], source, NULL);
+//			tmp--;
+//		}
+//		p(names[1], target, source);
+//		while (++tmp < data.size)
+//			r(names[0], source, NULL);
+//	}
+//}
 
 // start with 1 for top
-static int	get_insert_pos(t_dlst *stack_a, t_dlst *node)
-{
-	int	i;
+//static int	get_insert_pos(t_dlst *stack_a, t_dlst *node)
+//{
+//	int	i;
+//
+//	i = 0;
+//	while (get_member(stack_a, "rank") < get_member(node, "rank")
+//		&& i != get_stack_data(stack_a).size)
+//	{
+//		i++;
+//		stack_a = stack_a->next;
+//	}
+//	return (i + 1);
+//}
 
-	i = 0;
-	while (get_member(stack_a, "rank") < get_member(node, "rank")
-		&& i != get_stack_data(stack_a).size)
-	{
-		i++;
-		stack_a = stack_a->next;
-	}
-	return (i + 1);
-}
-
-static void	insert_pa(t_dlst **stack_a, t_dlst **stack_b, t_stack_data *data)
-{
-	int	insert_pos;
-	int	i;
-	t_pos	pos;
-	//t_stack_data	data_b;
-	t_stack_data	data_a;
-
-	store_cost_insert_a(*stack_a, *stack_b, data);
-	pos = get_cheaper_pos_pa(*stack_b);
-	//data_b = get_lst_data(*stack_b);
-	data_a = get_stack_data(*stack_a);
-	//if (DEBUG)
-	//{
-	//	ft_putendl_fd("insert sort", 1);
-	//	ft_printf("cheaper pos == %d\n", pos.pos);
-	//}
-	//if (DEBUG)
-	//{
-	//	ft_putendl_fd("stack_a :", 1);
-	//	print_stack(*stack_a);
-	//	ft_putendl_fd("stack_b :", 1);
-	//	print_stack(*stack_b);
-	//	usleep(300000);
-	//}
-	insert_pos = get_insert_pos(*stack_a, pos.node);
-	i = insert_pos;
-	if (DEBUG)
-		ft_printf("target == %d\n", insert_pos);
-	if (insert_pos <= (data_a.size / 2 + data_a.size % 2) && insert_pos != 2)
-	{
-		while (--i > 1)
-			r('a', stack_a, NULL);
-	}
-	else if (insert_pos > (data_a.size / 2 + data_a.size % 2) && insert_pos != 2)
-	{
-		while (i++ <= data_a.size)
-			rr('a', stack_a, NULL);
-	}
-	push_cheaper("ba", stack_b, stack_a, pos.pos);
-	if (insert_pos == 2)
-		s('a', stack_a, NULL);
-	else if (insert_pos <= (data_a.size / 2 + data_a.size % 2) && insert_pos > 2)
-	{
-		s('a', stack_a, NULL);
-		while (--insert_pos > 1)
-			rr('a', stack_a, NULL);
-	}
-	else if (insert_pos > (data_a.size / 2 + data_a.size % 2) && insert_pos > 2)
-		while (insert_pos++ <= data_a.size + 1)
-			r('a', stack_a, NULL);
-}
+//static void	insert_pa(t_dlst **stack_a, t_dlst **stack_b, t_stack_data *data)
+//{
+//	int	insert_pos;
+//	int	i;
+//	t_pos	pos;
+//	//t_stack_data	data_b;
+//	t_stack_data	data_a;
+//
+//	store_cost_insert_a(*stack_a, *stack_b, data);
+//	pos = get_cheaper_pos_pa(*stack_b);
+//	//data_b = get_lst_data(*stack_b);
+//	data_a = get_stack_data(*stack_a);
+//	//if (DEBUG)
+//	//{
+//	//	ft_putendl_fd("insert sort", 1);
+//	//	ft_printf("cheaper pos == %d\n", pos.pos);
+//	//}
+//	//if (DEBUG)
+//	//{
+//	//	ft_putendl_fd("stack_a :", 1);
+//	//	print_stack(*stack_a);
+//	//	ft_putendl_fd("stack_b :", 1);
+//	//	print_stack(*stack_b);
+//	//	usleep(300000);
+//	//}
+//	insert_pos = get_insert_pos(*stack_a, pos.node);
+//	i = insert_pos;
+//	if (DEBUG)
+//		ft_printf("target == %d\n", insert_pos);
+//	if (insert_pos <= (data_a.size / 2 + data_a.size % 2) && insert_pos != 2)
+//	{
+//		while (--i > 1)
+//			r('a', stack_a, NULL);
+//	}
+//	else if (insert_pos > (data_a.size / 2 + data_a.size % 2) && insert_pos != 2)
+//	{
+//		while (i++ <= data_a.size)
+//			rr('a', stack_a, NULL);
+//	}
+//	push_cheaper("ba", stack_b, stack_a, pos.pos);
+//	if (insert_pos == 2)
+//		s('a', stack_a, NULL);
+//	else if (insert_pos <= (data_a.size / 2 + data_a.size % 2) && insert_pos > 2)
+//	{
+//		s('a', stack_a, NULL);
+//		while (--insert_pos > 1)
+//			rr('a', stack_a, NULL);
+//	}
+//	else if (insert_pos > (data_a.size / 2 + data_a.size % 2) && insert_pos > 2)
+//		while (insert_pos++ <= data_a.size + 1)
+//			r('a', stack_a, NULL);
+//}
 
 static void	sort_stack(t_dlst **lst, t_stack_data *data)
 {
@@ -288,14 +288,57 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 		ft_putendl_fd("stack_b :", 1);
 		print_stack(stack_b);
 	}
-	if (DEBUG)
+	t_dlst	*main_oplst = NULL;
+	while (ft_cdlstsize(stack_b) > 0)
 	{
+		if (DEBUG)
+		{
+			ft_putendl_fd(BLU "start" NORM, 1);
+			usleep(USLEEP);
+		}
 		store_op_lists(*lst, stack_b);
-		ft_putendl_fd("op_list head b:", 1);
-		print_op_lst(((t_elem *)(stack_b->content))->op_lst);
+		if (DEBUG)
+		{
+			ft_putendl_fd(BLU "after store", 1);
+			print_op_lst(get_member_oplst(stack_b));
+			ft_putendl_fd("stack_a :", 1);
+			print_stack(*lst);
+			ft_putendl_fd("stack_b :", 1);
+			print_stack(stack_b);
+			ft_putendl_fd(NORM, 1);
+			usleep(USLEEP);
+		}
+		t_dlst	*cheapest = get_cheapest(stack_b);
+		if (DEBUG)
+		{
+			ft_putendl_fd(YEL "cheapest:", 1);
+			print_op_lst(get_member_oplst(cheapest));
+			ft_putendl_fd(NORM, 1);
+			usleep(USLEEP);
+		}
+		free_priciers(stack_b, cheapest);
+		apply_operations_list(get_member_oplst(cheapest), lst, &stack_b);
+		//main_oplst = join_cheapest_oplst(main_oplst, cheapest);
+		ft_dlstclear(get_member_oplst(cheapest));
+		if (DEBUG)
+		{
+			ft_printf(RED "size stack_b == %d\n", ft_cdlstsize(stack_b) > 0);
+			ft_putendl_fd("main_op_lst:", 1);
+			print_op_lst(main_oplst);
+			ft_putendl_fd("stack_a :", 1);
+			print_stack(*lst);
+			ft_putendl_fd("stack_b :", 1);
+			print_stack(stack_b);
+			ft_putendl_fd(NORM, 1);
+			usleep(USLEEP);
+			//stack_b = NULL;
+		}
 	}
-	while (stack_b != NULL)
-		insert_pa(lst, &stack_b, data);
+	ft_dlstclear(main_oplst);
+
+
+
+		//insert_pa(lst, &stack_b, data);
 }
 
 int	main(int argc, char **argv)
