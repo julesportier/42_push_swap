@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:23:43 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/19 17:55:04 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:34:31 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b)
 				get_stack_data(stack_a).size, insert_pos, op_lst);
 		if (op_lst == NULL)
 			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
+		if (DEBUG)
 		{
 			ft_printf(MAG "TEST store_op_lists %d:\n", src_pos);
 			print_op_lst(op_lst);
