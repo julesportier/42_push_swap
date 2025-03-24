@@ -72,21 +72,25 @@ static t_dlst	*get_oplst_totop(int pos, int stack_size, int source_macro)
 static int	get_insert_pos(t_dlst *node, t_dlst *stack_a)
 {
 	int	pos;
-	int	min_a;
+	t_stack_data	data_a;
 	t_dlst	*last_a;
 
 	pos = 0;
-	min_a = get_stack_data(stack_a).min;
+	data_a = get_stack_data(stack_a);
 	last_a = stack_a->prev;
-	if (get_member(node, "value") < get_member(last_a, "value"))
+	if (get_member(node, "value") < get_member(last_a, "value")
+			|| get_member(node, "value") > data_a.max)
 	{
-		while (get_member(stack_a, "value") != min_a)
+		while (get_member(stack_a, "value") != data_a.min)
 		{
 			stack_a = stack_a->next;
 			pos++;
 		}
 	}
-	while (get_member(node, "value") > get_member(stack_a, "value"))
+	if (get_member(node, "value") > data_a.max)
+		return (pos);
+	while (get_member(node, "value") > get_member(stack_a, "value")
+			&& stack_a != last_a)
 	{
 		stack_a = stack_a->next;
 		pos++;
