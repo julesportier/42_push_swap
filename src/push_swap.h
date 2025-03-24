@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/24 10:50:22 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:32:28 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libft/src/libft.h"
 
 // macros for debug
-# define DEBUG 0
-# define USLEEP 500000
+# define DEBUG 1
+# define USLEEP 200000
 # define RED "\x1B[31m"
 # define GRN "\x1B[32m"
 # define YEL "\x1B[33m"

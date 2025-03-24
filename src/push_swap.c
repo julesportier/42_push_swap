@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/24 10:56:48 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:29:24 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 		apply_operations_list(get_member_oplst(cheapest), lst, &stack_b);
 		//main_oplst = join_cheapest_oplst(main_oplst, cheapest);
 		ft_dlstclear(get_member_oplst(cheapest));
+		set_member_oplst(cheapest, NULL);
 		if (DEBUG)
 		{
 			ft_printf(RED "size stack_b == %d\n", ft_cdlstsize(stack_b) > 0);
@@ -336,6 +337,7 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	}
 	t_dlst	*op_lst = get_final_rotations(*lst);
 	apply_final_rotations(op_lst, lst, &stack_b);
+	ft_dlstclear(op_lst);
 	ft_dlstclear(main_oplst);
 
 

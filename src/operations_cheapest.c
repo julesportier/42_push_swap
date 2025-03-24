@@ -6,11 +6,12 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:09:17 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/23 18:32:01 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:52:06 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/src/libft.h"
+#include "../libft/src/ft_printf.h"
 #include "push_swap.h"
 
 t_dlst	*get_cheapest(t_dlst *stack)
@@ -40,11 +41,11 @@ t_dlst	*get_cheapest(t_dlst *stack)
 
 void	free_priciers(t_dlst *stack, t_dlst *cheapest)
 {
-	t_dlst	*node;
+	t_dlst	*head;
 	t_dlst	*op_lst;
 
-	node = stack;
-	while (node)
+	head = stack;
+	while (stack)
 	{
 		op_lst = get_member_oplst(stack);
 		if (op_lst != get_member_oplst(cheapest))
@@ -52,9 +53,9 @@ void	free_priciers(t_dlst *stack, t_dlst *cheapest)
 			ft_dlstclear(op_lst);
 			set_member_oplst(stack, NULL);
 		}
-		node = node->next;
-		if (node == stack)
-			node = NULL;
+		stack = stack->next;
+		if (stack == head)
+			stack = NULL;
 	}
 }
 
