@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:15:05 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/10 09:21:00 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/24 09:22:07 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,4 +167,23 @@ void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 		print_stack(head);
 		usleep(USLEEP);
 	}
+}
+
+// stack != NULL must be checked before calling this function.
+// Returns 1 for head, stack size for last.
+int	get_value_pos(t_dlst *stack, int value)
+{
+	int	min_pos;
+	t_dlst	*head;
+
+	min_pos = 1;
+	head = stack;
+	while (get_member(stack, "value") != value)
+	{
+		min_pos++;
+		stack = stack->next;
+		if (stack == head)
+			break ;
+	}
+	return (min_pos);
 }

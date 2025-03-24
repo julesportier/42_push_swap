@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/23 18:28:27 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:56:48 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 		// it's cheaper to just push to b directly...
 		p('b', &stack_b, lst);
 		// More cheaper, just for exemple :
-		//if ((*lst)->content[1] < data->size / 2)
+		//if (get_member(*lst, "rank") < data->size / 2)
 		//{
 		//	p('b', &stack_b, lst);
 		//	r('b', &stack_b, NULL);
@@ -334,6 +334,8 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 			//stack_b = NULL;
 		}
 	}
+	t_dlst	*op_lst = get_final_rotations(*lst);
+	apply_final_rotations(op_lst, lst, &stack_b);
 	ft_dlstclear(main_oplst);
 
 

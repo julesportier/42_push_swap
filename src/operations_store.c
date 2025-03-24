@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:23:43 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/23 18:34:31 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:49:35 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/src/libft.h"
 #include "../libft/src/ft_printf.h"
 
-static t_dlst	*get_oplst_totop(int pos, int stack_size, int source_macro)
+t_dlst	*get_oplst_totop(int pos, int stack_size, int source_macro)
 {
 	t_dlst	*op_lst;
 

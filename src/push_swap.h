@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/23 18:56:35 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:50:22 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../libft/src/libft.h"
 
 // macros for debug
-# define DEBUG 1
+# define DEBUG 0
 # define USLEEP 500000
 # define RED "\x1B[31m"
 # define GRN "\x1B[32m"
@@ -83,6 +83,7 @@ t_dlst	*parse_args(char **argv);
 // data_collect.c
 void		store_rank(t_dlst *stack, t_stack_data *data);
 t_stack_data	get_stack_data(t_dlst *stack);
+int		get_value_pos(t_dlst *stack, int value);
 // THE TWO FUNCTIONS ABOVE ARE NOT USED ANYMORE
 void		store_cost(t_dlst *stack, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
@@ -104,6 +105,7 @@ t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
 // operations_simplify.c
 t_dlst		*simplify_operations(t_dlst *op_lst);
 // operations_store.c
+t_dlst		*get_oplst_totop(int pos, int stack_size, int source_macro);
 void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b);
 // operations_cheapest.c
 t_dlst		*get_cheapest(t_dlst *stack);
@@ -111,6 +113,9 @@ void		free_priciers(t_dlst *stack, t_dlst *cheapest);
 t_dlst		*join_cheapest_oplst(t_dlst *main_oplst, t_dlst *cheapest_oplst);
 // operations_apply.c
 void		apply_operations_list(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
+// final_rotations.c
+t_dlst		*get_final_rotations(t_dlst *stack_a);
+void		apply_final_rotations(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
 
 /**********************
 OPERATIONS APPLICATION:
