@@ -25,7 +25,7 @@ void	free_stack(t_dlst **stack)
 	while (*stack)
 	{
 		node = *stack;
-		ft_dlstclear(((t_elem *)((*stack)->content))->op_lst);
+		ft_dlstclear(get_member_oplst(*stack));
 		if (*stack != last)
 			*stack = node->next;
 		else
