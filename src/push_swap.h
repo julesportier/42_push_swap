@@ -26,7 +26,7 @@
 # define CYN "\x1B[36m"
 # define NORM "\x1B[0m"
 
-// macros for operations_list
+// macros for operations_list flags and masks
 # define PUSH 0b100
 # define SWAP 0b1000
 # define ROT 0b10000
@@ -61,9 +61,9 @@ typedef struct s_pos
 	t_dlst	*node;
 }	t_pos;
 
-/*****
-UTILS:
-*****/
+/********
+* UTILS *
+********/
 // stack_utils.c
 int		get_member(t_dlst *elem, char *member);
 t_dlst		*get_member_oplst(t_dlst *node);
@@ -75,9 +75,9 @@ void		free_stack(t_dlst **stack);
 void		free_stacks_exit(t_dlst **stack_a, t_dlst **stack_b, int status);
 void		free_splits(char **splits);
 
-/***********************
-PARSING & DATA COLLECT :
-***********************/
+/*************************
+* PARSING & DATA COLLECT *
+*************************/
 // parsing.c
 t_dlst	*parse_args(char **argv);
 // data_collect.c
@@ -89,9 +89,9 @@ void		store_cost(t_dlst *stack, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);
 // END
 
-/************************************
-OPERATIONS LISTS & SORTING ALGORITHM:
-************************************/
+/*******************
+* OPERATIONS LISTS *
+*******************/
 // operations_list_utils.c
 int		get_content(t_dlst *elem);
 void		set_content(t_dlst *elem, int operation);
@@ -107,19 +107,23 @@ t_dlst		*simplify_operations(t_dlst *op_lst);
 // operations_store.c
 t_dlst		*get_oplst_totop(int pos, int stack_size, int source_macro);
 void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b);
+// operations_apply.c
+void		apply_operations_list(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
+
+/********************
+* SORTING ALGORITHM *
+********************/
 // operations_cheapest.c
 t_dlst		*get_cheapest(t_dlst *stack);
 void		free_priciers(t_dlst *stack, t_dlst *cheapest);
 t_dlst		*join_cheapest_oplst(t_dlst *main_oplst, t_dlst *cheapest_oplst);
-// operations_apply.c
-void		apply_operations_list(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
 // final_rotations.c
 t_dlst		*get_final_rotations(t_dlst *stack_a);
 void		apply_final_rotations(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
 
-/**********************
-OPERATIONS APPLICATION:
-**********************/
+/*************************
+* OPERATIONS APPLICATION *
+*************************/
 // stack_operations_utils.c
 void		rot(t_dlst **stack);
 void		rev_rot(t_dlst **stack);
