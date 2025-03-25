@@ -277,7 +277,14 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	//	//	p('b', &stack_b, lst);
 	//}
 	
-	presort(lst, &stack_b, 22);
+	// best chunk size for 100 numbers is 13
+	// 500 numbers 27 w6248 a5948 b5650 (723)
+	// 500 numbers 28 w6184 a5954 b5721 (189)
+	// 500 numbers 29 w6248 a5942 b5693 (235)
+	// 500 numbers 30 w6283 a5965 b5693 (267)
+	// function to get chunk size is about f(x) = sqrt(x*3) - 5
+	// need to fine tune 3 and 5
+	presort(lst, &stack_b, 27);
 	data_a = get_stack_data(*lst);
 	if (DEBUG)
 		ft_printf("max == %d; min == %d; size == %d\n", data_a.max, data_a.min, data_a.size);

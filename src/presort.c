@@ -14,13 +14,13 @@
 #include "../libft/src/libft.h"
 #include "../libft/src/ft_printf.h"
 
-static t_dlst	*add_push_top(t_dlst *op_lst)
+static t_dlst	*add_top_to_top(t_dlst *op_lst)
 {
 	op_lst = add_operation(op_lst, PUSH, B);
 	return (op_lst);
 }
 
-static t_dlst	*add_push_bottom(t_dlst *op_lst)
+static t_dlst	*add_top_to_bottom(t_dlst *op_lst)
 {
 	op_lst = add_operation(op_lst, PUSH, B);
 	if (op_lst != NULL)
@@ -28,7 +28,15 @@ static t_dlst	*add_push_bottom(t_dlst *op_lst)
 	return (op_lst);
 }
 
-int	item_presort(
+//static t_dlst	*add_bottom_to_top(t_dlst *op_lst)
+//{
+//	op_lst = add_operation(op_lst, REVROT, A);
+//	if (op_lst != NULL)
+//		op_lst = add_operation(op_lst, PUSH, B);
+//	return (op_lst);
+//}
+
+static int	item_presort(
 	t_dlst **stack_a, t_dlst **stack_b, int chunk_size, int i)
 {
 	static int	chunk_nbr = 2;
@@ -37,14 +45,20 @@ int	item_presort(
 	op_lst = NULL;
 	if (get_member(*stack_a, "rank") <= chunk_size * (chunk_nbr - 1))
 	{
-		op_lst = add_push_top(op_lst);
+		op_lst = add_top_to_top(op_lst);
 		i++;
 	}
 	else if (get_member(*stack_a, "rank") <= chunk_size * chunk_nbr)
 	{
-		op_lst = add_push_bottom(op_lst);
+		op_lst = add_top_to_bottom(op_lst);
 		i++;
 	}
+	// just more moves
+	//else if (get_member((*stack_a)->prev, "rank") <= chunk_size * chunk_nbr)
+	//{
+	//	op_lst = add_bottom_to_top(op_lst);
+	//	i++;
+	//}
 	else
 		op_lst = add_operation(op_lst, ROT, A);
 	if (DEBUG)
