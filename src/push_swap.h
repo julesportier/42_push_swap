@@ -16,8 +16,8 @@
 # include "../libft/src/libft.h"
 
 // macros for debug
-# define DEBUG 1
-# define USLEEP 200000
+# define DEBUG 0
+# define USLEEP 100000
 # define RED "\x1B[31m"
 # define GRN "\x1B[32m"
 # define YEL "\x1B[33m"
@@ -113,6 +113,8 @@ void		apply_operations_list(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
 /********************
 * SORTING ALGORITHM *
 ********************/
+// presort.c
+void		presort(t_dlst **stack_a, t_dlst **stack_b, int chunk_size);
 // operations_cheapest.c
 t_dlst		*get_cheapest(t_dlst *stack);
 void		free_priciers(t_dlst *stack, t_dlst *cheapest);

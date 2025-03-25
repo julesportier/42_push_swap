@@ -22,12 +22,12 @@ static int	is_superior(int a, int b)
 	return (0);
 }
 
-static int	is_inferior(int a, int b)
-{
-	if (a < b)
-		return (1);
-	return (0);
-}
+//static int	is_inferior(int a, int b)
+//{
+//	if (a < b)
+//		return (1);
+//	return (0);
+//}
 
 static int	is_sorted(t_dlst *stack, int check(int a, int b))
 {
@@ -256,26 +256,28 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	stack_b = NULL;
 	//limit = data->size / 2 + data->size % 2;
 	store_rank(*lst, data);
-	data_a = get_stack_data(*lst);
-	while (*lst && (get_stack_data(*lst).size > 3)
-		&& !(is_sorted(*lst, is_superior) && is_sorted(stack_b, is_inferior)
-			&& (get_stack_data(*lst).min < get_stack_data(stack_b).max))
-	)
-	{
-		data_a = get_stack_data(*lst);
-		store_cost(*lst, &data_a);
-		//push_cheaper("ab", lst, &stack_b, get_cheaper_pos(*lst, &data_a, is_inferior));
-		// it's cheaper to just push to b directly...
-		p('b', &stack_b, lst);
-		// More cheaper, just for exemple :
-		//if (get_member(*lst, "rank") < data->size / 2)
-		//{
-		//	p('b', &stack_b, lst);
-		//	r('b', &stack_b, NULL);
-		//}
-		//else
-		//	p('b', &stack_b, lst);
-	}
+	//data_a = get_stack_data(*lst);
+	//while (*lst && (get_stack_data(*lst).size > 3)
+	//	&& !(is_sorted(*lst, is_superior) && is_sorted(stack_b, is_inferior)
+	//		&& (get_stack_data(*lst).min < get_stack_data(stack_b).max))
+	//)
+	//{
+	//	data_a = get_stack_data(*lst);
+	//	store_cost(*lst, &data_a);
+	//	//push_cheaper("ab", lst, &stack_b, get_cheaper_pos(*lst, &data_a, is_inferior));
+	//	// it's cheaper to just push to b directly...
+	//	p('b', &stack_b, lst);
+	//	// More cheaper, just for exemple :
+	//	//if (get_member(*lst, "rank") < data->size / 2)
+	//	//{
+	//	//	p('b', &stack_b, lst);
+	//	//	r('b', &stack_b, NULL);
+	//	//}
+	//	//else
+	//	//	p('b', &stack_b, lst);
+	//}
+	
+	presort(lst, &stack_b, 22);
 	data_a = get_stack_data(*lst);
 	if (DEBUG)
 		ft_printf("max == %d; min == %d; size == %d\n", data_a.max, data_a.min, data_a.size);
