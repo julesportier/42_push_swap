@@ -55,7 +55,7 @@ static void	sort_in_place(t_dlst **stack, t_stack_data *data)
 	}
 	else if (data->size == 3)
 	{
-while (!is_sorted(*stack, is_superior))
+		while (!is_sorted(*stack, is_superior))
 		{
 			if (get_member(*stack, "value") == data->max)
 				r('a', stack, NULL);
