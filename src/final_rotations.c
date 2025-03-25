@@ -23,7 +23,7 @@ t_dlst	*get_final_rotations(t_dlst *stack_a)
 	if (stack_a == NULL)
 		return (NULL);
 	data = get_stack_data(stack_a);
-	min_pos = get_value_pos(stack_a, data.min);
+	min_pos = get_rank_pos(stack_a, data.min);
 	op_lst = get_oplst_totop(min_pos, data.size, A);
 	return (op_lst);
 }

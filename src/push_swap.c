@@ -57,16 +57,16 @@ static void	sort_in_place(t_dlst **stack, t_stack_data *data)
 	{
 		while (!is_sorted(*stack, is_superior))
 		{
-			if (get_member(*stack, "value") == data->max)
+			if (get_member(*stack, "rank") == data->max)
 				r('a', stack, NULL);
-			else if (get_member((*stack)->prev, "value") == data->min)
+			else if (get_member((*stack)->prev, "rank") == data->min)
 				rr('a', stack, NULL);
-			else if (get_member(*stack, "value") == data->min)
+			else if (get_member(*stack, "rank") == data->min)
 			{
 				rr('a', stack, NULL);
 				s('a', stack, NULL);
 			}
-			else if (get_member((*stack)->next, "value") == data->min)
+			else if (get_member((*stack)->next, "rank") == data->min)
 				s('a', stack, NULL);
 		}
 	}

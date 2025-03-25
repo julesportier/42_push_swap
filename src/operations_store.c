@@ -78,18 +78,18 @@ static int	get_insert_pos(t_dlst *node, t_dlst *stack_a)
 	pos = 0;
 	data_a = get_stack_data(stack_a);
 	last_a = stack_a->prev;
-	if (get_member(node, "value") < get_member(last_a, "value")
-			|| get_member(node, "value") > data_a.max)
+	if (get_member(node, "rank") < get_member(last_a, "rank")
+			|| get_member(node, "rank") > data_a.max)
 	{
-		while (get_member(stack_a, "value") != data_a.min)
+		while (get_member(stack_a, "rank") != data_a.min)
 		{
 			stack_a = stack_a->next;
 			pos++;
 		}
 	}
-	if (get_member(node, "value") > data_a.max)
+	if (get_member(node, "rank") > data_a.max)
 		return (pos);
-	while (get_member(node, "value") > get_member(stack_a, "value")
+	while (get_member(node, "rank") > get_member(stack_a, "rank")
 			&& stack_a != last_a)
 	{
 		stack_a = stack_a->next;

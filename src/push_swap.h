@@ -83,7 +83,7 @@ t_dlst	*parse_args(char **argv);
 // data_collect.c
 void		store_rank(t_dlst *stack, t_stack_data *data);
 t_stack_data	get_stack_data(t_dlst *stack);
-int		get_value_pos(t_dlst *stack, int value);
+int		get_rank_pos(t_dlst *stack, int value);
 // THE TWO FUNCTIONS ABOVE ARE NOT USED ANYMORE
 void		store_cost(t_dlst *stack, t_stack_data *data);
 void		store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data);

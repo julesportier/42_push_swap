@@ -39,13 +39,13 @@ t_stack_data	get_stack_data(t_dlst *stack)
 	if (stack)
 	{
 		data = (t_stack_data){
-			.max = get_member(stack, "value"), .min = get_member(stack, "value")};
+			.max = get_member(stack, "rank"), .min = get_member(stack, "rank")};
 		head = stack;
 	}
 	while (stack)
 	{
-		data.max = max(data.max, get_member(stack, "value"));
-		data.min = min(data.min, get_member(stack, "value"));
+		data.max = max(data.max, get_member(stack, "rank"));
+		data.min = min(data.min, get_member(stack, "rank"));
 		data.size++;
 		stack = stack->next;
 		if (stack == head)
@@ -171,19 +171,19 @@ void	store_cost_insert_a(t_dlst *stack_a, t_dlst *stack_b, t_stack_data *data)
 
 // stack != NULL must be checked before calling this function.
 // Returns 1 for head, stack size for last.
-int	get_value_pos(t_dlst *stack, int value)
+int	get_rank_pos(t_dlst *stack, int rank)
 {
-	int	min_pos;
+	int	rank_pos;
 	t_dlst	*head;
 
-	min_pos = 1;
+	rank_pos = 1;
 	head = stack;
-	while (get_member(stack, "value") != value)
+	while (get_member(stack, "rank") != rank)
 	{
-		min_pos++;
+		rank_pos++;
 		stack = stack->next;
 		if (stack == head)
 			break ;
 	}
-	return (min_pos);
+	return (rank_pos);
 }
