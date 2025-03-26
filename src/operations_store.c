@@ -130,7 +130,7 @@ static t_dlst	*append_oplst_insert(int stack_size, int insert_pos, t_dlst *op_ls
 
 // If a malloc fail in an add_operation the current op_lst, the two stack are freed
 // and the program exits.
-void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b)
+void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b, int size_a, int size_b)
 {
 	int	insert_pos;
 	int	src_pos;
@@ -141,10 +141,9 @@ void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b)
 	src_pos = 1;
 	while (node)
 	{
-		op_lst = get_oplst_totop(src_pos, get_stack_data(stack_b).size, B);
+		op_lst = get_oplst_totop(src_pos, size_b, B);
 		insert_pos = get_insert_pos(node, stack_a);
-		op_lst = append_oplst_insert(
-				get_stack_data(stack_a).size, insert_pos, op_lst);
+		op_lst = append_oplst_insert(size_a, insert_pos, op_lst);
 		if (op_lst == NULL)
 			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
 		if (DEBUG)

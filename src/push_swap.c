@@ -251,6 +251,7 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 {
 	t_dlst	*stack_b;
 	t_stack_data	data_a;
+	t_stack_data	data_b;
 	//int			limit;
 
 	stack_b = NULL;
@@ -305,7 +306,9 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 			ft_putendl_fd(BLU "start" NORM, 1);
 			usleep(USLEEP);
 		}
-		store_op_lists(*lst, stack_b);
+		data_a = get_stack_data(*lst);
+		data_b = get_stack_data(stack_b);
+		store_op_lists(*lst, stack_b, data_a.size, data_b.size);
 		if (DEBUG)
 		{
 			ft_putendl_fd(BLU "after store", 1);

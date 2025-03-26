@@ -106,7 +106,7 @@ t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
 t_dlst		*simplify_operations(t_dlst *op_lst);
 // operations_store.c
 t_dlst		*get_oplst_totop(int pos, int stack_size, int source_macro);
-void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b);
+void		store_op_lists(t_dlst *stack_a, t_dlst *stack_b, int size_a, int size_b);
 // operations_apply.c
 void		apply_operations_list(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
 
