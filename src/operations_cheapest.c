@@ -26,11 +26,14 @@ t_dlst	*get_cheapest(t_dlst *stack)
 	min_len = INT_MAX;
 	while (node)
 	{
-		tmp_len = ft_dlstsize(get_member_oplst(stack));
-		if (tmp_len < min_len)
+		if (get_member_oplst(stack))
 		{
-			min_len = tmp_len;
-			cheapest = node;
+			tmp_len = ft_dlstsize(get_member_oplst(stack));
+			if (tmp_len < min_len)
+			{
+				min_len = tmp_len;
+				cheapest = node;
+			}
 		}
 		node = node->next;
 		if (node == stack)

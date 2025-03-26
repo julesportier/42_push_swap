@@ -110,43 +110,57 @@ static t_dlst	*append_oplst_insert(int stack_size, int insert_pos, t_dlst *op_ls
 	return (op_lst);
 }
 
+t_dlst	*get_op_list(t_dlst *stack_a, t_pos *src, int size_a, int size_b)
+{
+	t_dlst	*op_lst;
+	int	insert_pos;
+
+	op_lst = NULL;
+	op_lst = get_oplst_totop(src->pos, size_b, B);
+	if (op_lst == NULL)
+		return (NULL);
+	insert_pos = get_insert_pos(src->node, stack_a);
+	op_lst = append_oplst_insert(size_a, insert_pos, op_lst);
+	if (op_lst == NULL)
+		return (NULL);
+	if (DEBUG)
+	{
+		ft_printf(MAG "TEST store_op_lists %d:\n", src->pos);
+		print_op_lst(op_lst);
+		ft_printf(NORM);
+	}
+	op_lst = simplify_operations(op_lst);
+	return (op_lst);
+}
+
 // If a malloc fail in an add_operation the current op_lst, the two stack are freed
 // and the program exits.
 void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b, int size_a, int size_b)
 {
-	int	insert_pos;
-	int	src_pos;
-	t_dlst	*op_lst;
-	t_dlst	*node;
+	t_pos	top;
+	t_pos	bottom;
 
-	node = stack_b;
-	src_pos = 1;
-	while (node)
+	top.node = stack_b;
+	top.pos = 1;
+	bottom.node = stack_b->prev;
+	bottom.pos = size_b;
+	while (top.pos <= size_b && top.pos <= CALC_DEPTH)
 	{
-		op_lst = get_oplst_totop(src_pos, size_b, B);
-		if (op_lst == NULL)
+		set_member_oplst(top.node,
+			get_op_list(stack_a, &top, size_a, size_b));
+		if (top.node == NULL)
 			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
-		insert_pos = get_insert_pos(node, stack_a);
-		op_lst = append_oplst_insert(size_a, insert_pos, op_lst);
-		if (op_lst == NULL)
+		top.node = top.node->next;
+		if (top.node == stack_b || top.node == bottom.node)
+			break;
+		top.pos++;
+		set_member_oplst(bottom.node,
+			get_op_list(stack_a, &bottom, size_a, size_b));
+		if (bottom.node == NULL)
 			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
-		if (DEBUG)
-		{
-			ft_printf(MAG "TEST store_op_lists %d:\n", src_pos);
-			print_op_lst(op_lst);
-			ft_printf(NORM);
-		}
-		op_lst = simplify_operations(op_lst);
-		((t_elem*)(node->content))->op_lst = op_lst;
-		if (DEBUG)
-		{
-			ft_printf(MAG "TEST store_op_lists simplified %d:\n", src_pos);
-			print_op_lst(((t_elem*)(node->content))->op_lst);
-			ft_printf(NORM "\n");
-		}
-		node = node->next;
-		if (node == stack_b)
-			node = NULL;
-		src_pos++;
+		bottom.node = bottom.node->prev;
+		if (bottom.node == stack_b || bottom.node == top.node)
+			break;
+		bottom.pos--;
 	}
 }

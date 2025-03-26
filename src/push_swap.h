@@ -15,7 +15,7 @@
 
 # include "../libft/src/libft.h"
 
-// macros for debug
+// debug
 # define DEBUG 0
 # define USLEEP 100000
 # define RED "\x1B[31m"
@@ -26,7 +26,7 @@
 # define CYN "\x1B[36m"
 # define NORM "\x1B[0m"
 
-// macros for operations_list flags and masks
+// operations_list flags and masks
 # define PUSH 0b100
 # define SWAP 0b1000
 # define ROT 0b10000
@@ -36,6 +36,7 @@
 # define B 0b10
 # define BOTH 0b11
 # define TARGET 0b11
+# define CALC_DEPTH 10
 
 // TODO
 // Use mv_nbr in place of cost, and delete cost member
