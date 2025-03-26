@@ -26,14 +26,16 @@ static int	*alloc_operation(int operation_type, int target)
 
 // If the allocation fails it free the op_lst and return NULL,
 // no other memory is freed.
-t_dlst	*add_operation(t_dlst *op_lst, int operation_type, int target)
+t_dlst	*add_operation(t_dlst *op_lst, int type, int target)
 {
 	t_dlst	*new_node;
 	int	*op;
 
-	if (operation_type != 0 && target != 0)
+	if (target >= 0 && target <= TARGET
+		&& (type == 0 || type == PUSH || type == SWAP
+			|| type == ROT || type == REVROT))
 	{
-		op = alloc_operation(operation_type, target);
+		op = alloc_operation(type, target);
 		if (op == NULL)
 			return (NULL);
 		new_node = ft_dlstnew(op);
@@ -44,6 +46,8 @@ t_dlst	*add_operation(t_dlst *op_lst, int operation_type, int target)
 			return (NULL);
 		}
 		ft_dlstadd_back(&op_lst, new_node);
+		return (op_lst);
 	}
-	return (op_lst);
+	else
+		return (NULL);
 }

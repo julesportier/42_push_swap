@@ -55,7 +55,13 @@ t_dlst	*simplify_operations(t_dlst *op_lst)
 
 	while (op_lst != NULL && op_lst->next != NULL)
 	{
-		if (!is_pair(get_content(op_lst), get_content(op_lst->next)))
+		if (get_content(op_lst) == 0)
+		{
+			temp = op_lst;
+			op_lst = op_lst->next;
+			ft_dlstremove(&temp);
+		}
+		else if (!is_pair(get_content(op_lst), get_content(op_lst->next)))
 			op_lst = op_lst->next;
 		else if (is_merge_pair(get_content(op_lst), get_content(op_lst->next)))
 		{

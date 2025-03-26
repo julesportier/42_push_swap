@@ -44,6 +44,8 @@ char	*optype_to_str(t_dlst *node)
 		op = "r";
 	else if ((operation & TYPE) == REVROT)
 		op = "rr";
+	else if ((operation & TYPE) == 0)
+		op = "no_op";
 	else
 		op = NULL;
 	return (op);
@@ -63,6 +65,8 @@ char	*optarget_to_str(t_dlst *node)
 		target = "b";
 	else if ((operation & TARGET) == BOTH)
 		target = "both";
+	else if ((operation & TARGET) == 0)
+		target = "no_tar";
 	else
 		target = NULL;
 	return (target);

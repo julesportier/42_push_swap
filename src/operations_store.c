@@ -19,23 +19,13 @@ t_dlst	*get_oplst_totop(int pos, int stack_size, int source_macro)
 	t_dlst	*op_lst;
 
 	op_lst = NULL;
-	if (stack_size < 2)
-	{
-		if (DEBUG)
-		{
-			ft_printf(RED "TEST get_oplst_totop:\n");
-			print_op_lst(op_lst);
-			ft_printf(NORM);
-		}
-		return (NULL);
-	}
-	if (pos <= (stack_size / 2 + stack_size % 2) || stack_size < 3)
+	if (pos == 1)
+		op_lst = add_operation(op_lst, 0, 0);
+	else if (pos <= (stack_size / 2 + stack_size % 2) || (stack_size < 3))
 	{
 		while (pos > 1)
 		{
 			op_lst = add_operation(op_lst, ROT, source_macro);
-			if (op_lst == NULL)
-				return (NULL);
 			pos--;
 		}
 		// Don't use the swap to have more simplification possibilities
@@ -47,21 +37,13 @@ t_dlst	*get_oplst_totop(int pos, int stack_size, int source_macro)
 		//if (pos == 2)
 		//	op_lst = add_operation(op_lst, SWAP, source_macro);
 	}
-	else if (pos > (stack_size / 2 + stack_size % 2))
+	else
 	{
 		while (pos <= stack_size)
 		{
 			op_lst = add_operation(op_lst, REVROT, source_macro);
-			if (op_lst == NULL)
-				return (NULL);
 			pos++;
 		}
-	}
-	if (DEBUG)
-	{
-		ft_printf(RED "TEST get_oplst_totop:\n");
-		print_op_lst(op_lst);
-		ft_printf(NORM);
 	}
 	return (op_lst);
 }
@@ -142,6 +124,8 @@ void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b, int size_a, int size_b)
 	while (node)
 	{
 		op_lst = get_oplst_totop(src_pos, size_b, B);
+		if (op_lst == NULL)
+			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
 		insert_pos = get_insert_pos(node, stack_a);
 		op_lst = append_oplst_insert(size_a, insert_pos, op_lst);
 		if (op_lst == NULL)
