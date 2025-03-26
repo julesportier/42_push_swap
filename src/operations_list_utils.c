@@ -64,7 +64,7 @@ char	*optarget_to_str(t_dlst *node)
 	else if ((operation & TARGET) == B)
 		target = "b";
 	else if ((operation & TARGET) == BOTH)
-		target = "both";
+		target = optype_to_str(node);
 	else if ((operation & TARGET) == 0)
 		target = "no_tar";
 	else
@@ -76,21 +76,9 @@ char	*optarget_to_str(t_dlst *node)
 // The potential check for NULL node must be did before calling this function.
 char	*operation_to_str(t_dlst *node)
 {
-	int	operation;
-	char	*op_type;
 	char	*operation_str;
 
-	operation = get_content(node);
-	op_type = optype_to_str(node);
-	if ((operation & TARGET) == BOTH)
-	{
-		if ((operation & TYPE) == ROT || (operation & TYPE) == REVROT)
-			operation_str = ft_strjoin(op_type, "r");
-		else
-			operation_str = ft_strjoin(op_type, op_type);
-	}
-	else
-		operation_str = ft_strjoin(op_type, optarget_to_str(node));
+	operation_str = ft_strjoin(optype_to_str(node), optarget_to_str(node));
 	if (operation_str == NULL)
 		return (NULL);
 	return (operation_str);
