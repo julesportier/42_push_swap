@@ -252,31 +252,11 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	t_dlst	*stack_b;
 	t_stack_data	data_a;
 	t_stack_data	data_b;
-	//int			limit;
+	int	chunk_size;
 
 	stack_b = NULL;
 	//limit = data->size / 2 + data->size % 2;
 	store_rank(*lst, data);
-	//data_a = get_stack_data(*lst);
-	//while (*lst && (get_stack_data(*lst).size > 3)
-	//	&& !(is_sorted(*lst, is_superior) && is_sorted(stack_b, is_inferior)
-	//		&& (get_stack_data(*lst).min < get_stack_data(stack_b).max))
-	//)
-	//{
-	//	data_a = get_stack_data(*lst);
-	//	store_cost(*lst, &data_a);
-	//	//push_cheaper("ab", lst, &stack_b, get_cheaper_pos(*lst, &data_a, is_inferior));
-	//	// it's cheaper to just push to b directly...
-	//	p('b', &stack_b, lst);
-	//	// More cheaper, just for exemple :
-	//	//if (get_member(*lst, "rank") < data->size / 2)
-	//	//{
-	//	//	p('b', &stack_b, lst);
-	//	//	r('b', &stack_b, NULL);
-	//	//}
-	//	//else
-	//	//	p('b', &stack_b, lst);
-	//}
 	
 	// best chunk size for 100 numbers is 13
 	// 500 numbers 27 w6248 a5948 b5650 (723)
@@ -285,67 +265,23 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	// 500 numbers 30 w6283 a5965 b5693 (267)
 	// function to get chunk size is about f(x) = sqrt(x*3) - 5
 	// need to fine tune 3 and 5
-	presort(lst, &stack_b, 27);
+	chunk_size = 33;
+	presort(lst, &stack_b, chunk_size);
 	data_a = get_stack_data(*lst);
-	if (DEBUG)
-		ft_printf("max == %d; min == %d; size == %d\n", data_a.max, data_a.min, data_a.size);
 	if (!is_sorted(*lst, is_superior))
 		sort_in_place(lst, &data_a);
-	if (DEBUG)
-	{
-		ft_putendl_fd("stack_a :", 1);
-		print_stack(*lst);
-		ft_putendl_fd("stack_b :", 1);
-		print_stack(stack_b);
-	}
 	t_dlst	*main_oplst = NULL;
 	while (ft_cdlstsize(stack_b) > 0)
 	{
-		if (DEBUG)
-		{
-			ft_putendl_fd(BLU "start" NORM, 1);
-			usleep(USLEEP);
-		}
 		data_a = get_stack_data(*lst);
 		data_b = get_stack_data(stack_b);
 		store_op_lists(*lst, stack_b, data_a.size, data_b.size);
-		if (DEBUG)
-		{
-			ft_putendl_fd(BLU "after store", 1);
-			print_op_lst(get_member_oplst(stack_b));
-			ft_putendl_fd("stack_a :", 1);
-			print_stack(*lst);
-			ft_putendl_fd("stack_b :", 1);
-			print_stack(stack_b);
-			ft_putendl_fd(NORM, 1);
-			usleep(USLEEP);
-		}
 		t_dlst	*cheapest = get_cheapest(stack_b);
-		if (DEBUG)
-		{
-			ft_putendl_fd(YEL "cheapest:", 1);
-			print_op_lst(get_member_oplst(cheapest));
-			ft_putendl_fd(NORM, 1);
-			usleep(USLEEP);
-		}
 		free_priciers(stack_b, cheapest);
 		apply_operations_list(get_member_oplst(cheapest), lst, &stack_b);
 		//main_oplst = join_cheapest_oplst(main_oplst, cheapest);
 		ft_dlstclear(get_member_oplst(cheapest));
 		set_member_oplst(cheapest, NULL);
-		if (DEBUG)
-		{
-			ft_printf(RED "size stack_b == %d\n", ft_cdlstsize(stack_b) > 0);
-			ft_putendl_fd("main_op_lst:", 1);
-			print_op_lst(main_oplst);
-			ft_putendl_fd("stack_a :", 1);
-			print_stack(*lst);
-			ft_putendl_fd("stack_b :", 1);
-			print_stack(stack_b);
-			ft_putendl_fd(NORM, 1);
-			usleep(USLEEP);
-			//stack_b = NULL;
-		}
 	}
 	t_dlst	*op_lst = get_final_rotations(*lst);
 	apply_final_rotations(op_lst, lst, &stack_b);
