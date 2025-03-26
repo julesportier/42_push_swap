@@ -26,9 +26,9 @@ t_dlst	*get_cheapest(t_dlst *stack)
 	min_len = INT_MAX;
 	while (node)
 	{
-		if (get_member_oplst(stack))
+		if (get_member_oplst(node))
 		{
-			tmp_len = ft_dlstsize(get_member_oplst(stack));
+			tmp_len = ft_dlstsize(get_member_oplst(node));
 			if (tmp_len < min_len)
 			{
 				min_len = tmp_len;
