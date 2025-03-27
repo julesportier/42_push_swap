@@ -2,6 +2,7 @@ CC := cc
 CFLAGS := -Wall -Werror -Wextra
 CFLAGS_DB := -Wall -Werror -Wextra -g3
 CFLAGS_NE := -g3
+CFLAGS_REL := -Wall -Wextra -O2
 
 LIBFT_DIR := ./libft
 LIBFT_AR := $(LIBFT_DIR)/libft.a
@@ -45,6 +46,8 @@ noerr: CFLAGS = $(CFLAGS_NE)
 noerr: all
 dbg: CFLAGS = $(CFLAGS_DB)
 dbg: all
+rel: CFLAGS = $(CFLAGS_REL)
+rel: all
 ft:
 	make CFLAGS="$(CFLAGS)" -C $(LIBFT_DIR)
 
@@ -65,4 +68,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all ft clean fclean re noerr dbg
+.PHONY: all ft clean fclean re noerr dbg rel
