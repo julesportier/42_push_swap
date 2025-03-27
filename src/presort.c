@@ -66,7 +66,6 @@ static int	item_presort(
 		ft_printf(CYN "get_presort_oplst loop %d:\n", i);
 		print_op_lst(op_lst);
 		ft_printf(NORM);
-		usleep(USLEEP);
 	}
 	if (i > chunk_size * chunk_nbr)
 		chunk_nbr += 2;
