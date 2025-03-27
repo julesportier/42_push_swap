@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:16:08 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/27 16:32:07 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:03:36 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,48 +66,24 @@ void	sort_stacks(t_dlst **lst, t_stack_data *data)
 	int	chunk_size;
 
 	stack_b = NULL;
-	//limit = data->size / 2 + data->size % 2;
 	store_rank(*lst, data);
 	
-	// need to fine tune 3 and 5
+	// NEW TESTS WITH FIXED MERGE/DEL PAIRS
 	// 500 numbers:
-	// chunks size 33: w5310 a4745 b4391 (iter500)
-	// chunks size 34: w5239 a4707 b4375 (iter500)
-	// chunks size 35: w5218 a4675 b4289 (iter500)
-	// chunks size 36: w5127 a4644 b4261 (iter500)
-	// chunks size 37: w5221 a4616 b4210 (iter500)
-	// chunks size 38: w5050 a4585 b4196 (iter500)
-	// chunks size 88: w4806 a4296 b3852 (iter500)
-	// chunks size 82: w4759 a4295 b3944 (iter500)
-	// chunks size 80: w4786 a4287 b3823 (iter500)
-	// chunks size 68: w4775 a4276 b3946 (iter500)
-	// chunks size 73: w4750 a4275 b3925 (iter500)
-	// chunks size 75: w4748 a4273 b3933 (iter500)
-	// chunks size 79: w4769 a4269 b3896 (iter500*4)
-	// chunks size 78: w4768(4826) A_MEAN|4266.5|(4269, 4262, 4267, 4271, 4263) b3800 (iter500*5)
-	// chunks size 77: w4821 A_MEAN|4265.8|(4259, 4266, 4262, 4269, 4273) b3781 (iter500*5)
-	// chunks size 76: w4718 A_MEAN|4262.67|(4268, 4258, 4260, 4261, 4268, 4261) b3806 (iter500*6)
-	// chunks size 75: w4830 A_MEAN|4267|(4261, 4281, 4264, 4258, 4271) b3820 (iter500*5)
-	// chunks size 74: w4745 A_MEAN|4271|(4273, 4271, 4272, 4277, 4262) b3838 (iter500*5)
-	// best chunk size for 500 numbers is 76
+	// chunks size 76: w4595 A_MEAN||(4053, 4060, 4058, 4062, 4052) b3619 (iter500*5)
+	// chunks size 77: w4545 A_MEAN|4050|(4054, 4045, 4046, 4056, 4049) b3581 (iter500*5)
+	// chunks size 78: w4644 A_MEAN|4051.4|(4051, 4046, 4053, 4053, 4054) b3633 (iter500*5)
+	// chunks size 79: w4577 A_MEAN|4057.2|(4050, 4050, 4056, 4063, 4067) b3615 (iter500*5)
+	// chunks size 80: w4505 A_MEAN|4054|(4049, 4046, 4060, 4061) b3620 (iter500*4)
+	// chunks size 82: w4574 A_MEAN|4069|(4072, 4073, 4062) b3672 (iter500*3)
+	// best chunk size for 500 numbers is 77
 	// 100 numbers:
-	// chunks size 13: W$751 a631 b559 (iter2000)
-	// chunks size 53: W$739 a602 b504 (iter2000)
-	// chunks size 48: W$715 a598 b514 (iter2000)
-	// chunks size 43: W$674 a584 b505 (iter2000)
-	// chunks size 41: W$706 a580 b498 (iter2000)
-	// chunks size 40: W$696 a579 b494 (iter2000)
-	// chunks size 39: W$691 a578 b495 (iter2000)
-	// chunks size 38: W$695(1x715) a579 b500 (iter2000*10)
-	// chunks size 37: W$693 a577 b486 (iter2000*10)
-	// chunks size 36: W$696 a577 b506 (iter2000*6)
-	// chunks size 35: W$692 a578 b502 (iter2000*3)
-	// chunks size 34: W$710 a578 b504 (iter2000*3)
-	// chunks size 33: W$701 a581 b501 (iter2000*3)
-	// chunks size 23: W$689 a584 b506 (iter2000)
-	// best chunk size for 100 numbers is 37
-	// function to get chunk size is f(x) = sqrt(x*10) + 6 (100 -> 37.62; 500 -> 76.71)
-	chunk_size = ft_sqrt_floor(data->size * 10) + 6;
+	// chunks size 36: w672 A_MEAN|563|(562, 563, 563, 563, 563) b480 (iter2000*5)
+	// chunks size 37: w675 A_MEAN|562|(563, 562, 562, 562, 562) b482 (iter2000*5)
+	// chunks size 38: w681 A_MEAN|563|(563, 562, 564, 562, 562) b453 (iter2000*5)
+	// chunks size 39: w683 A_MEAN|563|(564, 564, 563, 562, 564) b482 (iter2000*5)
+	// function to get chunk size is f(x) = sqrt(x*11) + 4 (100 -> 37.16; 500 -> 78.16)
+	chunk_size = ft_sqrt_floor(data->size * 11) + 4;
 	if (DEBUG)
 		ft_printf("chunk_size == %d\n", chunk_size);
 	presort(lst, &stack_b, chunk_size);
