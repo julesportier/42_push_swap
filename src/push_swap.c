@@ -296,7 +296,9 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	// chunks size 23: W$689 a584 b506 (iter2000)
 	// best chunk size for 100 numbers is 37
 	// function to get chunk size is f(x) = sqrt(x*10) + 6 (100 -> 37.62; 500 -> 76.71)
-	chunk_size = 76;
+	chunk_size = ft_sqrt_floor(data->size * 10) + 6;
+	if (DEBUG)
+		ft_printf("chunk_size == %d\n", chunk_size);
 	presort(lst, &stack_b, chunk_size);
 	data_a = get_stack_data(*lst);
 	if (!is_sorted(*lst, is_superior))
