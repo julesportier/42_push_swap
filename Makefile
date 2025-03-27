@@ -28,6 +28,7 @@ SRC := push_swap.c \
        presort.c \
        operations_cheapest.c \
        final_rotations.c \
+       sort_stacks.c \
        stack_operations_utils.c \
        stack_operations.c
 

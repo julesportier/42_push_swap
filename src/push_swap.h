@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/27 14:59:46 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:22:38 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ void			free_priciers(t_dlst *stack, t_dlst *cheapest);
 t_dlst			*get_final_rotations(t_dlst *stack_a);
 void			apply_final_rotations(
 					t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
+// sort_stacks.c
+int				is_superior(int a, int b);
+int				is_sorted(t_dlst *stack, int check(int a, int b));
+void			sort_stacks(t_dlst **lst, t_stack_data *data);
 
 /*************************
 * OPERATIONS APPLICATION *
