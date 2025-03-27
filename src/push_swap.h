@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/24 11:32:28 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:31:05 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ char		*operation_to_str(t_dlst *node);
 void		print_op_lst(t_dlst *op_lst);
 // operations_list_alloc.c
 t_dlst		*add_operation(t_dlst *op_lst, int operation_type, int target);
+// operations_simplify_utils.c
+int		is_merge_pair(int op_a, int op_b);
+int		is_del_pair(int op_a, int op_b);
+int		is_pair(int op_a, int op_b);
 // operations_simplify.c
 t_dlst		*simplify_operations(t_dlst *op_lst);
 // operations_store.c

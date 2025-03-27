@@ -21,6 +21,7 @@ SRC := push_swap.c \
        operations_list_utils.c \
        operations_list_print.c \
        operations_list_alloc.c \
+       operations_simplify_utils.c \
        operations_simplify.c \
        operations_store.c \
        operations_apply.c \
