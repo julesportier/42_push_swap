@@ -258,14 +258,45 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	//limit = data->size / 2 + data->size % 2;
 	store_rank(*lst, data);
 	
-	// best chunk size for 100 numbers is 13
-	// 500 numbers 27 w6248 a5948 b5650 (723)
-	// 500 numbers 28 w6184 a5954 b5721 (189)
-	// 500 numbers 29 w6248 a5942 b5693 (235)
-	// 500 numbers 30 w6283 a5965 b5693 (267)
-	// function to get chunk size is about f(x) = sqrt(x*3) - 5
 	// need to fine tune 3 and 5
-	chunk_size = 33;
+	// 500 numbers:
+	// chunks size 33: w5310 a4745 b4391 (iter500)
+	// chunks size 34: w5239 a4707 b4375 (iter500)
+	// chunks size 35: w5218 a4675 b4289 (iter500)
+	// chunks size 36: w5127 a4644 b4261 (iter500)
+	// chunks size 37: w5221 a4616 b4210 (iter500)
+	// chunks size 38: w5050 a4585 b4196 (iter500)
+	// chunks size 88: w4806 a4296 b3852 (iter500)
+	// chunks size 82: w4759 a4295 b3944 (iter500)
+	// chunks size 80: w4786 a4287 b3823 (iter500)
+	// chunks size 68: w4775 a4276 b3946 (iter500)
+	// chunks size 73: w4750 a4275 b3925 (iter500)
+	// chunks size 75: w4748 a4273 b3933 (iter500)
+	// chunks size 79: w4769 a4269 b3896 (iter500*4)
+	// chunks size 78: w4768(4826) A_MEAN|4266.5|(4269, 4262, 4267, 4271, 4263) b3800 (iter500*5)
+	// chunks size 77: w4821 A_MEAN|4265.8|(4259, 4266, 4262, 4269, 4273) b3781 (iter500*5)
+	// chunks size 76: w4718 A_MEAN|4262.67|(4268, 4258, 4260, 4261, 4268, 4261) b3806 (iter500*6)
+	// chunks size 75: w4830 A_MEAN|4267|(4261, 4281, 4264, 4258, 4271) b3820 (iter500*5)
+	// chunks size 74: w4745 A_MEAN|4271|(4273, 4271, 4272, 4277, 4262) b3838 (iter500*5)
+	// best chunk size for 500 numbers is 76
+	// 100 numbers:
+	// chunks size 13: W$751 a631 b559 (iter2000)
+	// chunks size 53: W$739 a602 b504 (iter2000)
+	// chunks size 48: W$715 a598 b514 (iter2000)
+	// chunks size 43: W$674 a584 b505 (iter2000)
+	// chunks size 41: W$706 a580 b498 (iter2000)
+	// chunks size 40: W$696 a579 b494 (iter2000)
+	// chunks size 39: W$691 a578 b495 (iter2000)
+	// chunks size 38: W$695(1x715) a579 b500 (iter2000*10)
+	// chunks size 37: W$693 a577 b486 (iter2000*10)
+	// chunks size 36: W$696 a577 b506 (iter2000*6)
+	// chunks size 35: W$692 a578 b502 (iter2000*3)
+	// chunks size 34: W$710 a578 b504 (iter2000*3)
+	// chunks size 33: W$701 a581 b501 (iter2000*3)
+	// chunks size 23: W$689 a584 b506 (iter2000)
+	// best chunk size for 100 numbers is 37
+	// function to get chunk size is f(x) = sqrt(x*10) + 6 (100 -> 37.62; 500 -> 76.71)
+	chunk_size = 76;
 	presort(lst, &stack_b, chunk_size);
 	data_a = get_stack_data(*lst);
 	if (!is_sorted(*lst, is_superior))
