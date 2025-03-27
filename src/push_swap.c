@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/27 16:17:41 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:30:16 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	lst = parse_args(argv);
 	if (DEBUG)
 		print_stack(lst);
-	if (is_sorted(lst, is_superior))
+	if (is_sorted(lst))
 	{
 		if (DEBUG)
 			ft_putendl_fd("ascending sort", 1);

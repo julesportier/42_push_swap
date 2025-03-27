@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:16:08 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/27 16:22:39 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:32:07 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,7 @@
 #include "../libft/src/ft_printf.h"
 #include <stdlib.h>
 
-int	is_superior(int a, int b)
-{
-	if (a > b)
-		return (1);
-	return (0);
-}
-
-//static int	is_inferior(int a, int b)
-//{
-//	if (a < b)
-//		return (1);
-//	return (0);
-//}
-
-int	is_sorted(t_dlst *stack, int check(int a, int b))
+int	is_sorted(t_dlst *stack)
 {
 	t_dlst	*last;
 	t_dlst	*prev_node;
@@ -39,7 +25,7 @@ int	is_sorted(t_dlst *stack, int check(int a, int b))
 	{
 		prev_node = stack;
 		stack = stack->next;
-		if (check(get_member(prev_node, "value"), get_member(stack, "value")))
+		if (get_member(prev_node, "value") > get_member(stack, "value"))
 			return (0);
 	}
 	return (1);
@@ -55,7 +41,7 @@ static void	sort_in_place(t_dlst **stack, t_stack_data *data)
 	}
 	else if (data->size == 3)
 	{
-		while (!is_sorted(*stack, is_superior))
+		while (!is_sorted(*stack))
 		{
 			if (get_member(*stack, "rank") == data->max)
 				r('a', stack, NULL);
@@ -126,7 +112,7 @@ void	sort_stacks(t_dlst **lst, t_stack_data *data)
 		ft_printf("chunk_size == %d\n", chunk_size);
 	presort(lst, &stack_b, chunk_size);
 	data_a = get_stack_data(*lst);
-	if (!is_sorted(*lst, is_superior))
+	if (!is_sorted(*lst))
 		sort_in_place(lst, &data_a);
 	while (ft_cdlstsize(stack_b) > 0)
 	{
