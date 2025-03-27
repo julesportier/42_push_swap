@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/27 16:32:55 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:06:12 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define B 0b10
 # define BOTH 0b11
 # define TARGET 0b11
-# define CALC_DEPTH 10
+# define CALC_DEPTH 25
 
 // TODO
 // Use mv_nbr in place of cost, and delete cost member
