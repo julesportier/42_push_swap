@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:42:27 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/24 11:29:24 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:48:34 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 	data_a = get_stack_data(*lst);
 	if (!is_sorted(*lst, is_superior))
 		sort_in_place(lst, &data_a);
-	t_dlst	*main_oplst = NULL;
 	while (ft_cdlstsize(stack_b) > 0)
 	{
 		data_a = get_stack_data(*lst);
@@ -137,18 +136,12 @@ static void	sort_stack(t_dlst **lst, t_stack_data *data)
 		t_dlst	*cheapest = get_cheapest(stack_b);
 		free_priciers(stack_b, cheapest);
 		apply_operations_list(get_member_oplst(cheapest), lst, &stack_b);
-		//main_oplst = join_cheapest_oplst(main_oplst, cheapest);
 		ft_dlstclear(get_member_oplst(cheapest));
 		set_member_oplst(cheapest, NULL);
 	}
 	t_dlst	*op_lst = get_final_rotations(*lst);
 	apply_final_rotations(op_lst, lst, &stack_b);
 	ft_dlstclear(op_lst);
-	ft_dlstclear(main_oplst);
-
-
-
-		//insert_pa(lst, &stack_b, data);
 }
 
 int	main(int argc, char **argv)

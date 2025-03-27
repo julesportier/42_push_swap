@@ -6,7 +6,7 @@
 /*   By: juportie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:44:40 by juportie          #+#    #+#             */
-/*   Updated: 2025/03/27 14:31:05 by juportie         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:48:25 by juportie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void		presort(t_dlst **stack_a, t_dlst **stack_b, int chunk_size);
 // operations_cheapest.c
 t_dlst		*get_cheapest(t_dlst *stack);
 void		free_priciers(t_dlst *stack, t_dlst *cheapest);
-t_dlst		*join_cheapest_oplst(t_dlst *main_oplst, t_dlst *cheapest_oplst);
 // final_rotations.c
 t_dlst		*get_final_rotations(t_dlst *stack_a);
 void		apply_final_rotations(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
