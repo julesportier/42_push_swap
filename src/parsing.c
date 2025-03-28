@@ -16,7 +16,7 @@ static t_dlst	*alloc_element(char *nbr)
 {
 	t_iflag	i_flag;
 	t_dlst	*node;
-	t_elem		*content;
+	t_elem	*content;
 
 	i_flag = ft_atoi_flag(nbr);
 	if (i_flag.flag)
@@ -27,7 +27,7 @@ static t_dlst	*alloc_element(char *nbr)
 	content = ft_calloc(1, sizeof(t_elem));
 	if (content == NULL)
 		return (NULL);
-	content->value = i_flag.i;
+	content->value = i_flag.nbr;
 	content->rank = -1;
 	node = ft_dlstnew(content);
 	return (node);
@@ -35,7 +35,7 @@ static t_dlst	*alloc_element(char *nbr)
 
 static t_dlst	*add_arg(char *arg, t_dlst **lst)
 {
-	int	i;
+	int		i;
 	char	**splits;
 	t_dlst	*node;
 
@@ -81,7 +81,7 @@ static int	find_duplicates(t_dlst *lst)
 
 t_dlst	*parse_args(char **argv)
 {
-	size_t		i;
+	size_t	i;
 	t_dlst	*lst;
 
 	i = 0;
