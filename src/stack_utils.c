@@ -14,8 +14,8 @@
 #include "../libft/src/libft.h"
 #include "../libft/src/ft_printf.h"
 
-// The four functions above permits to avoid direct pointer manipulation
-// to access list members to improve readability.
+// The four functions above permits to avoid explicit pointer manipulation
+// when accessing list members and improve readability.
 // e.g.
 // (((t_elem *)(node->content))->value);
 // become:
@@ -24,15 +24,12 @@ int	get_member(t_dlst *node, char *member)
 {
 	if (node == NULL || member == NULL)
 		return (-1);
-	if (ft_strncmp("value", member, 5) == 0)
+	if (ft_isequalstr("value", member))
 		return (((t_elem *)(node->content))->value);
-	else if (ft_strncmp("rank", member, 4) == 0)
+	else if (ft_isequalstr("rank", member))
 		return (((t_elem *)(node->content))->rank);
 	else
-	{
-		ft_putendl_fd("get_member error: wrong member name", 2);
 		return (-1);
-	}
 }
 
 t_dlst	*get_member_oplst(t_dlst *node)
@@ -46,23 +43,20 @@ int	set_member(t_dlst *node, char *member, int val)
 {
 	if (node == NULL || member == NULL)
 		return (-1);
-	if (ft_strncmp("value", member, 5) == 0)
+	if (ft_isequalstr("value", member))
 		((t_elem *)(node->content))->value = val;
-	else if (ft_strncmp("rank", member, 4) == 0)
+	else if (ft_isequalstr("rank", member))
 		((t_elem *)(node->content))->rank = val;
 	else
-	{
-		ft_putendl_fd("get_member error: wrong member name", 2);
 		return (-1);
-	}
 	return (0);
 }
 
 void	set_member_oplst(t_dlst *node, t_dlst *op_lst)
 {
-	((t_elem *)(node->content))->op_lst = op_lst;
+	if (node != NULL)
+		((t_elem *)(node->content))->op_lst = op_lst;
 }
-
 
 void	print_stack(t_dlst *lst)
 {
