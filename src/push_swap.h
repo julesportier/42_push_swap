@@ -37,8 +37,6 @@
 # define TARGET 0b11
 # define CALC_DEPTH 25
 
-// TODO
-// Use mv_nbr in place of cost, and delete cost member
 typedef struct s_elem
 {
 	int		value;
@@ -83,7 +81,6 @@ t_dlst			*parse_args(char **argv);
 void			store_rank(t_dlst *stack, t_stack_data *data);
 t_stack_data	get_stack_data(t_dlst *stack);
 int				get_rank_pos(t_dlst *stack, int value);
-// END
 
 /*******************
 * OPERATIONS LISTS *
