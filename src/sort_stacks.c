@@ -71,7 +71,7 @@ static void	insert_sort_weighted(t_dlst **stack_a, t_dlst **stack_b)
 void	sort_stacks(t_dlst **stack_a, t_stack_data *data)
 {
 	t_dlst			*stack_b;
-	t_dlst			*cheapest;
+	t_dlst			*op_lst;
 	t_stack_data	data_a;
 	int				chunk_size;
 
@@ -82,7 +82,8 @@ void	sort_stacks(t_dlst **stack_a, t_stack_data *data)
 	data_a = get_stack_data(*stack_a);
 	sort_in_place(stack_a, &data_a);
 	insert_sort_weighted(stack_a, &stack_b);
-	cheapest = get_final_rotations(*stack_a);
-	apply_final_rotations(cheapest, stack_a, &stack_b);
-	ft_dlstclear(cheapest);
+	op_lst = get_final_rotations(*stack_a);
+	apply_final_rotations(op_lst, stack_a, &stack_b);
+	ft_dlstclear(op_lst);
+	ft_dlstclear(stack_b);
 }
