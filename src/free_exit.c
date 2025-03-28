@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 #include "../libft/src/libft.h"
-#include <stdlib.h>
 
 void	free_stack(t_dlst **stack)
 {
