@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../libft/src/libft.h"
 #include "../libft/src/ft_printf.h"
 
 // The four functions above permits to avoid explicit pointer manipulation
@@ -71,8 +70,7 @@ void	print_stack(t_dlst *lst)
 			lst, lst->next, lst->prev,
 			get_member(lst, "value"),
 			get_member(lst, "rank"),
-			get_member_oplst(lst)
-		);
+			get_member_oplst(lst));
 		if (lst->next == head)
 			return ;
 		lst = lst->next;
