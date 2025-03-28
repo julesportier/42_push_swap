@@ -17,7 +17,7 @@ static int	*alloc_operation(int operation_type, int target)
 {
 	int	*op;
 
-	op = ft_calloc(1, sizeof(int));
+	op = malloc(1 * sizeof(int));
 	if (op == NULL)
 		return (NULL);
 	*op = (operation_type & TYPE) | (target & TARGET);
@@ -29,7 +29,7 @@ static int	*alloc_operation(int operation_type, int target)
 t_dlst	*add_operation(t_dlst *op_lst, int type, int target)
 {
 	t_dlst	*new_node;
-	int	*op;
+	int		*op;
 
 	if (target >= 0 && target <= TARGET
 		&& (type == 0 || type == PUSH || type == SWAP
@@ -37,7 +37,10 @@ t_dlst	*add_operation(t_dlst *op_lst, int type, int target)
 	{
 		op = alloc_operation(type, target);
 		if (op == NULL)
+		{
+			ft_dlstclear(op_lst);
 			return (NULL);
+		}
 		new_node = ft_dlstnew(op);
 		if (new_node == NULL)
 		{
