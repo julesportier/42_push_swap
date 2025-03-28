@@ -15,16 +15,7 @@
 
 # include "../libft/src/libft.h"
 
-// debug
-# define DEBUG 0
-# define RED "\x1B[31m"
-# define GRN "\x1B[32m"
-# define YEL "\x1B[33m"
-# define BLU "\x1B[34m"
-# define MAG "\x1B[35m"
-# define CYN "\x1B[36m"
-# define NORM "\x1B[0m"
-
+# define CALC_DEPTH 25
 // operations_list flags and masks
 # define PUSH 0b100
 # define SWAP 0b1000
@@ -35,7 +26,6 @@
 # define B 0b10
 # define BOTH 0b11
 # define TARGET 0b11
-# define CALC_DEPTH 25
 
 typedef struct s_elem
 {
