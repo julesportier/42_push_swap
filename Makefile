@@ -2,7 +2,7 @@ CC := cc
 CFLAGS := -Wall -Werror -Wextra
 CFLAGS_DB := -Wall -Werror -Wextra -g3
 CFLAGS_NE := -g3
-CFLAGS_REL := -Wall -Wextra -O2
+CFLAGS_REL := -Wall -Werror -Wextra -O2
 
 LIBFT_DIR := ./libft
 LIBFT_AR := $(LIBFT_DIR)/libft.a
