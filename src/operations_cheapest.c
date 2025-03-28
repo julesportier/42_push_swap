@@ -10,29 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/src/libft.h"
 #include "push_swap.h"
 
 t_dlst	*get_cheapest(t_dlst *stack)
 {
 	t_dlst	*node;
 	t_dlst	*cheapest;
-	int	min_len;
-	int	tmp_len;
+	int		min_len;
+	int		tmp_len;
 
 	node = stack;
 	cheapest = node;
 	min_len = INT_MAX;
 	while (node)
 	{
-		if (get_member_oplst(node))
+		tmp_len = ft_dlstsize(get_member_oplst(node));
+		if (tmp_len > 0
+			&& (tmp_len < min_len || (tmp_len == min_len
+					&& get_member(node, "rank")
+					> get_member(cheapest, "rank"))))
 		{
-			tmp_len = ft_dlstsize(get_member_oplst(node));
-			if (tmp_len < min_len)
-			{
-				min_len = tmp_len;
-				cheapest = node;
-			}
+			min_len = tmp_len;
+			cheapest = node;
 		}
 		node = node->next;
 		if (node == stack)
