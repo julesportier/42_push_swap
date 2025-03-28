@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../libft/src/libft.h"
 
 static t_dlst	*add_top_to_top(t_dlst *op_lst)
 {
@@ -33,7 +32,7 @@ static int	item_presort(
 	t_dlst **stack_a, t_dlst **stack_b, int chunk_size, int item_nbr)
 {
 	static int	chunk_nbr = 2;
-	t_dlst	*op_lst;
+	t_dlst		*op_lst;
 
 	op_lst = NULL;
 	if (get_member(*stack_a, "rank") <= chunk_size * (chunk_nbr - 1))
@@ -60,7 +59,7 @@ static int	item_presort(
 
 void	presort(t_dlst **stack_a, t_dlst **stack_b, int chunk_size)
 {
-	int	item_nbr;
+	int				item_nbr;
 	t_stack_data	data_a;
 
 	item_nbr = 1;
