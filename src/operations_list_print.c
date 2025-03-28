@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/src/libft.h"
 #include "push_swap.h"
 
 void	print_op_lst(t_dlst *lst)

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/src/libft.h"
 #include "push_swap.h"
 
 static int	*alloc_operation(int operation_type, int target)

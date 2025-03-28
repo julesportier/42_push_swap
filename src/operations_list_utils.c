@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/src/libft.h"
 #include "push_swap.h"
 
 int	get_operation(t_dlst *node)

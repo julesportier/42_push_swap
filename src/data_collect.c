@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../libft/src/libft.h"
 
 static int	max(int a, int b)
 {
