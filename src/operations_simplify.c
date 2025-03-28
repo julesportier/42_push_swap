@@ -21,7 +21,7 @@ static int	get_merge_pair_size(t_dlst *op_lst)
 	i = 0;
 	begin = op_lst;
 	end = op_lst->next;
-	while (is_merge_pair(get_content(begin), get_content(end)))
+	while (is_merge_pair(get_operation(begin), get_operation(end)))
 	{
 		i++;
 		begin = begin->prev;
@@ -46,7 +46,7 @@ static t_dlst	*simplify_merge_pair(t_dlst *op_lst)
 	i = pairs;
 	while (i-- > 0)
 	{
-		set_content(op_lst, (get_content(op_lst) & TYPE) | BOTH);
+		set_operation(op_lst, (get_operation(op_lst) & TYPE) | BOTH);
 		ft_dlstremove(&(op_lst->next));
 		op_lst = op_lst->next;
 	}
@@ -73,17 +73,17 @@ t_dlst	*simplify_operations(t_dlst *op_lst)
 
 	while (op_lst != NULL && op_lst->next != NULL)
 	{
-		if (get_content(op_lst) == 0)
+		if (get_operation(op_lst) == 0)
 		{
 			temp = op_lst;
 			op_lst = op_lst->next;
 			ft_dlstremove(&temp);
 		}
-		else if (!is_pair(get_content(op_lst), get_content(op_lst->next)))
+		else if (!is_pair(get_operation(op_lst), get_operation(op_lst->next)))
 			op_lst = op_lst->next;
-		else if (is_merge_pair(get_content(op_lst), get_content(op_lst->next)))
+		else if (is_merge_pair(get_operation(op_lst), get_operation(op_lst->next)))
 			op_lst = simplify_merge_pair(op_lst);
-		else if (is_del_pair(get_content(op_lst), get_content(op_lst->next)))
+		else if (is_del_pair(get_operation(op_lst), get_operation(op_lst->next)))
 			op_lst = simplify_del_pair(op_lst);
 	}
 	return (ft_dlsthead(op_lst));

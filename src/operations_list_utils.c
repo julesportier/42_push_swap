@@ -13,16 +13,15 @@
 #include "../libft/src/libft.h"
 #include "push_swap.h"
 
-int	get_content(t_dlst *node)
+int	get_operation(t_dlst *node)
 {
 	if (node)
-		return(*(int *)(node->content));
+		return (*(int *)(node->content));
 	else
 		return (-1);
-
 }
 
-void	set_content(t_dlst *node, int operation)
+void	set_operation(t_dlst *node, int operation)
 {
 	if (node)
 		*(int *)(node->content) = operation;
@@ -30,35 +29,35 @@ void	set_content(t_dlst *node, int operation)
 
 char	*optype_to_str(t_dlst *node)
 {
-	int	operation;
-	char	*op;
+	int		operation;
+	char	*op_str;
 
 	if (node == NULL)
 		return (NULL);
-	operation = get_content(node);
+	operation = get_operation(node);
 	if ((operation & TYPE) == PUSH)
-		op = "p";
+		op_str = "p";
 	else if ((operation & TYPE) == SWAP)
-		op = "s";
+		op_str = "s";
 	else if ((operation & TYPE) == ROT)
-		op = "r";
+		op_str = "r";
 	else if ((operation & TYPE) == REVROT)
-		op = "rr";
+		op_str = "rr";
 	else if ((operation & TYPE) == 0)
-		op = "no_op";
+		op_str = "no_op";
 	else
-		op = NULL;
-	return (op);
+		op_str = NULL;
+	return (op_str);
 }
 
 char	*optarget_to_str(t_dlst *node)
 {
-	int	operation;
+	int		operation;
 	char	*target;
 
 	if (node == NULL)
 		return (NULL);
-	operation = get_content(node);
+	operation = get_operation(node);
 	if ((operation & TARGET) == A)
 		target = "a";
 	else if ((operation & TARGET) == B)

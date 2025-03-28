@@ -89,8 +89,8 @@ int				get_rank_pos(t_dlst *stack, int value);
 * OPERATIONS LISTS *
 *******************/
 // operations_list_utils.c
-int				get_content(t_dlst *elem);
-void			set_content(t_dlst *elem, int operation);
+int				get_operation(t_dlst *node);
+void			set_operation(t_dlst *node, int operation);
 char			*optype_to_str(t_dlst *node);
 char			*optarget_to_str(t_dlst *node);
 char			*operation_to_str(t_dlst *node);

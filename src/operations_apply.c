@@ -36,7 +36,7 @@ static void	apply_operation(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b)
 	t_dlst	**source;
 	char	*target_key;
 
-	op = get_content(op_lst);
+	op = get_operation(op_lst);
 	target = get_target(op, stack_a, stack_b);
 	source = get_source(op, stack_a, stack_b);
 	target_key = optarget_to_str(op_lst);
