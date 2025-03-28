@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/src/libft.h"
 #include "push_swap.h"
 
 static t_dlst	**get_target(int op, t_dlst **stack_a, t_dlst **stack_b)
@@ -31,7 +30,7 @@ static t_dlst	**get_source(int op, t_dlst **stack_a, t_dlst **stack_b)
 
 static void	apply_operation(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b)
 {
-	int	op;
+	int		op;
 	t_dlst	**target;
 	t_dlst	**source;
 	char	*target_key;
@@ -52,7 +51,8 @@ static void	apply_operation(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b)
 		rr(*target_key, target, source);
 }
 
-void	apply_operations_list(t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b)
+void	apply_operations_list(
+		t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b)
 {
 	while (op_lst)
 	{
