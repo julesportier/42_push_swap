@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 #include "../libft/src/libft.h"
-#include "../libft/src/ft_printf.h"
 
 static int	max(int a, int b)
 {
@@ -32,7 +31,7 @@ static int	min(int a, int b)
 
 t_stack_data	get_stack_data(t_dlst *stack)
 {
-	t_dlst		*head;
+	t_dlst			*head;
 	t_stack_data	data;
 
 	ft_bzero(&data, sizeof(t_stack_data));
@@ -58,7 +57,7 @@ void	store_rank(t_dlst *stack, t_stack_data *data)
 {
 	t_dlst	*head;
 	t_dlst	*min;
-	int			i;
+	int		i;
 
 	head = stack;
 	min = stack;
@@ -71,7 +70,8 @@ void	store_rank(t_dlst *stack, t_stack_data *data)
 		min = stack;
 		while (1)
 		{
-			if (get_member(stack, "rank") == -1 && get_member(stack, "value") < get_member(min, "value"))
+			if (get_member(stack, "rank") == -1
+				&& get_member(stack, "value") < get_member(min, "value"))
 				min = stack;
 			stack = stack->next;
 			if (stack == head)
@@ -86,7 +86,7 @@ void	store_rank(t_dlst *stack, t_stack_data *data)
 // Returns 1 for head, stack size for last.
 int	get_rank_pos(t_dlst *stack, int rank)
 {
-	int	rank_pos;
+	int		rank_pos;
 	t_dlst	*head;
 
 	rank_pos = 1;
