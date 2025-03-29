@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../libft/src/ft_printf.h"
 
 // The four functions above permits to avoid explicit pointer manipulation
 // when accessing list members and improve readability.
@@ -55,24 +54,4 @@ void	set_member_oplst(t_dlst *node, t_dlst *op_lst)
 {
 	if (node != NULL)
 		((t_elem *)(node->content))->op_lst = op_lst;
-}
-
-void	print_stack(t_dlst *lst)
-{
-	t_dlst	*head;
-
-	head = lst;
-	while (lst)
-	{
-		ft_printf(
-			"node %p; next %p; prev %p :: "
-			"content->{ value: %d, rank: %d, &op_lst: %p}\n",
-			lst, lst->next, lst->prev,
-			get_member(lst, "value"),
-			get_member(lst, "rank"),
-			get_member_oplst(lst));
-		if (lst->next == head)
-			return ;
-		lst = lst->next;
-	}
 }

@@ -69,15 +69,3 @@ char	*optarget_to_str(t_dlst *node)
 		target = NULL;
 	return (target);
 }
-
-// The string returned must be freed after use.
-// The potential check for NULL node must be did before calling this function.
-char	*operation_to_str(t_dlst *node)
-{
-	char	*operation_str;
-
-	operation_str = ft_strjoin(optype_to_str(node), optarget_to_str(node));
-	if (operation_str == NULL)
-		return (NULL);
-	return (operation_str);
-}

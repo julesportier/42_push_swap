@@ -55,7 +55,6 @@ int				get_member(t_dlst *elem, char *member);
 t_dlst			*get_member_oplst(t_dlst *node);
 int				set_member(t_dlst *elem, char *member, int val);
 void			set_member_oplst(t_dlst *node, t_dlst *op_lst);
-void			print_stack(t_dlst *stack);
 // free_exit.c
 void			free_stack(t_dlst **stack);
 void			free_stacks_exit(
@@ -80,9 +79,6 @@ int				get_operation(t_dlst *node);
 void			set_operation(t_dlst *node, int operation);
 char			*optype_to_str(t_dlst *node);
 char			*optarget_to_str(t_dlst *node);
-char			*operation_to_str(t_dlst *node);
-// operations_list_print.c
-void			print_op_lst(t_dlst *op_lst);
 // operations_list_alloc.c
 t_dlst			*add_operation(t_dlst *op_lst, int operation_type, int target);
 // operations_simplify_utils.c
