@@ -25,10 +25,3 @@ t_dlst	*get_final_rotations(t_dlst *stack_a)
 	op_lst = get_oplst_totop(min_pos, data.size, A);
 	return (op_lst);
 }
-
-void	apply_final_rotations(
-	t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b)
-{
-	if (op_lst != NULL && stack_a != NULL)
-		apply_operations_list(op_lst, stack_a, stack_b);
-}

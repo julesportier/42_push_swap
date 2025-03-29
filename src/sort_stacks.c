@@ -49,6 +49,34 @@ static void	sort_in_place(t_dlst **stack, t_stack_data *data)
 	}
 }
 
+static t_dlst	*get_cheapest(t_dlst *stack)
+{
+	t_dlst	*node;
+	t_dlst	*cheapest;
+	int		min_len;
+	int		tmp_len;
+
+	node = stack;
+	cheapest = node;
+	min_len = INT_MAX;
+	while (node)
+	{
+		tmp_len = ft_dlstsize(get_member_oplst(node));
+		if (tmp_len > 0
+			&& (tmp_len < min_len || (tmp_len == min_len
+					&& get_member(node, "rank")
+					> get_member(cheapest, "rank"))))
+		{
+			min_len = tmp_len;
+			cheapest = node;
+		}
+		node = node->next;
+		if (node == stack)
+			node = NULL;
+	}
+	return (cheapest);
+}
+
 static void	insert_sort_weighted(t_dlst **stack_a, t_dlst **stack_b)
 {
 	t_dlst			*cheapest;
@@ -61,10 +89,10 @@ static void	insert_sort_weighted(t_dlst **stack_a, t_dlst **stack_b)
 		data_b = get_stack_data(*stack_b);
 		store_op_lists(*stack_a, *stack_b, data_a.size, data_b.size);
 		cheapest = get_cheapest(*stack_b);
-		free_priciers(*stack_b, cheapest);
 		apply_operations_list(get_member_oplst(cheapest), stack_a, stack_b);
 		ft_dlstclear(get_member_oplst(cheapest));
 		set_member_oplst(cheapest, NULL);
+		free_oplsts(*stack_b);
 	}
 }
 
@@ -83,7 +111,7 @@ void	sort_stacks(t_dlst **stack_a, t_stack_data *data)
 	sort_in_place(stack_a, &data_a);
 	insert_sort_weighted(stack_a, &stack_b);
 	op_lst = get_final_rotations(*stack_a);
-	apply_final_rotations(op_lst, stack_a, &stack_b);
+	apply_operations_list(op_lst, stack_a, &stack_b);
 	ft_dlstclear(op_lst);
 	ft_dlstclear(stack_b);
 }

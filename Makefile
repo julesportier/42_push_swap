@@ -26,7 +26,6 @@ SRC := push_swap.c \
        operations_store.c \
        operations_apply.c \
        presort.c \
-       operations_cheapest.c \
        final_rotations.c \
        sort_stacks.c \
        stack_operations_utils.c \
@@ -35,18 +34,19 @@ SRC := push_swap.c \
 OBJ_DIR := build
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-
-all: $(OBJ_DIR) ft $(NAME)
-$(OBJ_DIR):
-	# git submodule init
-	# git submodule update
-	mkdir -p $(OBJ_DIR)
 noerr: CFLAGS = $(CFLAGS_NE)
 noerr: all
 dbg: CFLAGS = $(CFLAGS_DB)
 dbg: all
 rel: CFLAGS = $(CFLAGS_REL)
 rel: all
+
+all: $(OBJ_DIR) ft $(NAME)
+$(OBJ_DIR):
+	git submodule init
+	git submodule update
+	mkdir -p $(OBJ_DIR)
+
 ft:
 	make CFLAGS="$(CFLAGS)" -C $(LIBFT_DIR)
 

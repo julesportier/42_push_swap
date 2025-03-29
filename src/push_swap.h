@@ -56,10 +56,10 @@ t_dlst			*get_member_oplst(t_dlst *node);
 int				set_member(t_dlst *elem, char *member, int val);
 void			set_member_oplst(t_dlst *node, t_dlst *op_lst);
 // free_exit.c
-void			free_stack(t_dlst **stack);
 void			free_stacks_exit(
 					t_dlst **stack_a, t_dlst **stack_b, int status);
 void			free_splits(char **splits);
+void			free_oplsts(t_dlst *stack);
 
 /*************************
 * PARSING & DATA COLLECT *
@@ -100,13 +100,8 @@ void			apply_operations_list(
 ********************/
 // presort.c
 void			presort(t_dlst **stack_a, t_dlst **stack_b, int chunk_size);
-// operations_cheapest.c
-t_dlst			*get_cheapest(t_dlst *stack);
-void			free_priciers(t_dlst *stack, t_dlst *cheapest);
 // final_rotations.c
 t_dlst			*get_final_rotations(t_dlst *stack_a);
-void			apply_final_rotations(
-					t_dlst *op_lst, t_dlst **stack_a, t_dlst **stack_b);
 // sort_stacks.c
 void			sort_stacks(t_dlst **lst, t_stack_data *data);
 

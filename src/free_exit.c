@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	free_stack(t_dlst **stack)
+static void	free_stack(t_dlst **stack)
 {
 	t_dlst	*node;
 	t_dlst	*last;
@@ -55,4 +55,24 @@ void	free_splits(char **splits)
 	}
 	free(splits);
 	splits = NULL;
+}
+
+void	free_oplsts(t_dlst *stack)
+{
+	t_dlst	*head;
+	t_dlst	*op_lst;
+
+	head = stack;
+	while (stack)
+	{
+		op_lst = get_member_oplst(stack);
+		if (op_lst != NULL)
+		{
+			ft_dlstclear(op_lst);
+			set_member_oplst(stack, NULL);
+		}
+		stack = stack->next;
+		if (stack == head)
+			stack = NULL;
+	}
 }
