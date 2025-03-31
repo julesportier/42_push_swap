@@ -18,7 +18,10 @@ int	main(int argc, char **argv)
 	t_stack_data	data;
 
 	if (argc < 2)
+	{
+		ft_putendl_fd("Error", 2);
 		return (EXIT_FAILURE);
+	}
 	lst = parse_args(argv);
 	data = get_stack_data(lst);
 	if (!is_sorted(lst))
