@@ -6,7 +6,10 @@ CFLAGS_REL := -Wall -Werror -Wextra -O2
 
 LIBFT_DIR := ./libft
 LIBFT_AR := $(LIBFT_DIR)/libft.a
-LIBFT_FLAGS := -lft -L$(LIBFT_DIR)
+LIBFT_LINK := -lft -L$(LIBFT_DIR)
+LIBFT_HEADERS := $(LIBFT_DIR)/src/libft.h \
+		 $(LIBFT_DIR)/src/ft_printf.h \
+		 $(LIBFT_DIR)/src/get_next_line.h
 
 NAME := push_swap
 
@@ -49,10 +52,10 @@ $(OBJ_DIR):
 ft:
 	make CFLAGS="$(CFLAGS)" -C $(LIBFT_DIR)
 
-$(NAME): $(OBJ)
-	$(CC) $^ -o $@ $(LIBFT_FLAGS)
+$(NAME): $(OBJ) $(LIBFT_AR)
+	$(CC) $^ -o $@ $(LIBFT_LINK)
 
-$(OBJ_DIR)/%.o: %.c Makefile $(HEADER) $(LIBFT_AR)
+$(OBJ_DIR)/%.o: %.c Makefile $(HEADER) $(LIBFT_HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
