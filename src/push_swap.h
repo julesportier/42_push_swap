@@ -103,6 +103,7 @@ void			presort(t_dlst **stack_a, t_dlst **stack_b, int chunk_size);
 // final_rotations.c
 t_dlst			*get_final_rotations(t_dlst *stack_a);
 // sort_stacks.c
+int				is_sorted(t_dlst *stack);
 void			sort_stacks(t_dlst **lst, t_stack_data *data);
 
 /*************************

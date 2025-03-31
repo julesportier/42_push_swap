@@ -21,7 +21,8 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	lst = parse_args(argv);
 	data = get_stack_data(lst);
-	sort_stacks(&lst, &data);
+	if (!is_sorted(lst))
+		sort_stacks(&lst, &data);
 	ft_cdlstclear(&lst);
 	return (EXIT_SUCCESS);
 }

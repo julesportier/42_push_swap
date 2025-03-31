@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int	is_sorted(t_dlst *stack)
+int	is_sorted(t_dlst *stack)
 {
 	t_dlst	*last;
 	t_dlst	*prev_node;
