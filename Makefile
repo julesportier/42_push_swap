@@ -34,14 +34,13 @@ SRC := push_swap.c \
 OBJ_DIR := build
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
+all: $(OBJ_DIR) ft $(NAME)
 noerr: CFLAGS = $(CFLAGS_NE)
 noerr: all
 dbg: CFLAGS = $(CFLAGS_DB)
 dbg: all
 rel: CFLAGS = $(CFLAGS_REL)
 rel: all
-
-all: $(OBJ_DIR) ft $(NAME)
 $(OBJ_DIR):
 	git submodule init
 	git submodule update
