@@ -17,15 +17,13 @@ int	main(int argc, char **argv)
 	t_dlst			*lst;
 	t_stack_data	data;
 
-	if (argc < 2)
+	if (argc > 1)
 	{
-		ft_putendl_fd("Error", 2);
-		return (EXIT_FAILURE);
+		lst = parse_args(argv);
+		data = get_stack_data(lst);
+		if (!is_sorted(lst))
+			sort_stacks(&lst, &data);
+		ft_cdlstclear(&lst);
 	}
-	lst = parse_args(argv);
-	data = get_stack_data(lst);
-	if (!is_sorted(lst))
-		sort_stacks(&lst, &data);
-	ft_cdlstclear(&lst);
 	return (EXIT_SUCCESS);
 }
