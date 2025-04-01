@@ -30,6 +30,8 @@ static t_dlst	*alloc_element(char *nbr)
 	content->value = i_flag.nbr;
 	content->rank = -1;
 	node = ft_dlstnew(content);
+	if (node == NULL)
+		free(content);
 	return (node);
 }
 
@@ -42,7 +44,10 @@ static t_dlst	*add_arg(char *arg, t_dlst **lst)
 	i = 0;
 	splits = ft_split(arg, ' ');
 	if (splits == NULL)
+	{
+		ft_cdlstclear(lst);
 		return (NULL);
+	}
 	while (splits[i])
 	{
 		node = alloc_element(splits[i]);
