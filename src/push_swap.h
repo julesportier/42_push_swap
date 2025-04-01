@@ -67,7 +67,7 @@ void			free_oplsts(t_dlst *stack);
 // parsing.c
 t_dlst			*parse_args(char **argv);
 // data_collect.c
-void			store_rank(t_dlst *stack, t_stack_data *data);
+void			store_rank(t_dlst *stack, int stack_size);
 t_stack_data	get_stack_data(t_dlst *stack);
 int				get_rank_pos(t_dlst *stack, int value);
 
@@ -99,12 +99,16 @@ void			apply_operations_list(
 * SORTING ALGORITHM *
 ********************/
 // presort.c
-void			presort(t_dlst **stack_a, t_dlst **stack_b, int chunk_size);
+void			presort(
+					t_dlst **stack_a,
+					t_dlst **stack_b,
+					int stack_size_a,
+					int chunk_size);
 // final_rotations.c
 t_dlst			*get_final_rotations(t_dlst *stack_a);
 // sort_stacks.c
 int				is_sorted(t_dlst *stack);
-void			sort_stacks(t_dlst **lst, t_stack_data *data);
+void			sort_stacks(t_dlst **lst);
 
 /*************************
 * OPERATIONS APPLICATION *

@@ -15,14 +15,12 @@
 int	main(int argc, char **argv)
 {
 	t_dlst			*lst;
-	t_stack_data	data;
 
 	if (argc > 1)
 	{
 		lst = parse_args(argv);
-		data = get_stack_data(lst);
 		if (!is_sorted(lst))
-			sort_stacks(&lst, &data);
+			sort_stacks(&lst);
 		ft_cdlstclear(&lst);
 	}
 	return (EXIT_SUCCESS);

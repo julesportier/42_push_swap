@@ -96,7 +96,7 @@ static void	insert_sort_weighted(t_dlst **stack_a, t_dlst **stack_b)
 	}
 }
 
-void	sort_stacks(t_dlst **stack_a, t_stack_data *data)
+void	sort_stacks(t_dlst **stack_a)
 {
 	t_dlst			*stack_b;
 	t_dlst			*op_lst;
@@ -104,9 +104,10 @@ void	sort_stacks(t_dlst **stack_a, t_stack_data *data)
 	int				chunk_size;
 
 	stack_b = NULL;
-	store_rank(*stack_a, data);
-	chunk_size = ft_sqrt_floor(data->size * 11) + 4;
-	presort(stack_a, &stack_b, chunk_size);
+	data_a = get_stack_data(*stack_a);
+	store_rank(*stack_a, data_a.size);
+	chunk_size = ft_sqrt_floor(data_a.size * 11) + 4;
+	presort(stack_a, &stack_b, data_a.size, chunk_size);
 	data_a = get_stack_data(*stack_a);
 	sort_in_place(stack_a, &data_a);
 	insert_sort_weighted(stack_a, &stack_b);

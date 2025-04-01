@@ -57,14 +57,13 @@ static int	item_presort(
 	return (item_nbr);
 }
 
-void	presort(t_dlst **stack_a, t_dlst **stack_b, int chunk_size)
+void	presort(
+	t_dlst **stack_a, t_dlst **stack_b, int stack_size_a, int chunk_size)
 {
-	int				item_nbr;
-	t_stack_data	data_a;
+	int	item_nbr;
 
 	item_nbr = 1;
-	data_a = get_stack_data(*stack_a);
-	while (item_nbr <= data_a.size - 3)
+	while (item_nbr <= stack_size_a - 3)
 	{
 		item_nbr = item_presort(stack_a, stack_b, chunk_size, item_nbr);
 	}

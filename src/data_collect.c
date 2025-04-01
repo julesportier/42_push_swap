@@ -52,7 +52,7 @@ t_stack_data	get_stack_data(t_dlst *stack)
 	return (data);
 }
 
-void	store_rank(t_dlst *stack, t_stack_data *data)
+void	store_rank(t_dlst *stack, int stack_size)
 {
 	t_dlst	*head;
 	t_dlst	*min;
@@ -61,7 +61,7 @@ void	store_rank(t_dlst *stack, t_stack_data *data)
 	head = stack;
 	min = stack;
 	i = 1;
-	while (i <= data->size)
+	while (i <= stack_size)
 	{
 		stack = head;
 		while (get_member(stack, "rank") != -1)
