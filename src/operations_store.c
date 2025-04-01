@@ -136,7 +136,7 @@ void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b, int size_a, int size_b)
 	while (top.pos <= size_b && top.pos <= CALC_DEPTH)
 	{
 		set_member_oplst(top.node, get_op_list(stack_a, &top, size_a, size_b));
-		if (top.node == NULL)
+		if (get_member_oplst(top.node) == NULL)
 			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
 		top.node = top.node->next;
 		if (top.node == stack_b || top.node == bottom.node)
@@ -144,7 +144,7 @@ void	store_op_lists(t_dlst *stack_a, t_dlst *stack_b, int size_a, int size_b)
 		top.pos++;
 		set_member_oplst(
 			bottom.node, get_op_list(stack_a, &bottom, size_a, size_b));
-		if (bottom.node == NULL)
+		if (get_member_oplst(bottom.node) == NULL)
 			free_stacks_exit(&stack_a, &stack_b, EXIT_FAILURE);
 		bottom.node = bottom.node->prev;
 		if (bottom.node == stack_b || bottom.node == top.node)
