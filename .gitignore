@@ -5,6 +5,7 @@
 *.a
 # project specific
 push_swap
+checker_linux
 # bear output
 compile_commands.json
 .cache/
